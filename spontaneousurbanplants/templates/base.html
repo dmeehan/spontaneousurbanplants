@@ -1,0 +1,76 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+        {% block head_title_base %}
+            Spontaneous Urban Plants | {% block head_title %}{% endblock %}
+        {% endblock %}
+        </title>
+
+        {% block viewport %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% endblock %}
+
+        {% block style_base %}
+          {% block extra_style %}{% endblock %}
+        {% endblock style_base %}
+
+        {% block script_head %}
+        {% endblock script_head %}
+
+        {% block extra_head_base %}
+            {% block extra_head %}{% endblock extra_head %}
+        {% endblock extra_head_base %}
+    </head>
+    <body class="{% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}">
+      {% block navbar_base %}
+        <nav>
+        </nav>
+      {% endblock navbar_base %}
+      {% block content_base %}
+      <section>
+          {% block messages %}
+            {% include "_messages.html" %}
+                {% endblock messages %}
+                <div class="content">
+                {% block content %}
+                 {% endblock content %}
+                </div>
+       </section>
+       {% endblock content_base %}
+         {% block footer_base %}
+         <footer class="container">
+            {% block footer %}{% include "_footer.html" %}{% endblock %}
+          </footer>
+          {% endblock footer_base %}
+
+        {% block script_base %}
+           
+            {% block extra_script %}{% endblock extra_script %}
+        {% endblock script_base %}
+
+        {% block extra_body_base %}
+            {% block extra_body %}{% endblock extra_body %}
+        {% endblock extra_body_base %}
+        
+       
+        {% block analytics %}
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-28417563-1']);
+          _gaq.push(['_setDomainName', 'possiblecity.co']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
+        {% endblock analytics %}
+    </body>
+</html>

@@ -7,8 +7,6 @@ from sys import path
 
 from djcelery import setup_loader
 
-from django.core.urlresolvers import reverse_lazy
-
 #==============================================================================
 # Path 
 #==============================================================================
@@ -22,12 +20,16 @@ SITE_ROOT = dirname(DJANGO_ROOT)
 # Absolute filesystem path to project container folder:
 PROJECT_ROOT = dirname(SITE_ROOT) 
 
+# Absolute filesystem path to project container folder:
+APP_ROOT = normpath(join(SITE_ROOT, 'apps')),
+
 # Site name:
 SITE_NAME = basename(DJANGO_ROOT)
 
 # Add our project to our pythonpath, this way we don't need to type our project
 # name in our dotted import paths:
 path.append(DJANGO_ROOT)
+path.append(APP_ROOT)
 
 
 #==============================================================================
@@ -126,6 +128,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
     'compressor.finders.CompressorFinder',
 )
 
@@ -210,14 +213,6 @@ AUTH_USER_MODEL = 'auth.User'
 
 
 #==============================================================================
-# API keys 
-#==============================================================================
-
-
-
-
-
-#==============================================================================
 # Installed Apps
 #==============================================================================
 
@@ -242,6 +237,7 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
+    'djangobower',
 )
 
 # Apps specific for this project go here.
@@ -324,9 +320,7 @@ COMPRESS_JS_FILTERS = [
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': 'unix:/home/possiblecity/memcached.sock',
-        'TIMEOUT': 300,
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
 
@@ -354,6 +348,29 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
     'PAGINATE_BY': 10
 }
+
+#==============================================================================
+# Front End Assets
+#==============================================================================
+
+BOWER_COMPONENTS_ROOT = normpath(join(PROJECT_ROOT, 'components'))
+
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'neat',
+    'leaflet',
+    'leaflet.markercluster'
+
+)
+
+
+#==============================================================================
+# API keys 
+#==============================================================================
+
+INSTAGRAM_CLIENT_ID = os.environ.get('INSTAGRAM_CLIENT_ID', '')
+INSTAGRAM_CLIENT_SECRET = os.environ.get('INSTAGRAM_CLIENT_SECRET', '')
+
 
 
 #==============================================================================
