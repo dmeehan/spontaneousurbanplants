@@ -82,19 +82,17 @@ USE_I18N = True    #internationalization machinery
 USE_L10N = True    #format dates, numbers and calendars according to locale
 USE_TZ = True
 
-
-
 #==============================================================================
 # Database Configuration
 #==============================================================================
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': os.environ.get('DJANGO_DB_NAME', ''),
-        'USER': os.environ.get('DJANGO_DB_USER', ''),
-        'PASSWORD': os.environ.get('DJANGO_DB_PASSWORD', ''),
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'dev.db',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '',
     }
 }
@@ -128,8 +126,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'djangobower.finders.BowerFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 #==============================================================================
@@ -237,11 +233,11 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-    'djangobower',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'apps.djinstagram',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -353,15 +349,7 @@ REST_FRAMEWORK = {
 # Front End Assets
 #==============================================================================
 
-BOWER_COMPONENTS_ROOT = normpath(join(PROJECT_ROOT, 'components'))
 
-BOWER_INSTALLED_APPS = (
-    'jquery',
-    'neat',
-    'leaflet',
-    'leaflet.markercluster'
-
-)
 
 
 #==============================================================================

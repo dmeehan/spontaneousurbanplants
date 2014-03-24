@@ -10,9 +10,11 @@ python-instagram #instagram api
 -e git://github.com/django/django.git#egg=django
 
 # django third party modules
+django-supervisor
 django-compressor #static file compression
+djcelery
 djangorestframework-gis #DRF GIS addons
-easy-thumbnails==1.4 #image manipulation
+easy-thumbnails #image manipulation
 django-taggit
 django-js-reverse #use url tags in javascript
 
