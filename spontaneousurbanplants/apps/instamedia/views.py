@@ -3,8 +3,11 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
 from django.http.response import HttpResponse
+from django.views.generic import ListView
 
 from instagram import client, subscriptions
+
+from .models import InstagramMedia
 
 
 INSTAGRAM_CLIENT_ID = getattr(settings, 'INSTAGRAM_CLIENT_ID', None)
@@ -18,18 +21,16 @@ CONFIG = {
 
 api = client.InstagramAPI(**CONFIG)
 
+
+class LatestMediaView(ListView):
+    queryset = InstagramMedia.objects.verified()[:20]
+    template_name = 'index.html'
+
 def process_tag_update(update):
     print update
 
 reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update)
-
-def home(request):
-    recent_media, next = api.tag_recent_media(20, 1, 'spontaneousurbanplants')
-    photos = []
-    for media in recent_media:
-        photos.append('<img src="%s"/>' % media.images['thumbnail'].url)
-    return HttpResponse(''.join(photos))
 
 
 def authenticate(request):

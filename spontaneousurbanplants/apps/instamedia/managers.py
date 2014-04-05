@@ -1,0 +1,2 @@
+#instamedia/managers.py
+

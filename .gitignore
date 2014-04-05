@@ -1,4 +1,10 @@
 *.log
 *.pot
 *.pyc
-local_settings.py
+components/
+media/
+assets/
+uploads/
+.sass-cache/
+.DS_Store
+.env/

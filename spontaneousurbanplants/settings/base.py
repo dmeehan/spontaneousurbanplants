@@ -21,7 +21,7 @@ SITE_ROOT = dirname(DJANGO_ROOT)
 PROJECT_ROOT = dirname(SITE_ROOT) 
 
 # Absolute filesystem path to project container folder:
-APP_ROOT = normpath(join(SITE_ROOT, 'apps')),
+APP_ROOT = normpath(join(DJANGO_ROOT, 'apps')),
 
 # Site name:
 SITE_NAME = basename(DJANGO_ROOT)
@@ -112,7 +112,7 @@ FIXTURE_DIRS = (
 #==============================================================================
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = normpath(join(PROJECT_ROOT, 'assets'))
+STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = '/static/'
@@ -126,6 +126,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 #==============================================================================
@@ -233,11 +234,15 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
+    'compressor', # static file management
+    'djcelery', # asynchronous task queue
+    'taggit', # generic tagging app
+    #'south', # database migration
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'apps.djinstagram',
+    'apps.instamedia',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -298,7 +303,6 @@ COMPRESS_PRECOMPILERS = (
 )
 
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_ENABLED
-COMPRESS_ENABLED = True
 
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_CSS_FILTERS
 COMPRESS_CSS_FILTERS = [
@@ -325,8 +329,6 @@ CACHES = {
 # ASync
 #==============================================================================
 
-BROKER_URL = "redis://localhost:6379/0"
-
 # See: http://celery.readthedocs.org/en/latest/configuration.html#celery-task-result-expires
 CELERY_TASK_RESULT_EXPIRES = timedelta(minutes=30)
 
@@ -348,8 +350,6 @@ REST_FRAMEWORK = {
 #==============================================================================
 # Front End Assets
 #==============================================================================
-
-
 
 
 #==============================================================================
