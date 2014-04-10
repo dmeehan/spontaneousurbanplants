@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+<ul>
+	{% for image in object_list %}
+	<li>
+		<a href="{{ image.get_absolute_url }}"><img src="{{ image.remote_standard_resolution_url }}" /></a>
+		<p>{{ image.caption }}</p>
+		<p>{{ image.raw_tags }}</p>
+	</li>
+	{% endfor %}
+</ul>
+</section>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+	<img src="{{ image.remote_standard_resolution_url }}" />
+	<p>{{ image.caption }}</p>
+	<p>{{ image.raw_tags }}</p>
+	<ul>
+		{% for comment in image.get_remote_data.comments %}
+		<li>{{ comment.user.username }} said {{ comment.text }}</li>
+		{% endfor %}
+	</ul>
+</section>
+{% endblock content %}
