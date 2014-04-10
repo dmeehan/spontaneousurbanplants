@@ -7,7 +7,7 @@ simplejson #json tools
 python-instagram #instagram api
 
 #Django==1.7 #Django!
--e git://github.com/django/django.git#egg=django
+django==1.6.2
 
 # django third party modules
 django-supervisor
@@ -15,6 +15,6 @@ django-compressor #static file compression
 djcelery
 djangorestframework-gis #DRF GIS addons
 easy-thumbnails #image manipulation
-django-taggit
+django-grappelli==2.5.2
 django-js-reverse #use url tags in javascript
 

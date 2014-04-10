@@ -1,5 +1,9 @@
 # plants/models.py
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from apps.instamedia.models import InstagramTag
 
 
 class Attribute(models.Model):
@@ -31,3 +35,14 @@ class Plant(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.latin_name)
+
+
+@receiver(post_save, sender=Attribute)
+def attribute_post_save(sender, instance, created, **kwargs):
+    if created:
+        InstagramTag.objects.get_or_create(name=instance.hashtag)
+
+@receiver(post_save, sender=Plant)
+def plant_post_save(sender, instance, created, **kwargs):
+    if created:
+        InstagramTag.objects.get_or_create(name=instance.hashtag)

@@ -3,11 +3,11 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
 from django.http.response import HttpResponse
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView
 
 from instagram import client, subscriptions
 
-from .models import InstagramMedia
+from .models import InstagramImage
 
 
 INSTAGRAM_CLIENT_ID = getattr(settings, 'INSTAGRAM_CLIENT_ID', None)
@@ -22,9 +22,16 @@ CONFIG = {
 api = client.InstagramAPI(**CONFIG)
 
 
-class LatestMediaView(ListView):
-    queryset = InstagramMedia.objects.verified()[:20]
+class LatestImagesView(ListView):
+    queryset = InstagramImage.objects.filter(verified=True)[:20]
     template_name = 'index.html'
+
+class ImageDetailView(DetailView):
+    model=InstagramImage
+    context_object_name = 'image'
+
+class ImageListView(ListView):
+     queryset = InstagramImage.objects.filter(verified=True)
 
 def process_tag_update(update):
     print update
@@ -60,20 +67,12 @@ def instagram_callback(request):
         return HttpResponse(e)
 
 
-def subscribe(request):
-    api.create_subscription(object='tag', 
-                            object_id='spontaneousurbanplants', 
-                            aspect='media', 
-                            callback_url='http://127.0.0.1:8000/instagram/realtime_callback')
-
-
 def instagram_realtime_callback(request):
-    '''
-    Handles the realtime API callbacks
+    """Handle instagram realtime API callbacks.
 
     If request is a GET then we assume that the request is an echo request
     Else we assume that we are receiving data from the source
-    '''
+    """
     if request.method == "POST":
         x_hub_signature = request.header.get('X-Hub-Signature')
         raw_response = request.body

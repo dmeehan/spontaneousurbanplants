@@ -88,11 +88,11 @@ USE_TZ = True
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'dev.db',
-        'USER': '',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'sup',
+        'USER': 'sup',
         'PASSWORD': '',
-        'HOST': '',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
@@ -229,6 +229,7 @@ DJANGO_APPS = (
     'django.contrib.humanize',
 
     # Admin panel and documentation:
+    'grappelli',
     'django.contrib.admin',
     # 'django.contrib.admindocs',
 )
@@ -236,13 +237,14 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'compressor', # static file management
     'djcelery', # asynchronous task queue
-    'taggit', # generic tagging app
+    #'taggit', # generic tagging app
     #'south', # database migration
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'apps.instamedia',
+    'apps.plants'
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -346,6 +348,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
     'PAGINATE_BY': 10
 }
+
+
+#==============================================================================
+# Admin
+#==============================================================================
+
+GRAPPELLI_ADMIN_TITLE = 'Spontanous Urban Plants'
 
 #==============================================================================
 # Front End Assets

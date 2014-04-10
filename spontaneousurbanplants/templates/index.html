@@ -5,7 +5,7 @@
 <ul>
 	{% for image in object_list %}
 	<li>
-		<img src="{{ image.standard_resolution_url }}" />
+		<img src="{{ image.remote_standard_resolution_url }}" />
 		<p>{{ image.caption }}</p>
 		<p>{{ image.raw_tags }}</p>
 	</li>

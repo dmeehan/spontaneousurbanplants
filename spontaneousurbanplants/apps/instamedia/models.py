@@ -7,15 +7,14 @@ import requests
 from django.conf import settings
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
-from django.core.urlresolvers import reverse_lazy
-from django.db import models
-
-from instagram.bind import InstagramAPIError
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from .client import get_api
-from .signals import sync_tag
 from .utils import get_realtime_callback_url
-from .tasks import sync_images_for_tag
 
 api = get_api()
 
@@ -37,8 +36,9 @@ class InstagramImage(models.Model):
     location_id = models.IntegerField(blank=True, null=True)
 
     # Geography information
-    latitude = models.DecimalField(max_digits=10, decimal_places=7, default=0, blank=True)
-    longitude = models.DecimalField(max_digits=10, decimal_places=7, default=0, blank=True)
+    coordinates = models.PointField(null=True, blank=True)
+    #latitude = models.DecimalField(max_digits=10, decimal_places=7, default=0, blank=True)
+    #longitude = models.DecimalField(max_digits=10, decimal_places=7, default=0, blank=True)
 
     # Metadata
     created = models.DateTimeField()
@@ -52,7 +52,7 @@ class InstagramImage(models.Model):
                               null=True)
 
     class Meta:
-        ordering = ['-created']
+        ordering = ['-updated']
 
     def get_remote_data(self):
         try:
@@ -69,6 +69,9 @@ class InstagramImage(models.Model):
 
         self.image_file.save('%s.jpg' % self.remote_id, File(img_temp), save=True)
 
+    def get_absolute_url(self):
+        return reverse('instamedia_image_detail', args=[str(self.id)])
+
     def __unicode__(self):
         return u'Instagram Media: %s' % (self.remote_id)
 
@@ -77,12 +80,6 @@ class InstagramImage(models.Model):
 
     thumbnail.short_description = 'Image'
     thumbnail.allow_tags = True
-
-    def save(self, *args, **kwargs):
-        if self.verified:
-            self.download_remote_image()
-        super(InstagramImage, self).save(*args, **kwargs)
-
 
 
 class InstagramTag(models.Model):
@@ -124,6 +121,7 @@ class InstagramTag(models.Model):
     def sync_image(self, remote_image, moderate=False):
         try:
             obj = InstagramImage.objects.get(remote_id=remote_image.id)
+            print('image %s already exists' % obj.remote_id)
             # TODO: check for updated fields and update
         except InstagramImage.DoesNotExist:
             obj = InstagramImage()
@@ -147,8 +145,9 @@ class InstagramTag(models.Model):
             if hasattr(remote_image, "location"):
                 obj.location_name = remote_image.location.name
                 obj.location_id = remote_image.location.id
-                obj.latitude = remote_image.location.point.latitude
-                obj.longitude = remote_image.location.point.longitude
+                lat = remote_image.location.point.latitude
+                lon = remote_image.location.point.longitude
+                obj.coordinates = Point(lon, lat)
 
             if moderate:
                 obj.verified = False
@@ -161,6 +160,8 @@ class InstagramTag(models.Model):
             if obj not in images:
                 self.images.add(obj)
                 self.save()
+
+            print('created new image %s' % obj.remote_id)
 
 
     def sync_remote_images(self, data):
@@ -187,14 +188,16 @@ class InstagramTag(models.Model):
     def __unicode__(self):
         return u'%s' % (self.name)
 
-    def save(self, *args, **kwargs):
-        if self.id:
-            if self.sync:
-                self.sync_remote_images(self.get_all_remote_images())
-                sync_tag.send(sender=self.__class__, instance=self)
-        super(InstagramTag, self).save(*args, **kwargs)
 
+@receiver(post_save, sender=InstagramTag)
+def tag_post_save(sender, instance, created, **kwargs):
+    if created:
+        if instance.sync:
+            instance.sync_remote_images(instance.get_all_remote_images())
 
-
+@receiver(post_save, sender=InstagramImage)
+def image_post_save(sender, instance, created, **kwargs):
+    if not instance.image_file and instance.verified:
+        instance.download_remote_image()
 
 
