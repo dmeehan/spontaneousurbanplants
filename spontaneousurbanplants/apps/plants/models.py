@@ -15,6 +15,9 @@ class Attribute(models.Model):
                                unique=True,
                                help_text='A unique hashtag indentifying this plant. Do not include #.')
     description = models.TextField(blank=True)
+    icon = models.ImageField(upload_to="images/icons", 
+                              blank=True, 
+                              null=True)
 
     def __unicode__(self):
         return u'%s' % (self.name)
@@ -30,6 +33,9 @@ class Plant(models.Model):
                                unique=True,
                                help_text='A unique hashtag indentifying this plant. Do not include #.')
     description = models.TextField(blank=True)
+    icon = models.ImageField(upload_to="images/icons", 
+                              blank=True, 
+                              null=True)
 
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
 
