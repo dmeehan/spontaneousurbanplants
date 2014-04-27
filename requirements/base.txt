@@ -11,7 +11,7 @@ django==1.6.3
 # django third party modules
 django-supervisor
 django-compressor # static file compression
-djcelery
+# djcelery
 djangorestframework-gis # REST framework + GIS addons
 easy-thumbnails # image manipulation
 django-grappelli==2.5.3 # admin extras
