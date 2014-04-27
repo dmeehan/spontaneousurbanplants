@@ -237,8 +237,9 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'compressor', # static file management
     'djcelery', # asynchronous task queue
+    'djsupervisor', # process mgmt
     #'taggit', # generic tagging app
-    #'south', # database migration
+    'south', # database migration
 )
 
 # Apps specific for this project go here.
