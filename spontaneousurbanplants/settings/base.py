@@ -69,7 +69,7 @@ TEMPLATE_DEBUG = DEBUG
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key only used for development and testing.
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '87hq#$x_zu_=r)polio0q1y*$ii2z4wt82cqpx=167wt4lsa83$')
 
 
 #==============================================================================

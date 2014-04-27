@@ -9,9 +9,10 @@ python-instagram # instagram api
 django==1.6.3
 
 # django third party modules
+south
 django-supervisor
 django-compressor # static file compression
-# djcelery
+django-celery
 djangorestframework-gis # REST framework + GIS addons
 easy-thumbnails # image manipulation
 django-grappelli==2.5.3 # admin extras
