@@ -9,17 +9,10 @@ from instagram import client, subscriptions
 
 from .models import InstagramImage
 
+from .client import get_api
+from .utils import get_realtime_callback_url
 
-INSTAGRAM_CLIENT_ID = getattr(settings, 'INSTAGRAM_CLIENT_ID', None)
-INSTAGRAM_CLIENT_SECRET = getattr(settings, 'INSTAGRAM_CLIENT_SECRET', None)
-
-CONFIG = {
-    'client_id': INSTAGRAM_CLIENT_ID,
-    'client_secret': INSTAGRAM_CLIENT_SECRET,
-    'redirect_uri': 'http://127.0.0.1:8000/instagram/oauth_callback'
-}
-
-api = client.InstagramAPI(**CONFIG)
+api = get_api()
 
 
 class LatestImagesView(ListView):

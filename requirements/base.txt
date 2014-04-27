@@ -1,20 +1,19 @@
 # python modules
-gunicorn #server
-psycopg2 #postgres bindings
-pillow #image manipulation
-requests #http library
-simplejson #json tools
-python-instagram #instagram api
+gunicorn # server
+psycopg2 # postgres bindings
+pillow # image manipulation
+requests # http library
+simplejson # json tools
+python-instagram # instagram api
 
-#Django==1.7 #Django!
-django==1.6.2
+django==1.6.3
 
 # django third party modules
 django-supervisor
-django-compressor #static file compression
+django-compressor # static file compression
 djcelery
-djangorestframework-gis #DRF GIS addons
-easy-thumbnails #image manipulation
-django-grappelli==2.5.2
-django-js-reverse #use url tags in javascript
+djangorestframework-gis # REST framework + GIS addons
+easy-thumbnails # image manipulation
+django-grappelli==2.5.3 # admin extras
+django-js-reverse # use url tags in javascript
 

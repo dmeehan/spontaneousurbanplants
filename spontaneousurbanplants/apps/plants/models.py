@@ -45,10 +45,8 @@ class Plant(models.Model):
 
 @receiver(post_save, sender=Attribute)
 def attribute_post_save(sender, instance, created, **kwargs):
-    if created:
-        InstagramTag.objects.get_or_create(name=instance.hashtag)
+    InstagramTag.objects.get_or_create(name=instance.hashtag)
 
 @receiver(post_save, sender=Plant)
 def plant_post_save(sender, instance, created, **kwargs):
-    if created:
-        InstagramTag.objects.get_or_create(name=instance.hashtag)
+    InstagramTag.objects.get_or_create(name=instance.hashtag)
