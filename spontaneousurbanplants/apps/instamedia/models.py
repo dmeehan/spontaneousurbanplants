@@ -14,7 +14,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .client import get_api
-from .utils import get_realtime_callback_url
 
 api = get_api()
 
@@ -179,7 +178,7 @@ class InstagramTag(models.Model):
         api.create_subscription(object='tag', 
                                 object_id=self.name, 
                                 aspect='media', 
-                                callback_url=get_realtime_callback_url())
+                                callback_url=settings.INSTAGRAM_REALTIME_CALLBACK_URL)
 
     def delete_subscription(self):
         api.delete_subscriptions(id=self.subscription_id)
