@@ -195,7 +195,7 @@ def tag_post_save(sender, instance, created, **kwargs):
         if instance.sync:
             instance.sync_remote_images(instance.get_all_remote_images())
         if instance.subscribe:
-            instance.create_subscription 
+            instance.create_subscription
 
 @receiver(post_save, sender=InstagramImage)
 def image_post_save(sender, instance, created, **kwargs):
