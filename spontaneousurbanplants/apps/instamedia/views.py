@@ -9,8 +9,7 @@ from instagram import client, subscriptions
 
 from .models import InstagramImage
 
-from .client import get_api
-from .utils import get_realtime_callback_url
+from .client import get_api, INSTAGRAM_CLIENT_ID
 
 api = get_api()
 
@@ -71,7 +70,7 @@ def instagram_realtime_callback(request):
         raw_response = request.body
         return HttpResponse(raw_response)
         try:
-            reactor.process(CONFIG['client_secret'], raw_response, x_hub_signature)
+            reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
         except subscriptions.SubscriptionVerifyError:
             return HttpResponse("Signature mismatch")
     else:
