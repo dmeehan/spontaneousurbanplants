@@ -201,7 +201,8 @@ def tag_post_save(sender, instance, created, **kwargs):
 
 @receiver(post_delete, sender=InstagramTag)
 def tag_post_delete(sender, instance, **kwargs):
-    instance.delete_subscription()
+    if instance.subscription_id:
+        instance.delete_subscription()
 
 @receiver(post_save, sender=InstagramImage)
 def image_post_save(sender, instance, created, **kwargs):
