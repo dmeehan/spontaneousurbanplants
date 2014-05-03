@@ -12,6 +12,8 @@ from .models import InstagramImage, InstagramTag
 from .client import get_api, INSTAGRAM_CLIENT_ID
 
 api = get_api()
+reactor = subscriptions.SubscriptionsReactor()
+
 
 
 class LatestImagesView(ListView):
@@ -30,8 +32,7 @@ def process_tag_update(update):
         tag = InstagramTag.objects.get(hashtag=item['object_id'])
         tag.sync_remote_images(tag.get_recent_remote_images())
 
-reactor = subscriptions.SubscriptionsReactor()
-reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update)
+
 
 
 def authenticate(request):
@@ -70,7 +71,6 @@ def instagram_realtime_callback(request):
     if request.method == "POST":
         x_hub_signature = request.header.get('X-Hub-Signature')
         raw_response = request.body
-        return HttpResponse(raw_response)
         try:
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
         except subscriptions.SubscriptionVerifyError:
@@ -82,5 +82,5 @@ def instagram_realtime_callback(request):
         if challenge: 
             return HttpResponse(challenge)
 
-    
+reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update) 
     
