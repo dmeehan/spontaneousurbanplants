@@ -7,7 +7,7 @@ from base import *
 # Site
 #==============================================================================
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-#ALLOWED_HOSTS = ['spontaneousurbanplants.org', 'www.spontaneousurbanplants.org', 'smtp.webfaction.com']
+ALLOWED_HOSTS = ['spontaneousurbanplants.org', 'www.spontaneousurbanplants.org', 'smtp.webfaction.com']
 
 
 #==============================================================================
