@@ -68,7 +68,6 @@ def instagram_realtime_callback(request):
     if request.method == "POST":
         x_hub_signature = request.header.get('X-Hub-Signature')
         raw_response = request.body
-        return HttpResponse(raw_response)
         print raw_response
         try:
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
