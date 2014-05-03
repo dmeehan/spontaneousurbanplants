@@ -369,7 +369,7 @@ GRAPPELLI_ADMIN_TITLE = 'Spontanous Urban Plants'
 INSTAGRAM_CLIENT_ID = os.environ.get('INSTAGRAM_CLIENT_ID', '')
 INSTAGRAM_CLIENT_SECRET = os.environ.get('INSTAGRAM_CLIENT_SECRET', '')
 
-INSTAGRAM_REALTIME_CALLBACK_URL = 'http://spontaneousurbanplants.org/feed/realtime_callback'
+INSTAGRAM_REALTIME_CALLBACK_URL = 'http://spontaneousurbanplants.org/feed/realtime_callback/'
 
 
 
