@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView
 
 from instagram import client, subscriptions
 
-from .models import InstagramImage
+from .models import InstagramImage, InstagramTag
 
 from .client import get_api, INSTAGRAM_CLIENT_ID
 
@@ -26,7 +26,9 @@ class ImageListView(ListView):
      queryset = InstagramImage.objects.filter(verified=True)
 
 def process_tag_update(update):
-    print update
+    for item in update:
+        tag = InstagramTag.objects.get(hashtag=item['object_id'])
+        tag.sync_remote_images(tag.get_recent_remote_images())
 
 reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update)
