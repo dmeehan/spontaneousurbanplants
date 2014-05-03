@@ -187,23 +187,26 @@ class InstagramTag(models.Model):
     def __unicode__(self):
         return u'%s' % (self.name)
 
+    def save(self, *args, **kwargs):
+        if self.subscribe:
+            if not self.subscription_id:
+                sub = instance.create_subscription()
+                self.subscription_id = int(sub['data']['id'])
+        else:
+            if subscription_id:
+                self.delete_subscription()
+            
+        super(InstagramTag, self).save(*args, **kwargs)
+
+        
+
+
 
 @receiver(post_save, sender=InstagramTag)
 def tag_post_save(sender, instance, created, **kwargs):
-    if created:
-        if instance.sync:
-            instance.sync_remote_images(instance.get_all_remote_images())
-        if instance.subscribe:
-            sub = instance.create_subscription()
-            try:
-                sub_id = sub['data']['id']
-                instance.subscription_id = sub_id
-                instance.save()
-            except:
-                print('Could not create subscription')
-    else:
-        if instance.subscription_id and not instance.subscribe:
-            instance.delete_subscription()
+    if created and instance.sync:
+        instance.sync_remote_images(instance.get_all_remote_images())
+
 
 @receiver(post_delete, sender=InstagramTag)
 def tag_post_delete(sender, instance, **kwargs):
