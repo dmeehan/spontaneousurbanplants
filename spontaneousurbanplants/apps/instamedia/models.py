@@ -10,7 +10,7 @@ from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 from .client import get_api
@@ -195,6 +195,13 @@ def tag_post_save(sender, instance, created, **kwargs):
             instance.sync_remote_images(instance.get_all_remote_images())
         if instance.subscribe:
             instance.create_subscription()
+    else:
+        if instance.subscription_id and not instance.subscribe:
+            instance.delete_subscription()
+
+@receiver(post_delete, sender=InstagramTag)
+def tag_post_delete(sender, instance, created, **kwargs):
+    instance.delete_subscription()
 
 @receiver(post_save, sender=InstagramImage)
 def image_post_save(sender, instance, created, **kwargs):
