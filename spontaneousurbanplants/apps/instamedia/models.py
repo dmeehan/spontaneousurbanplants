@@ -197,7 +197,8 @@ class InstagramTag(models.Model):
                 self.subscription_id = int(sub['data']['id'])
         else:
             if self.subscription_id:
-                self.delete_subscription()
+                api.delete_subscriptions(id=self.subscription_id)
+                self.subscription_id = None
             
         super(InstagramTag, self).save(*args, **kwargs)
 
