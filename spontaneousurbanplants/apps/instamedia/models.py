@@ -194,7 +194,13 @@ def tag_post_save(sender, instance, created, **kwargs):
         if instance.sync:
             instance.sync_remote_images(instance.get_all_remote_images())
         if instance.subscribe:
-            instance.create_subscription()
+            sub = instance.create_subscription()
+            try:
+                sub_id = sub['data']['id']
+                instance.subscription_id = sub_id
+                instance.save()
+            except:
+                print('Could not create subscription')
     else:
         if instance.subscription_id and not instance.subscribe:
             instance.delete_subscription()
