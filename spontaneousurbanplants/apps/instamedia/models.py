@@ -190,7 +190,7 @@ class InstagramTag(models.Model):
     def save(self, *args, **kwargs):
         if self.subscribe:
             if not self.subscription_id:
-                sub = instance.create_subscription()
+                sub = self.create_subscription()
                 self.subscription_id = int(sub['data']['id'])
         else:
             if subscription_id:
