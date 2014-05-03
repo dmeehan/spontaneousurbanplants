@@ -10,5 +10,5 @@ INSTALLED_APPS += (
 	'debug_toolbar',  
 )
 
-INTERNAL_IPS = ('127.0.0.1', 'spontaneousurbanplants.org')
+INTERNAL_IPS = ('spontaneousurbanplants.org', 'www.spontaneousurbanplants.org')
 
