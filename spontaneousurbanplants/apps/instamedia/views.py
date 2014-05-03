@@ -75,9 +75,12 @@ def instagram_realtime_callback(request):
         raw_response = request.body
         try:
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
-            return HttpResponse(raw_response)
         except subscriptions.SubscriptionVerifyError:
             return HttpResponse("Signature mismatch")
+        except Exception as e:
+            print >> sys.stderr, "Got error in reactor processing"
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            print >> sys.stderr, repr(traceback.format_exception(exc_type, exc_value,exc_traceback))
     else:
         mode = request.GET.get("hub.mode")
         challenge = request.GET.get("hub.challenge")
