@@ -229,6 +229,7 @@ DJANGO_APPS = (
     'django.contrib.humanize',
 
     # Admin panel and documentation:
+    'grappelli.dashboard',
     'grappelli',
     'django.contrib.admin',
     # 'django.contrib.admindocs',
@@ -356,6 +357,7 @@ REST_FRAMEWORK = {
 #==============================================================================
 
 GRAPPELLI_ADMIN_TITLE = 'Spontanous Urban Plants'
+GRAPPELLI_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
 
 #==============================================================================
 # Front End Assets
