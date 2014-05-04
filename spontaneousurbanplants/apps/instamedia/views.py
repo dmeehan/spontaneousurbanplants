@@ -86,6 +86,8 @@ def instagram_realtime_callback(request):
         verify_token = request.GET.get("hub.verify_token")
         if challenge: 
             return HttpResponse(challenge)
+        else:
+            return HttpResponse("test", mimetype='text/html')
 
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update) 
     
