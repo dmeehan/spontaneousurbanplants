@@ -57,7 +57,7 @@ ALLOWED_HOSTS = []
 #==============================================================================
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
