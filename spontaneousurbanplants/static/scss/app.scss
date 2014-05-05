@@ -1,13 +1,49 @@
-
+@import "../bower_components/bourbon/dist/bourbon";
+@import "../bower_components/neat/app/assets/stylesheets/neat";
+@import "../bower_components/bitters/app/assets/stylesheets/bitters";
 
 body {
-  
+	header {
+		@include outer-container;
+		nav {
+			ul {
+				float: right;
+			}
+		}
+	}
+
+	section {
+		@include outer-container;
+	}
+
+	footer {
+		@include outer-container;
+	}
 }
 
-section {
-	
+section.image-grid { 
+	@include outer-container;
+  		div {
+  			@include span-columns(3); 
+  			@include omega(4n);
+  			margin-bottom: 2.3675%;
+  			img {
+  				width: 100%;
+  				display: block;
+  			}
+  		}
+  	}
+
+nav.attributes {
+	@include span-columns(1);
 }
 
-aside {
-	
+section.map {
+	@include span-columns(8);
+	height: 500px;
+}
+
+nav.plants {
+	@include span-columns(3);
+	@include omega();
 }

@@ -1,15 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section>
-<ul>
-	{% for image in object_list %}
-	<li>
-		<img src="{{ image.remote_standard_resolution_url }}" />
-		<p>{{ image.caption }}</p>
-		<p>{{ image.raw_tags }}</p>
-	</li>
-	{% endfor %}
-</ul>
+<section class="image-grid">
+{% for image in object_list %}
+	<div><img src="{{ image.remote_standard_resolution_url }}" /></div>
+{% endfor %}
 </section>
 {% endblock content %}

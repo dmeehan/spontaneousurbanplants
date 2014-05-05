@@ -19,6 +19,10 @@ class Attribute(models.Model):
                               blank=True, 
                               null=True)
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains", "hashtag__icontains")
+
     def __unicode__(self):
         return u'%s' % (self.name)
 

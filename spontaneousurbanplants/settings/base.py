@@ -239,14 +239,16 @@ THIRD_PARTY_APPS = (
     'compressor', # static file management
     'djcelery', # asynchronous task queue
     'djsupervisor', # process mgmt
-    #'taggit', # generic tagging app
+    'rest_framework', # api
+    'rest_framework_gis', # api geo add-ons
     'south', # database migration
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'apps.instamedia',
-    'apps.plants'
+    'apps.plants',
+    'apps.map',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
