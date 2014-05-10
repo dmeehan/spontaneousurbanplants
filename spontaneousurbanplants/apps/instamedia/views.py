@@ -64,7 +64,7 @@ def instagram_callback(request):
     except Exception, e:
         return HttpResponse(e)
 
-#@csrf_exempt
+@csrf_exempt
 def instagram_realtime_callback(request):
     """Handle instagram realtime API callbacks.
 
@@ -72,7 +72,7 @@ def instagram_realtime_callback(request):
     Else we assume that we are receiving data from the source
     """
     if request.method == "POST":
-        pass
+        return HttpResponse("test", mimetype='text/html')
         #x_hub_signature = request.header.get('X-Hub-Signature')
         #raw_response = request.body
         #try:
