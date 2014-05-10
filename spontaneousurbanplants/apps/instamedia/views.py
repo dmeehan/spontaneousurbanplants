@@ -87,7 +87,7 @@ def instagram_realtime_callback(request):
         try:
             for item in data:
                 print item
-                tag = InstagramTag.objects.get(hashtag__iexact=item['object_id'])
+                tag = InstagramTag.objects.get(name__iexact=item['object_id'])
                 print tag
                 tag.sync_remote_images(tag.get_recent_remote_images())
         except:
