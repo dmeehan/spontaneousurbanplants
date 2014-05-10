@@ -2,8 +2,10 @@
 
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.http.response import HttpResponse
 from django.views.generic import DetailView, ListView
+
 
 from instagram import client, subscriptions
 
@@ -61,7 +63,7 @@ def instagram_callback(request):
     except Exception, e:
         return HttpResponse(e)
 
-
+@csrf_exempt
 def instagram_realtime_callback(request):
     """Handle instagram realtime API callbacks.
 
