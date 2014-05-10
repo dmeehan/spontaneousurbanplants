@@ -31,7 +31,6 @@ class ImageListView(ListView):
      queryset = InstagramImage.objects.filter(verified=True)
 
 def process_tag_update(update):
-    print update
     try:
         for item in update:
             print item
@@ -83,10 +82,18 @@ def instagram_realtime_callback(request):
     if request.method == "POST":
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         raw_response = request.body
-        print raw_response
+        data = simplejson.loads(raw_response)
         try:
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
-            return HttpResponse("success", mimetype='text/html')
+            try:
+                for item in data:
+                    print item
+                    tag = InstagramTag.objects.get(hashtag__iexact=item['object_id'])
+                    tag.sync_remote_images(tag.get_recent_remote_images())
+            except:
+                print data
+                tag = InstagramTag.objects.get(hashtag__iexact=data['object_id'])
+                tag.sync_remote_images(tag.get_recent_remote_images())
         except subscriptions.SubscriptionVerifyError:
             return HttpResponse("Signature mismatch")
         except Exception as e:
