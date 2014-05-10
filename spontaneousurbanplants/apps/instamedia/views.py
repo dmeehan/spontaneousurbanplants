@@ -9,6 +9,8 @@ from django.views.generic import DetailView, ListView
 
 from instagram import client, subscriptions
 
+from notification import models as notification
+
 from .models import InstagramImage, InstagramTag
 
 from .client import get_api, INSTAGRAM_CLIENT_ID
@@ -29,14 +31,20 @@ class ImageListView(ListView):
      queryset = InstagramImage.objects.filter(verified=True)
 
 def process_tag_update(update):
-    print update
     try:
         for item in update:
+            print item
             tag = InstagramTag.objects.get(hashtag=item['object_id'])
             tag.sync_remote_images(tag.get_recent_remote_images())
     except:
+        print update
         tag = InstagramTag.objects.get(hashtag=update['object_id'])
         tag.sync_remote_images(tag.get_recent_remote_images())
+
+    #notification.send(settings.SERVER_EMAIL, "image_submitted", 
+    #    { "update": update, })
+
+reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update) 
 
 def authenticate(request):
     try:
@@ -77,7 +85,8 @@ def instagram_realtime_callback(request):
         try:
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
         except subscriptions.SubscriptionVerifyError:
-            return HttpResponse("Signature mismatch")
+            #return HttpResponse("Signature mismatch")
+            pass
         except Exception as e:
             print >> sys.stderr, "Got error in reactor processing"
             exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -90,6 +99,4 @@ def instagram_realtime_callback(request):
             return HttpResponse(challenge)
         else:
             return HttpResponse("test", mimetype='text/html')
-
-reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update) 
     

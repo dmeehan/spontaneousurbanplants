@@ -239,6 +239,7 @@ THIRD_PARTY_APPS = (
     'compressor', # static file management
     'djcelery', # asynchronous task queue
     'djsupervisor', # process mgmt
+    'notification', # event notifications
     'rest_framework', # api
     'rest_framework_gis', # api geo add-ons
     'south', # database migration
