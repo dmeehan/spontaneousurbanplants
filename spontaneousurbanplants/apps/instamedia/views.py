@@ -30,13 +30,13 @@ class ImageListView(ListView):
 
 def process_tag_update(update):
     print update
-    #try:
-    #    for item in update:
-    #        tag = InstagramTag.objects.get(hashtag=item['object_id'])
-    #        tag.sync_remote_images(tag.get_recent_remote_images())
-    #except:
-    #    tag = InstagramTag.objects.get(hashtag=update['object_id'])
-    #    tag.sync_remote_images(tag.get_recent_remote_images())
+    try:
+        for item in update:
+            tag = InstagramTag.objects.get(hashtag=item['object_id'])
+            tag.sync_remote_images(tag.get_recent_remote_images())
+    except:
+        tag = InstagramTag.objects.get(hashtag=update['object_id'])
+        tag.sync_remote_images(tag.get_recent_remote_images())
 
 def authenticate(request):
     try:
