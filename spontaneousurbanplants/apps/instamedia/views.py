@@ -64,7 +64,7 @@ def instagram_callback(request):
     except Exception, e:
         return HttpResponse(e)
 
-@csrf_exempt
+#@csrf_exempt
 def instagram_realtime_callback(request):
     """Handle instagram realtime API callbacks.
 
