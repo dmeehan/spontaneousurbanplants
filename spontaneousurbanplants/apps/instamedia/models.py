@@ -110,9 +110,11 @@ class InstagramTag(models.Model):
         except:
             pass
 
-    def get_recent_remote_images(self, count, max_id):
+    def get_recent_remote_images(self, count=1, max_pages=1):
         try:
-            data = api.tag_recent_media(count, max_id, self.name) 
+            data = api.tag_recent_media(tag_name=self.name, 
+                                              count=count, max_pages=max_pages, 
+                                              as_generator=True) 
             return data
         except:
             pass
