@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.conf.urls import patterns, include, url
+from django.contrib.auth.decorators import login_required
 
 from django.views.generic import TemplateView
 
@@ -25,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', LatestImagesView.as_view(), name='home'),
+    url(r'^$', login_required(LatestImagesView.as_view()), name='home'),
 
     url(r'^feed/', include('apps.instamedia.urls')),
 

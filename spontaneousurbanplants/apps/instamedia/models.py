@@ -188,18 +188,18 @@ class InstagramTag(models.Model):
         return u'%s' % (self.name)
 
     def save(self, *args, **kwargs):
-        if not settings.DEBUG:
-            if self.subscribe:
-                if not self.subscription_id:
-                    sub = api.create_subscription(object='tag', 
-                                                  object_id=self.name, 
-                                                  aspect='media', 
-                                                  callback_url=settings.INSTAGRAM_REALTIME_CALLBACK_URL)
-                    self.subscription_id = int(sub['data']['id'])
-            else:
-                if self.subscription_id:
-                    api.delete_subscriptions(id=self.subscription_id)
-                    self.subscription_id = None
+        
+        if self.subscribe:
+            if not self.subscription_id:
+                sub = api.create_subscription(object='tag', 
+                                              object_id=self.name, 
+                                              aspect='media', 
+                                              callback_url=settings.INSTAGRAM_REALTIME_CALLBACK_URL)
+                self.subscription_id = int(sub['data']['id'])
+        else:
+            if self.subscription_id:
+                api.delete_subscriptions(id=self.subscription_id)
+                self.subscription_id = None
             
         super(InstagramTag, self).save(*args, **kwargs)
 
