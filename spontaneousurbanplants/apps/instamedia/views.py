@@ -86,11 +86,12 @@ def instagram_realtime_callback(request):
         data = simplejson.loads(raw_response)
         try:
             for item in data:
-                print 'callback A'
+                print item
                 tag = InstagramTag.objects.get(hashtag__iexact=item['object_id'])
+                print tag
                 tag.sync_remote_images(tag.get_recent_remote_images())
         except:
-            print 'callback B'
+            pass
             #tag = InstagramTag.objects.get(hashtag__iexact=data['object_id'])
             #tag.sync_remote_images(tag.get_recent_remote_images())
         try:
