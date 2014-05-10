@@ -82,9 +82,10 @@ def instagram_realtime_callback(request):
     if request.method == "POST":
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         raw_response = request.body
+        print raw_response
         try:
-            print raw_response
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
+            return HttpResponse("success", mimetype='text/html')
         except subscriptions.SubscriptionVerifyError:
             return HttpResponse("Signature mismatch")
         except Exception as e:
