@@ -74,7 +74,6 @@ def instagram_realtime_callback(request):
     if request.method == "POST":
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         raw_response = request.body
-        return HttpResponse("test", mimetype='text/html')
         try:
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
         except subscriptions.SubscriptionVerifyError:
