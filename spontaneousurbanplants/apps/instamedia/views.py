@@ -34,11 +34,11 @@ class ImageListView(ListView):
 def process_tag_update(update):
     try:
         for item in update:
-            print item
+            print 'process tag A'
             tag = InstagramTag.objects.get(hashtag__iexact=item['object_id'])
             tag.sync_remote_images(tag.get_recent_remote_images())
     except:
-        print update
+        print 'process tag B'
         tag = InstagramTag.objects.get(hashtag__iexact=update['object_id'])
         tag.sync_remote_images(tag.get_recent_remote_images())
 
@@ -86,11 +86,11 @@ def instagram_realtime_callback(request):
         data = simplejson.loads(raw_response)
         try:
             for item in data:
-                print item
+                print 'callback A'
                 tag = InstagramTag.objects.get(hashtag__iexact=item['object_id'])
                 tag.sync_remote_images(tag.get_recent_remote_images())
         except:
-            print data
+            print 'callback B'
             #tag = InstagramTag.objects.get(hashtag__iexact=data['object_id'])
             #tag.sync_remote_images(tag.get_recent_remote_images())
         try:
