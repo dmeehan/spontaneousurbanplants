@@ -1,4 +1,5 @@
 # instagram/views.py
+import simplejson
 
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
