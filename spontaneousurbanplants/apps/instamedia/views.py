@@ -31,15 +31,16 @@ class ImageListView(ListView):
      queryset = InstagramImage.objects.filter(verified=True)
 
 def process_tag_update(update):
-    try:
-        for item in update:
-            print item
-            tag = InstagramTag.objects.get(hashtag=item['object_id'])
-            tag.sync_remote_images(tag.get_recent_remote_images())
-    except:
-        print update
-        tag = InstagramTag.objects.get(hashtag=update['object_id'])
-        tag.sync_remote_images(tag.get_recent_remote_images())
+    print update
+    #try:
+    #    for item in update:
+    #        print item
+    #        tag = InstagramTag.objects.get(hashtag=item['object_id'])
+    #        tag.sync_remote_images(tag.get_recent_remote_images())
+    #except:
+    #    print update
+    #    tag = InstagramTag.objects.get(hashtag=update['object_id'])
+    #    tag.sync_remote_images(tag.get_recent_remote_images())
 
     #notification.send(settings.SERVER_EMAIL, "image_submitted", 
     #    { "update": update, })
