@@ -91,8 +91,8 @@ def instagram_realtime_callback(request):
                 tag.sync_remote_images(tag.get_recent_remote_images())
         except:
             print data
-            tag = InstagramTag.objects.get(hashtag__iexact=data['object_id'])
-            tag.sync_remote_images(tag.get_recent_remote_images())
+            #tag = InstagramTag.objects.get(hashtag__iexact=data['object_id'])
+            #tag.sync_remote_images(tag.get_recent_remote_images())
         try:
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
         except subscriptions.SubscriptionVerifyError:
