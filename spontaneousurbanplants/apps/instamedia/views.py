@@ -85,16 +85,16 @@ def instagram_realtime_callback(request):
         raw_response = request.body
         data = simplejson.loads(raw_response)
         try:
-            reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
-            try:
-                for item in data:
-                    print item
-                    tag = InstagramTag.objects.get(hashtag__iexact=item['object_id'])
-                    tag.sync_remote_images(tag.get_recent_remote_images())
-            except:
-                print data
-                tag = InstagramTag.objects.get(hashtag__iexact=data['object_id'])
+            for item in data:
+                print item
+                tag = InstagramTag.objects.get(hashtag__iexact=item['object_id'])
                 tag.sync_remote_images(tag.get_recent_remote_images())
+        except:
+            print data
+            tag = InstagramTag.objects.get(hashtag__iexact=data['object_id'])
+            tag.sync_remote_images(tag.get_recent_remote_images())
+        try:
+            reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
         except subscriptions.SubscriptionVerifyError:
             return HttpResponse("Signature mismatch")
         except Exception as e:
