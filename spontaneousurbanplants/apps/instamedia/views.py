@@ -9,7 +9,7 @@ from django.views.generic import DetailView, ListView
 
 from instagram import client, subscriptions
 
-from notification import models as notification
+#from notification import models as notification
 
 from .models import InstagramImage, InstagramTag
 
