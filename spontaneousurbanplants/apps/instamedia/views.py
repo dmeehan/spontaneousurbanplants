@@ -72,7 +72,7 @@ def instagram_realtime_callback(request):
     Else we assume that we are receiving data from the source
     """
     if request.method == "POST":
-        x_hub_signature = request.headers.get('X-Hub-Signature')
+        x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         raw_response = request.body
         return HttpResponse("test", mimetype='text/html')
         #try:
