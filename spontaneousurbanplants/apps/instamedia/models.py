@@ -84,7 +84,7 @@ class InstagramTag(models.Model):
 
     sync = models.BooleanField(default=True,
                                help_text='Sync existing instagram images with this tag to local database.')
-    subscribe = models.BooleanField(default=True,
+    subscribe = models.BooleanField(default=False,
                                     help_text='Subscribe to realtime updates for this tag.')
     moderate = models.BooleanField(default=True,
                                    help_text='If true, new images will default to unverified.')
