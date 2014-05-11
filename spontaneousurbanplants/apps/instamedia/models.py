@@ -25,7 +25,7 @@ class InstagramImage(models.Model):
     caption = models.TextField(blank=True)
     raw_tags = models.TextField(blank=True)
 
-    tags = models.ManyToManyField(InstagramTag, blank=True, null=True)
+    tags = models.ManyToManyField('InstagramTag', blank=True, null=True)
 
     # media urls
     remote_thumbnail_url = models.URLField(blank=True)
