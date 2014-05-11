@@ -153,13 +153,15 @@ class InstagramTag(models.Model):
                 obj.verified = False
             else:
                 obj.verified = True
-                            
+
             obj.save()
 
-            images = self.images.all()
-            if obj not in images:
-                self.images.add(obj)
-                self.save()
+            tags = obj.tags.all()
+            if self not in tags:
+                obj.tags.add(self)
+                obj.save()
+            
+            
 
             print('created new image %s' % obj.remote_id)
 
