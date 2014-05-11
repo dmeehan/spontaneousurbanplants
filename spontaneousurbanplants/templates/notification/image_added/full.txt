@@ -1,7 +1,7 @@
 
 A new instagram image has been submitted to Spontaneous Urban Plants
 
-{{ data }}
-
 You can review it here:
+
+{{ default_http_protocol }}://{{ current_site }}/admin/instamedia/instagramimage/
 
