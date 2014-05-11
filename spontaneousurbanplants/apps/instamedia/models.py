@@ -201,7 +201,7 @@ class InstagramTag(models.Model):
 
 @receiver(post_save, sender=InstagramTag)
 def tag_post_save(sender, instance, created, **kwargs):
-    if created and instance.sync:
+    if instance.sync:
         instance.sync_remote_images(instance.get_all_remote_images())
     if instance.subscribe:
         if not instance.subscription_id:
