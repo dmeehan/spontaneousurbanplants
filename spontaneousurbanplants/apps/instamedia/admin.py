@@ -10,15 +10,14 @@ def make_verified(modeladmin, request, queryset):
 
 make_verified.short_description = "Mark selected images as verified"
 
-class TagInline(admin.TabularInline):
-    model = InstagramTag.images.through
-
 class InstagramImageAdmin(admin.ModelAdmin):
     list_display = ['thumbnail', 'remote_id', 'created', 'updated', 'last_synced', 'verified']
     list_editable = ['verified']
-    inlines = [
-        TagInline,
-    ]
+    raw_id_fields = ('tags',)
+   
+    autocomplete_lookup_fields = {
+        'm2m': ['tags'],
+    }
 
 class InstagramTagAdmin(admin.ModelAdmin):
     list_display = ['name', 'sync', 'subscribe', 'moderate']

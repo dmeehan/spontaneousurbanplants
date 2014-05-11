@@ -25,6 +25,8 @@ class InstagramImage(models.Model):
     caption = models.TextField(blank=True)
     raw_tags = models.TextField(blank=True)
 
+    tags = models.ManyToManyField(InstagramTag, blank=True, null=True)
+
     # media urls
     remote_thumbnail_url = models.URLField(blank=True)
     remote_low_resolution_url = models.URLField(blank=True)
@@ -90,7 +92,6 @@ class InstagramTag(models.Model):
                                    help_text='If true, new images will default to unverified.')
     subscription_id = models.IntegerField(blank=True, null=True)
 
-    images = models.ManyToManyField(InstagramImage, blank=True, null=True)
 
     def get_remote_data(self):
         try:
@@ -182,6 +183,11 @@ class InstagramTag(models.Model):
 
     def delete_subscription(self):
         api.delete_subscriptions(id=self.subscription_id)
+
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains",)
 
 
     def __unicode__(self):
