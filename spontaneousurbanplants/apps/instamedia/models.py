@@ -121,7 +121,10 @@ class InstagramTag(models.Model):
     def sync_image(self, remote_image, moderate=False):
         try:
             obj = InstagramImage.objects.get(remote_id=remote_image.id)
-            print('image %s already exists' % obj.remote_id)
+            tags = obj.tags.all()
+            if self not in tags:
+                obj.tags.add(self)
+                obj.save()
             # TODO: check for updated fields and update
         except InstagramImage.DoesNotExist:
             obj = InstagramImage()
