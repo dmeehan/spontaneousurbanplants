@@ -23,7 +23,7 @@ class InstagramImage(models.Model):
     """
     remote_id = models.CharField(max_length=255, unique=True)
     caption = models.TextField(blank=True)
-    raw_tags = models.TextField(blank=True)
+    raw_tags = models.TextField("instagram tags", blank=True)
 
     tags = models.ManyToManyField('InstagramTag', blank=True, null=True)
 
