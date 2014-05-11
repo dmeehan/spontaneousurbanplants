@@ -83,7 +83,6 @@ def instagram_realtime_callback(request):
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         raw_response = request.body
         data = simplejson.loads(raw_response)
-        print data['object']
         try:
             for item in data:
                 tag = InstagramTag.objects.get(name__iexact=item['object_id'])

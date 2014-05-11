@@ -9,7 +9,7 @@ if "notification" in settings.INSTALLED_APPS:
 
     def create_notice_types(app, created_models, verbosity, **kwargs):
         notification.create_notice_type("image_submitted", _("New instagram image submitted"), 
-        	_("A new instgram image has been submitted"))
+        	_("A new instagram image has been submitted"))
 
     signals.post_syncdb.connect(create_notice_types, sender=notification)
 else:
