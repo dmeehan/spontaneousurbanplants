@@ -81,7 +81,7 @@ class InstagramImage(models.Model):
         return ', '.join([ tag.name for tag in self.tags.all() ])
     
 
-    display_tags.short_description = 'Local Tags'
+    display_tags.short_description = 'local tags'
     display_tags.allow_tags = True
 
     thumbnail.short_description = 'Image'
