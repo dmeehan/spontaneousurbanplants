@@ -36,8 +36,6 @@ class InstagramImage(models.Model):
 
     # Geography information
     coordinates = models.PointField(null=True, blank=True)
-    #latitude = models.DecimalField(max_digits=10, decimal_places=7, default=0, blank=True)
-    #longitude = models.DecimalField(max_digits=10, decimal_places=7, default=0, blank=True)
 
     # Metadata
     created = models.DateTimeField()
@@ -189,30 +187,23 @@ class InstagramTag(models.Model):
     def __unicode__(self):
         return u'%s' % (self.name)
 
-    def save(self, *args, **kwargs):
-        
-        if self.subscribe:
-            if not self.subscription_id:
-                sub = api.create_subscription(object='tag', 
-                                              object_id=self.name, 
-                                              aspect='media', 
-                                              callback_url=settings.INSTAGRAM_REALTIME_CALLBACK_URL)
-                self.subscription_id = int(sub['data']['id'])
-        else:
-            if self.subscription_id:
-                api.delete_subscriptions(id=self.subscription_id)
-                self.subscription_id = None
-            
-        super(InstagramTag, self).save(*args, **kwargs)
-
-        
-
-
 
 @receiver(post_save, sender=InstagramTag)
 def tag_post_save(sender, instance, created, **kwargs):
     if created and instance.sync:
         instance.sync_remote_images(instance.get_all_remote_images())
+    if instance.subscribe:
+        if not instance.subscription_id:
+            sub = api.create_subscription(object='tag', 
+                                          object_id=instance.name, 
+                                          aspect='media', 
+                                          callback_url=settings.INSTAGRAM_REALTIME_CALLBACK_URL)
+            instance.subscription_id = int(sub['data']['id'])
+    else:
+        if instance.subscription_id:
+            api.delete_subscriptions(id=instance.subscription_id)
+            instance.subscription_id = None
+            instance.save()
 
 
 @receiver(post_delete, sender=InstagramTag)
