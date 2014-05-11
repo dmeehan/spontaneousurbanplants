@@ -83,15 +83,16 @@ def instagram_realtime_callback(request):
     if request.method == "POST":
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         raw_response = request.body
-        #data = simplejson.loads(raw_response)
-        #try:
-        #    for item in data:
-        #        print item
-        #        tag = InstagramTag.objects.get(name__iexact=item['object_id'])
-        #        print tag
-        #        tag.sync_remote_images(tag.get_recent_remote_images())
-        #except:
-        #    pass
+        data = simplejson.loads(raw_response)
+        print data['object']
+        try:
+            for item in data:
+                print item
+                tag = InstagramTag.objects.get(name__iexact=item['object_id'])
+                print tag
+                tag.sync_remote_images(tag.get_recent_remote_images())
+        except:
+            pass
         try:
             print raw_response
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
