@@ -16,6 +16,8 @@ class InstagramImageAdmin(admin.ModelAdmin):
     list_editable = ['verified',]
     raw_id_fields = ('tags',)
 
+    list_filter = ('tags__name', 'verified')
+
     autocomplete_lookup_fields = {
         'm2m': ['tags'],
     }
