@@ -77,7 +77,7 @@ class InstagramImage(models.Model):
     def thumbnail(self):
         return u'<img src="%s" />' % (self.remote_thumbnail_url)
 
-    def display_others(self):
+    def display_tags(self):
         return ', '.join([ tag.name for tag in self.tags.all() ])
     
 
