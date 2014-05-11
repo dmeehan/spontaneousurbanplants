@@ -217,6 +217,7 @@ def tag_post_save(sender, instance, created, **kwargs):
                                           aspect='media', 
                                           callback_url=settings.INSTAGRAM_REALTIME_CALLBACK_URL)
             instance.subscription_id = int(sub['data']['id'])
+            instance.save()
     else:
         if instance.subscription_id:
             api.delete_subscriptions(id=instance.subscription_id)
