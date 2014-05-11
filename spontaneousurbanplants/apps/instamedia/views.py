@@ -2,6 +2,7 @@
 import simplejson
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http.response import HttpResponse
@@ -10,12 +11,13 @@ from django.views.generic import DetailView, ListView
 
 from instagram import client, subscriptions
 
-#from notification import models as notification
+from notification import models as notification
 
 from .models import InstagramImage, InstagramTag
 
 from .client import get_api, INSTAGRAM_CLIENT_ID
 
+User = get_user_model()
 api = get_api()
 reactor = subscriptions.SubscriptionsReactor()
 
@@ -41,9 +43,6 @@ def process_tag_update(update):
         print 'process tag B'
         tag = InstagramTag.objects.get(hashtag__iexact=update['object_id'])
         tag.sync_remote_images(tag.get_recent_remote_images())
-
-    #notification.send(settings.SERVER_EMAIL, "image_submitted", 
-    #    { "update": update, })
 
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update) 
 
@@ -87,15 +86,15 @@ def instagram_realtime_callback(request):
         print data['object']
         try:
             for item in data:
-                print item
                 tag = InstagramTag.objects.get(name__iexact=item['object_id'])
-                print tag
                 tag.sync_remote_images(tag.get_recent_remote_images())
         except:
             pass
         try:
             print raw_response
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
+            notify_list = User.objects.filter(is_superuser=True)
+            notification.send(notify_list, "image_submitted", { "data": data, })
         except subscriptions.SubscriptionVerifyError:
             return HttpResponse("Signature mismatch")
         except Exception as e:
