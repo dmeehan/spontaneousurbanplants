@@ -19,7 +19,6 @@ from .client import get_api, INSTAGRAM_CLIENT_ID
 api = get_api()
 reactor = subscriptions.SubscriptionsReactor()
 
-
 class LatestImagesView(ListView):
     queryset = InstagramImage.objects.filter(verified=True).order_by('?')[:8]
     template_name = 'index.html'
@@ -32,6 +31,7 @@ class ImageListView(ListView):
      queryset = InstagramImage.objects.filter(verified=True)
 
 def process_tag_update(update):
+    print update
     try:
         for item in update:
             print 'process tag A'
@@ -83,18 +83,17 @@ def instagram_realtime_callback(request):
     if request.method == "POST":
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         raw_response = request.body
-        data = simplejson.loads(raw_response)
+        #data = simplejson.loads(raw_response)
+        #try:
+        #    for item in data:
+        #        print item
+        #        tag = InstagramTag.objects.get(name__iexact=item['object_id'])
+        #        print tag
+        #        tag.sync_remote_images(tag.get_recent_remote_images())
+        #except:
+        #    pass
         try:
-            for item in data:
-                print item
-                tag = InstagramTag.objects.get(name__iexact=item['object_id'])
-                print tag
-                tag.sync_remote_images(tag.get_recent_remote_images())
-        except:
-            pass
-            #tag = InstagramTag.objects.get(hashtag__iexact=data['object_id'])
-            #tag.sync_remote_images(tag.get_recent_remote_images())
-        try:
+            print raw_response
             reactor.process(INSTAGRAM_CLIENT_ID, raw_response, x_hub_signature)
         except subscriptions.SubscriptionVerifyError:
             return HttpResponse("Signature mismatch")
@@ -110,4 +109,6 @@ def instagram_realtime_callback(request):
             return HttpResponse(challenge)
         else:
             return HttpResponse("test", mimetype='text/html')
+
+
     
