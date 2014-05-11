@@ -3,5 +3,5 @@ A new instagram image has been submitted to Spontaneous Urban Plants
 
 You can review it here:
 
-http://spontaneousurbanplants.org/admin/instamedia/instagramimage/
+{{ default_http_protocol }}://{{ current_site }}/admin/instamedia/instagramimage/
 
