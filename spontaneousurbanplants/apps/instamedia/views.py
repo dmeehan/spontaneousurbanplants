@@ -34,15 +34,6 @@ class ImageListView(ListView):
 
 def process_tag_update(update):
     print update
-    try:
-        for item in update:
-            print 'process tag A'
-            tag = InstagramTag.objects.get(hashtag__iexact=item['object_id'])
-            tag.sync_remote_images(tag.get_recent_remote_images())
-    except:
-        print 'process tag B'
-        tag = InstagramTag.objects.get(hashtag__iexact=update['object_id'])
-        tag.sync_remote_images(tag.get_recent_remote_images())
 
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update) 
 
