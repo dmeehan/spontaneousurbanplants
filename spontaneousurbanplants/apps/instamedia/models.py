@@ -136,12 +136,15 @@ class InstagramTag(models.Model):
             obj = InstagramImage.objects.get(remote_id=remote_image.id)
             current_tags = obj.tags.all()
             if remote_image.tags:
+                tag_list = []
                 for remote_tag in remote_image.tags:
                     try:
                         local_tag = InstagramTag.objects.get(name__iexact=remote_tag.name)
                         if local_tag not in current_tags:
-                           obj.tags.add(tag)
-                    tag_list = 
+                            obj.tags.add(local_tag)
+                    except:
+                        continue
+                    tag_list.append(remote_tag)
                 obj.raw_tags = " ".join(tag_list)
             if obj.caption != remote_image.caption:
                 obj.caption = remote_image.caption
@@ -161,12 +164,14 @@ class InstagramTag(models.Model):
 
             if remote_image.tags:
                 tag_list = []
-                for tag in remote_image.tags:
+                current_tags = obj.tags.all()
+                for remote_tag in remote_image.tags:
                     try:
-                        tag = InstagramTag.objects.get(name=tag.name)
-                        current_tags = obj.tags.all()
-                        if tag not in current_tags:
+                        local_tag = InstagramTag.objects.get(name__iexact=remote_tag.name)
+                        if local_tag not in current_tags:
                             obj.tags.add(tag)
+                    except:
+                        continue
                     tag_list.append(tag.name)
                 obj.raw_tags = " ".join(tag_list)
 
