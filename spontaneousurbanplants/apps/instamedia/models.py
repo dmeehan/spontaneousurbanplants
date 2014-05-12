@@ -127,8 +127,8 @@ class InstagramTag(models.Model):
     def sync_image(self, remote_image, moderate=False):
         try:
             obj = InstagramImage.objects.get(remote_id=remote_image.id)
-            tags = obj.tags.all()
-            if self not in tags:
+            current_tags = obj.tags.all()
+            if self not in current_tags:
                 obj.tags.add(self)
                 obj.save()
             # TODO: check for updated fields and update
@@ -148,8 +148,13 @@ class InstagramTag(models.Model):
             if remote_image.tags:
                 tag_list = []
                 for tag in remote_image.tags:
+                    try:
+                        tag = InstagramTag.objects.get(name=tag.name)
+                        current_tags = obj.tags.all()
+                        if tag not in current_tags:
+                            obj.tags.add(tag)
                     tag_list.append(tag.name)
-                    obj.raw_tags = " ".join(tag_list)
+                obj.raw_tags = " ".join(tag_list)
 
             if hasattr(remote_image, "location"):
                 obj.location_name = remote_image.location.name
