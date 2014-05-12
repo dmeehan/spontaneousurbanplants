@@ -2,7 +2,6 @@
 import simplejson
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http.response import HttpResponse
@@ -10,8 +9,6 @@ from django.views.generic import DetailView, ListView
 
 
 from instagram import client, subscriptions
-
-from notification import models as notification
 
 from .models import InstagramImage, InstagramTag
 
@@ -83,8 +80,6 @@ def instagram_realtime_callback(request):
         x_hub_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         raw_response = request.body
         data = simplejson.loads(raw_response)
-        notify_list = User.objects.filter(is_superuser=True)
-        notification.send(notify_list, "image_submitted", { "data": data, })
         try:
             for item in data:
                 tag = InstagramTag.objects.get(name__iexact=item['object_id'])

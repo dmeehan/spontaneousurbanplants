@@ -5,17 +5,23 @@ import os
 import requests
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.gis.db import models
-from django.contrib.gis.geos import Point
+
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
+from notification import models as notification
+
 from .client import get_api
+from .signals import image_added
 
 api = get_api()
+user = get_user_model()
 
 class InstagramImage(models.Model):
     """
@@ -164,7 +170,7 @@ class InstagramTag(models.Model):
                 obj.tags.add(self)
                 obj.save()
             
-            
+            image_added.send(sender=self, instance=obj, request=request)
 
             print('created new image %s' % obj.remote_id)
 
@@ -227,4 +233,9 @@ def image_post_save(sender, instance, created, **kwargs):
     if not instance.image_file and instance.verified:
         instance.download_remote_image()
 
-
+@receiver(image_added, sender=InstagramTag)
+def image_submitted_action(sender, instance, **kwargs):
+    notify_list = User.objects.filter(is_superuser=True)
+    notification.send(notify_list, 
+                      "image_submitted", 
+                      { "tag": sender, "image": instance })
