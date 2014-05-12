@@ -135,10 +135,17 @@ class InstagramTag(models.Model):
         try:
             obj = InstagramImage.objects.get(remote_id=remote_image.id)
             current_tags = obj.tags.all()
-            if self not in current_tags:
-                obj.tags.add(self)
-                obj.save()
-            # TODO: check for updated fields and update
+            if remote_image.tags:
+                for remote_tag in remote_image.tags:
+                    try:
+                        local_tag = InstagramTag.objects.get(name__iexact=remote_tag.name)
+                        if local_tag not in current_tags:
+                           obj.tags.add(tag)
+                    tag_list = 
+                obj.raw_tags = " ".join(tag_list)
+            if obj.caption != remote_image.caption:
+                obj.caption = remote_image.caption
+            obj.save
         except InstagramImage.DoesNotExist:
             obj = InstagramImage()
             obj.remote_id = remote_image.id
