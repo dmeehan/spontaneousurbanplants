@@ -29,7 +29,7 @@ class InstagramImage(models.Model):
     """
     remote_id = models.CharField(max_length=255, unique=True)
     caption = models.TextField(blank=True)
-    raw_tags = models.TextField(blank=True)
+    raw_tags = models.TextField("remote tags", blank=True)
 
     tags = models.ManyToManyField('InstagramTag', blank=True, null=True)
 
@@ -82,6 +82,13 @@ class InstagramImage(models.Model):
 
     def thumbnail(self):
         return u'<img src="%s" />' % (self.remote_thumbnail_url)
+
+    def display_tags(self):
+        return ', '.join([ tag.name for tag in self.tags.all() ])
+    
+
+    display_tags.short_description = 'local tags'
+    display_tags.allow_tags = True
 
     thumbnail.short_description = 'Image'
     thumbnail.allow_tags = True
@@ -221,6 +228,7 @@ def tag_post_save(sender, instance, created, **kwargs):
                                           aspect='media', 
                                           callback_url=settings.INSTAGRAM_REALTIME_CALLBACK_URL)
             instance.subscription_id = int(sub['data']['id'])
+            instance.save()
     else:
         if instance.subscription_id:
             api.delete_subscriptions(id=instance.subscription_id)
