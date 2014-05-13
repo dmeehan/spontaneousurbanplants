@@ -14,7 +14,6 @@ from .models import InstagramImage, InstagramTag
 
 from .client import get_api, INSTAGRAM_CLIENT_ID
 
-User = get_user_model()
 api = get_api()
 reactor = subscriptions.SubscriptionsReactor()
 

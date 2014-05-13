@@ -1,5 +1,4 @@
 # instagram/models.py
-import datetime
 import inspect
 import os
 import requests
@@ -11,9 +10,9 @@ from django.contrib.gis.geos import Point
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.core.urlresolvers import reverse, reverse_lazy
-
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.utils import timezone
 
 from notification import models as notification
 
@@ -21,7 +20,7 @@ from .client import get_api
 from .signals import image_added
 
 api = get_api()
-user = get_user_model()
+User = get_user_model()
 
 class InstagramImage(models.Model):
     """
@@ -136,19 +135,25 @@ class InstagramTag(models.Model):
             obj = InstagramImage.objects.get(remote_id=remote_image.id)
             current_tags = obj.tags.all()
             if remote_image.tags:
-                tag_list = []
+                new_tag_list = []
                 for remote_tag in remote_image.tags:
+                    new_tag_list.append(remote_tag.name)
                     try:
                         local_tag = InstagramTag.objects.get(name__iexact=remote_tag.name)
                         if local_tag not in current_tags:
                             obj.tags.add(local_tag)
                     except:
-                        continue
-                    tag_list.append(remote_tag)
-                obj.raw_tags = " ".join(tag_list)
+                        pass
+                new_raw_tags =  " ".join(new_tag_list)
+                if new_raw_tags != obj.raw_tags:
+                    obj.raw_tags = new_raw_tags
+                    obj.updated = timezone.now()
             if obj.caption != remote_image.caption:
                 obj.caption = remote_image.caption
+                obj.updated = timezone.now()
+            obj.last_synced = timezone.now()
             obj.save
+            print('updated image %s' % obj.remote_id)
         except InstagramImage.DoesNotExist:
             obj = InstagramImage()
             obj.remote_id = remote_image.id
@@ -156,23 +161,22 @@ class InstagramTag(models.Model):
             obj.remote_thumbnail_url = remote_image.images['thumbnail'].url
             obj.remote_low_resolution_url = remote_image.images['low_resolution'].url
             obj.created = remote_image.created_time
-            obj.updated = datetime.datetime.now()
-            obj.last_synced = datetime.datetime.now()
+            obj.updated = timezone.now()
+            obj.last_synced = timezone.now()
 
             if remote_image.caption:
                 obj.caption = remote_image.caption.text
 
             if remote_image.tags:
                 tag_list = []
-                current_tags = obj.tags.all()
-                for remote_tag in remote_image.tags:
+                for tag in remote_image.tags:
+                    tag_list.append(tag.name)
                     try:
                         local_tag = InstagramTag.objects.get(name__iexact=remote_tag.name)
-                        if local_tag not in current_tags:
-                            obj.tags.add(tag)
+                        obj.tags.add(local_tag)
                     except:
-                        continue
-                    tag_list.append(tag.name)
+                        pass
+
                 obj.raw_tags = " ".join(tag_list)
 
             if hasattr(remote_image, "location"):
@@ -193,8 +197,11 @@ class InstagramTag(models.Model):
             if self not in tags:
                 obj.tags.add(self)
                 obj.save()
-            
-            image_added.send(sender=self, instance=obj, request=request)
+
+            notify_list = User.objects.filter(is_superuser=True)
+            notification.send(notify_list, 
+                      "image_submitted", 
+                      { "tag": self , "image": obj })
 
             print('created new image %s' % obj.remote_id)
 
@@ -263,4 +270,4 @@ def image_submitted_action(sender, instance, **kwargs):
     notify_list = User.objects.filter(is_superuser=True)
     notification.send(notify_list, 
                       "image_submitted", 
-                      { "tag": sender, "image": instance })
+                      { "image": instance })
