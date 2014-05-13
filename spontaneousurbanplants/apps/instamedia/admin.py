@@ -11,8 +11,10 @@ def make_verified(modeladmin, request, queryset):
 make_verified.short_description = "Mark selected images as verified"
 
 class InstagramImageAdmin(admin.ModelAdmin):
-    fields = ['remote_id', 'tags', 'raw_tags', 'image_file', 'verified', ]
-    list_display = ['thumbnail', 'verified', 'caption', 'raw_tags', 'display_tags', 'created', 'last_synced',]
+    fields = ['remote_id', 'tags', 'image_file', 'verified', ]
+    list_display = ['thumbnail', 'verified', 'username', 
+                    'caption', 'raw_tags', 'display_tags', 
+                    'created', 'updated', 'last_synced',]
     list_editable = ['verified',]
     raw_id_fields = ('tags',)
 
