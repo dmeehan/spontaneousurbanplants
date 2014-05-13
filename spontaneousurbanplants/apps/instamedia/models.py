@@ -4,7 +4,7 @@ import os
 import requests
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 from django.core.files import File
@@ -20,7 +20,6 @@ from .client import get_api
 from .signals import image_added
 
 api = get_api()
-User = get_user_model()
 
 class InstagramImage(models.Model):
     """
