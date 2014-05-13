@@ -124,8 +124,8 @@ class InstagramTag(models.Model):
     def get_recent_remote_images(self, count=10, max_pages=1):
         try:
             data = api.tag_recent_media(tag_name=self.name, 
-                                              count=count, max_pages=max_pages, 
-                                              as_generator=True) 
+                                        count=count, max_pages=max_pages, 
+                                        as_generator=True) 
             return data
         except:
             pass
@@ -151,7 +151,7 @@ class InstagramTag(models.Model):
             if obj.caption != remote_image.caption:
                 obj.caption = remote_image.caption
                 obj.updated = timezone.now()
-            if obj.username != remote_image.user.username:
+            if not obj.username:
                 obj.username = remote_image.user.username
                 obj.updated = timezone.now()
             obj.last_synced = timezone.now()
