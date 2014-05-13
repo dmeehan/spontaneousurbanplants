@@ -148,15 +148,15 @@ class InstagramTag(models.Model):
                 if new_raw_tags != obj.raw_tags:
                     obj.raw_tags = new_raw_tags
                     obj.updated = timezone.now()
-            if obj.caption != remote_image.caption:
-                obj.caption = remote_image.caption
-                obj.updated = timezone.now()
-            
-            obj.username = remote_image.user.username
-            obj.updated = timezone.now()
-            obj.last_synced = timezone.now()
-            obj.save
-            print('updated image %s' % obj.remote_id)
+            if obj.caption:
+                if obj.caption != remote_image.caption:
+                    obj.caption = remote_image.caption
+                    obj.updated = timezone.now()
+            if not obj.username:
+                obj.username = remote_image.user.username
+                obj.last_synced = timezone.now()
+            obj.save()
+            print('updated image %s' % remote_image.user.username)
         except InstagramImage.DoesNotExist:
             obj = InstagramImage()
             obj.remote_id = remote_image.id
