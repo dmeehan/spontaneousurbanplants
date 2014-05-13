@@ -149,8 +149,8 @@ class InstagramTag(models.Model):
                     obj.raw_tags = new_raw_tags
                     obj.updated = timezone.now()
             if obj.caption:
-                if obj.caption != remote_image.caption:
-                    obj.caption = remote_image.caption
+                if obj.caption != remote_image.caption.text:
+                    obj.caption = remote_image.caption.text
                     obj.updated = timezone.now()
             if not obj.username:
                 obj.username = remote_image.user.username
