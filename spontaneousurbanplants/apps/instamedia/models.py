@@ -28,6 +28,7 @@ class InstagramImage(models.Model):
     remote_id = models.CharField(max_length=255, unique=True)
     caption = models.TextField(blank=True)
     raw_tags = models.TextField("remote tags", blank=True)
+    username = models.CharField(max_length=255, blank=True, null=True)
 
     tags = models.ManyToManyField('InstagramTag', blank=True, null=True)
 
@@ -156,12 +157,14 @@ class InstagramTag(models.Model):
         except InstagramImage.DoesNotExist:
             obj = InstagramImage()
             obj.remote_id = remote_image.id
+            obj.username = remote_image.user.username
             obj.remote_standard_resolution_url = remote_image.get_standard_resolution_url()
             obj.remote_thumbnail_url = remote_image.images['thumbnail'].url
             obj.remote_low_resolution_url = remote_image.images['low_resolution'].url
             obj.created = remote_image.created_time
             obj.updated = timezone.now()
             obj.last_synced = timezone.now()
+            obj.username = remote_image.user.username
 
             if remote_image.caption:
                 obj.caption = remote_image.caption.text
