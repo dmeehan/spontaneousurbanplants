@@ -20,20 +20,27 @@
 {% block content %}
 <nav class="map-nav attributes">
 	<ul>
-		{% for attribute in attribute_list %}
+	    {% for attribute in attribute_list %}
 		<li style="background-image:url({{ attribute.icon.url }})"><a title="{{ attribute.hashtag }}" href="#">{{ attribute.name }}</a></li>
-		{% endfor %}
+	    {% endfor %}
 	</ul>
 </nav>
 <section class="map" id="map">
 <p>Map</p>
 </section>
 <nav class="map-nav plants">
-	<ul>
-		{% for plant in plant_list %}
+	<ul class="pre">
+		{% for plant in plant_list|slice:":8" %}
 		<li style="background-image:url({{ plant.icon.url }})"><a title="{{ plant.hashtag }}" href="#">{{ plant.common_name }}</a></li>
 		{% endfor %}
 	</ul>
+        <ul class="post">
+                {% for plant in plant_list|slice:"8:" %}
+                <li style="background-image:url({{ plant.icon.url }})"><a title="{{ plant.hashtag }}" href="#">{{ plant.common_name }}</a></li>
+                {% endfor %}
+        </ul>
+
+
 </nav>
 {% endblock content %}
 {% block extra_body %}

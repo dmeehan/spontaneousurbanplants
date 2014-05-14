@@ -86,9 +86,19 @@ nav.plants {
 		@include outer-container;
 		li {
 			@include span-columns(2);
-			@include omega(6n);
 			padding-bottom: 15.53795%;
 			margin-bottom: 1.35446%;
 		}
 	}
+        ul.pre {
+                li {
+               	 @include omega(4n);
+              }
+        }
+        ul.post {
+                li {
+                  @include omega(6n);
+               }
+        }
+
 }
