@@ -19,7 +19,6 @@
     "neat": "~1.6.0",
     "bitters": "https://github.com/thoughtbot/bitters.git#0.9.3",
     "leaflet": "~0.7.0",
-    "leaflet.markercluster": "~0.4.0",
-    "jquery": 
+    "leaflet.markercluster": "~0.4.0" 
   }
 }
