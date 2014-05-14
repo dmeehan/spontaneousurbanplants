@@ -2,6 +2,7 @@
 A new instagram image has been submitted to Spontaneous Urban Plants
 
 {{ image.remote_id }}
+{{ image.username }}
 {{ image.caption }}
 {{ image.location_name }}
 

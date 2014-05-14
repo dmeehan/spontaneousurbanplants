@@ -4,7 +4,7 @@ import os
 import requests
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 from django.core.files import File
@@ -20,7 +20,6 @@ from .client import get_api
 from .signals import image_added
 
 api = get_api()
-User = get_user_model()
 
 class InstagramImage(models.Model):
     """
@@ -29,6 +28,7 @@ class InstagramImage(models.Model):
     remote_id = models.CharField(max_length=255, unique=True)
     caption = models.TextField(blank=True)
     raw_tags = models.TextField("remote tags", blank=True)
+    username = models.CharField(max_length=255, blank=True, null=True)
 
     tags = models.ManyToManyField('InstagramTag', blank=True, null=True)
 
@@ -124,8 +124,8 @@ class InstagramTag(models.Model):
     def get_recent_remote_images(self, count=10, max_pages=1):
         try:
             data = api.tag_recent_media(tag_name=self.name, 
-                                              count=count, max_pages=max_pages, 
-                                              as_generator=True) 
+                                        count=count, max_pages=max_pages, 
+                                        as_generator=True) 
             return data
         except:
             pass
@@ -148,21 +148,26 @@ class InstagramTag(models.Model):
                 if new_raw_tags != obj.raw_tags:
                     obj.raw_tags = new_raw_tags
                     obj.updated = timezone.now()
-            if obj.caption != remote_image.caption:
-                obj.caption = remote_image.caption
-                obj.updated = timezone.now()
-            obj.last_synced = timezone.now()
-            obj.save
-            print('updated image %s' % obj.remote_id)
+            if obj.caption:
+                if obj.caption != remote_image.caption.text:
+                    obj.caption = remote_image.caption.text
+                    obj.updated = timezone.now()
+            if not obj.username:
+                obj.username = remote_image.user.username
+                obj.last_synced = timezone.now()
+            obj.save()
+            print('updated image %s' % remote_image.user.username)
         except InstagramImage.DoesNotExist:
             obj = InstagramImage()
             obj.remote_id = remote_image.id
+            obj.username = remote_image.user.username
             obj.remote_standard_resolution_url = remote_image.get_standard_resolution_url()
             obj.remote_thumbnail_url = remote_image.images['thumbnail'].url
             obj.remote_low_resolution_url = remote_image.images['low_resolution'].url
             obj.created = remote_image.created_time
             obj.updated = timezone.now()
             obj.last_synced = timezone.now()
+            obj.username = remote_image.user.username
 
             if remote_image.caption:
                 obj.caption = remote_image.caption.text
