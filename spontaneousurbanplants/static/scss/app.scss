@@ -9,9 +9,25 @@ $visual-grid: true;
 body {
 	header {
 		@include outer-container;
-		nav {
+                nav { 
+                       @include outer-container;
+                       background: url('../../images/banner.png') no-repeat;
+                       background-position: 0;
+                       background-size: 100% auto;
+                       margin-bottom: 1.35446%;
+                       margin-top: 1.35446%;
+                       height: 0;
+                       padding-bottom: 9.25%;
+
+                         h1 {
+                        @include span-columns(6); 
+                        overflow: hidden;
+                        text-indent: -999999px;
+                        /*padding-bottom: 50%;*/
+                       }
 			ul {
-				float: right;
+                         @include span-columns(6);
+		         @include omega();
 			}
 		}
 	}
@@ -21,7 +37,23 @@ body {
 	}
 
 	footer {
+               margin-bottom: 1.35446%;
+               margin-top: 1.35446%;
+
 		@include outer-container;
+                p {
+                 font-size: .75em;
+                 @include span-columns(6);
+                }
+                ul {
+                 @include span-columns(6);
+                 @include omega();
+                 text-align: right;
+                 li { 
+                     font-size: .75em;
+                     display: inline;
+                 }
+                }
 	}
 }
 
