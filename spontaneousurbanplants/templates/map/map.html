@@ -21,9 +21,7 @@
 <nav class="map-nav attributes">
 	<ul>
 		{% for attribute in attribute_list %}
-		<li>
-			<p>{{ attribute.name }}</p>
-		</li>
+		<li style="background-image:url({{ attribute.icon.url }})"><a title="{{ attribute.hashtag }}" href="#">{{ attribute.name }}</a></li>
 		{% endfor %}
 	</ul>
 </nav>
@@ -33,9 +31,7 @@
 <nav class="map-nav plants">
 	<ul>
 		{% for plant in plant_list %}
-		<li>
-			<p>{{ plant.latin_name }}</p>
-		</li>
+		<li style="background-image:url({{ plant.icon.url }})"><a title="{{ plant.hashtag }}" href="#">{{ plant.common_name }}</a></li>
 		{% endfor %}
 	</ul>
 </nav>
@@ -60,13 +56,20 @@
 		fillOpacity: 0.4
 	};
 
-	var markers = new L.MarkerClusterGroup();
+	//var markers = new L.MarkerClusterGroup();
+
+	function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+	    //layer.bindPopup(feature);
+	   	alert("test!")
+	}
 
 	var locations = $.getJSON("{% url 'api-image-list' %}?format=json", function(data) {
 		L.geoJson(data, {
     		pointToLayer: function (feature, latlng) {
         		return L.circleMarker(latlng, geojsonMarkerOptions);
-    		}
+    		},
+    		onEachFeature: onEachFeature
 		}).addTo(map);
 	})
 

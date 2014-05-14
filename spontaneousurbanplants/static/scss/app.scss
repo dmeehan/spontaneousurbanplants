@@ -1,6 +1,10 @@
 @import "../bower_components/bourbon/dist/bourbon";
 @import "../bower_components/neat/app/assets/stylesheets/neat";
+@import "../bower_components/neat/app/assets/stylesheets/neat-helpers";
 @import "../bower_components/bitters/app/assets/stylesheets/bitters";
+
+$max-width: em(1088); // Max-width of the outer container
+$visual-grid: true;
 
 body {
 	header {
@@ -26,7 +30,7 @@ section.image-grid {
   		div {
   			@include span-columns(3); 
   			@include omega(4n);
-  			margin-bottom: 2.3675%;
+  			margin-bottom: 1.35446%;
   			img {
   				width: 100%;
   				display: block;
@@ -34,16 +38,57 @@ section.image-grid {
   		}
   	}
 
+nav.map-nav {
+	ul {
+		li {
+			height: 0;
+			overflow: hidden;
+			text-indent: -999999px;
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			background-position: top right;
+			a {
+				display: block;
+				padding: 100%;
+			}
+
+			&:hover {
+				background-position: 100% 100%;
+			}
+		}
+	}
+}
+
 nav.attributes {
 	@include span-columns(1);
+	ul {
+		@include outer-container;
+		li {
+			@include span-columns(12);
+			@include omega(1n);
+			padding-bottom: 53.2467532467532%;
+			margin-bottom: 4%;
+			background-size: 53.2467532467532% auto;
+		}
+	}
 }
 
 section.map {
 	@include span-columns(8);
-	height: 500px;
+	height: 0px;
+	padding-bottom: 40%;
 }
 
 nav.plants {
 	@include span-columns(3);
 	@include omega();
+	ul {
+		@include outer-container;
+		li {
+			@include span-columns(2);
+			@include omega(6n);
+			padding-bottom: 15.53795%;
+			margin-bottom: 1.35446%;
+		}
+	}
 }
