@@ -105,10 +105,18 @@ nav.attributes {
 	}
 }
 
-section.map {
+section.info {
 	@include span-columns(8);
-	height: 0px;
-	padding-bottom: 40%;
+	div.map {
+		height: 0px;
+		padding-bottom: 59%;
+	}
+	aside.description {
+		border:2px solid #d9e45c;
+		font-size: .75em;
+		margin-top: 1.35446%;
+		padding: 1.35446%;
+	}
 }
 
 nav.plants {

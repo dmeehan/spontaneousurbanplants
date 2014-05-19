@@ -14,6 +14,7 @@
 <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
 {% compress js %}
 <script src="{% static 'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js' %}"></script>
+<script src="{% static 'bower_components/leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
 {% endcompress %}
 {% endblock %}
 
@@ -21,23 +22,30 @@
 <nav class="map-nav attributes">
 	<ul>
 	    {% for attribute in attribute_list %}
-		<li style="background-image:url({{ attribute.icon.url }})"><a title="{{ attribute.hashtag }}" href="#">{{ attribute.name }}</a></li>
+		<li style="background-image:url({{ attribute.icon.url }})"><a data-tag="{{ attribute.hashtag }}"
+		data-description="{{ attribute.description }}"
+		title="{{ attribute.hashtag }}" class="layer-link" href="#">{{ attribute.name }}</a></li>
 	    {% endfor %}
 	</ul>
 </nav>
-<section class="map" id="map">
-<p>Map</p>
+<section class="info">
+	<div class="map" id="map"></div>
+	<aside class="description">Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons.</aside>
 </section>
 <nav class="map-nav plants">
 	<ul class="pre">
 		{% for plant in plant_list|slice:":8" %}
-		<li style="background-image:url({{ plant.icon.url }})"><a title="{{ plant.hashtag }}" href="#">{{ plant.common_name }}</a></li>
+		<li style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
+		data-description="{{ plant.common_name }} ({{ plant.latin_name }})"
+		title="{{ plant.hashtag }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
 		{% endfor %}
 	</ul>
         <ul class="post">
-                {% for plant in plant_list|slice:"8:" %}
-                <li style="background-image:url({{ plant.icon.url }})"><a title="{{ plant.hashtag }}" href="#">{{ plant.common_name }}</a></li>
-                {% endfor %}
+        {% for plant in plant_list|slice:"8:" %}
+        <li style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
+        data-description="{{ plant.common_name }} ({{ plant.latin_name }})"
+        title="{{ plant.hashtag }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
+        {% endfor %}
         </ul>
 
 
@@ -49,60 +57,126 @@
 	 // create a map in the "map" div, set the view to a given place and zoom
 	var map = L.map('map').setView([40.676898, -73.995308], 11);
 
+	//object to store layers for each tag
+	var mapLayerGroups = {};
+
 	// add an OpenStreetMap tile layer
-	L.tileLayer('http://api.tiles.mapbox.com/v3/mnegret.hi0oglpi/{z}/{x}/{y}.png', {
+	var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/mnegret.hi0oglpi/{z}/{x}/{y}.png', {
     	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 
-	var geojsonMarkerOptions = {
-    	radius: 30,
-		fillColor: "#384037",
+
+	var defaultMarkerStyle = {
+    	radius: 20,
+		fillColor: "#d9e45c",
 		color: "#000",
 		weight: 0,
 		opacity: 0,
-		fillOpacity: 0.4
+		fillOpacity: 0.8
 	};
 
-	//var markers = new L.MarkerClusterGroup();
-
-	function onEachFeature(feature, layer) {
-    // does this feature have a property named popupContent?
-	    //layer.bindPopup(feature);
-	   	alert("test!")
+	var markerColors = {
+		defaultColor: "#d9e45c",
+	    SUPDisturbanceadapted: "#eb1f89",
+	    SUPwildlife: "#74498e",
+	    SUPphytoremediation: "#edb800",
+	    SUPmedicinal: "#01a4a0",
+	    SUPmitigatingurbanheat: "#455657",
+	    SUPretainstormh2o: "#0e7599",
+	    SUPnoiseregulation: "#0a4874",
+	    SUPpreventerosion: "#dd4d15",
+	    SUPinvasive: "#f55100",
+	    SUPEdible: "#b7be1e",
+	    SUPcarboncapture: "#1bda9f",
 	}
+
+	var markers = new L.MarkerClusterGroup();
+
+	/*
+	 *for all features create a layerGroup for each feature type and add the feature to the    layerGroup
+	*/
+	function onEachFeature(feature, layer) {
+
+		var tags = feature.properties.tags
+
+		for (var i = 0; i < tags.length; i++) { 
+			var lg = mapLayerGroups[tags[i]];
+
+			if (lg === undefined) {
+	    	    lg = new L.layerGroup();
+	        	//store layer
+	    		mapLayerGroups[tags[i]] = lg;
+	    	}
+
+	    	lg.addLayer(layer);
+	    }
+
+    	var popupContent = '<img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '">';
+        layer.bindPopup(popupContent);     
+	}
+
+	//var locations = L.geoJson.ajax(
+    //  "{% url 'api-image-list' %}?format=json", {
+    //    pointToLayer: function (feature, latlng) {
+    //   		return L.circleMarker(latlng, defaultMarkerStyle).addTo(map);
+    //		},
+    //		onEachFeature: onEachFeature
+	//})
 
 	var locations = $.getJSON("{% url 'api-image-list' %}?format=json", function(data) {
 		L.geoJson(data, {
     		pointToLayer: function (feature, latlng) {
-        		return L.circleMarker(latlng, geojsonMarkerOptions);
+       		return L.circleMarker(latlng, defaultMarkerStyle);
     		},
     		onEachFeature: onEachFeature
 		}).addTo(map);
 	})
 
-	markers.addLayer(locations);
+	function removeAllLayers() {
+		map.eachLayer(function (layer) {
+			if (layer != streets) {
+    			map.removeLayer(layer)
+    		}
+		});
+		//for (var key in mapLayerGroups) {
+   		//	var layer = mapLayerGroups[key];
+   		//	if (map.hasLayer(layer)) {
+   		//		map.removeLayer(layer)
+   		//	}
+      	//}
+	}
+
+	$('a.layer-link').click(function (e) {
+		//Get the id of the element clicked
+       var tag = $(this).data('tag');
+       // look up layer object by id
+	   var tagLayer = mapLayerGroups[tag]; 
+	   removeAllLayers();
+       map.addLayer(tagLayer);
+       var text = $(this).data('description');
+       //$('aside.description').fadeOut('fast', function() {
+  	   //    $(this).text(text).fadeIn('fast');
+	   //});
+	   if (markerColors[tag] === undefined) {
+	       color = markerColors['defaultColor'];
+		} else {
+		   color = markerColors[tag];
+		}
+	   $('aside.description').text(text);
+	   $('aside.description').css( 'border-color', color )
+       e.preventDefault()
+       map.eachLayer(function (layer) {
+		if (layer != streets) {
+			layer.setStyle({ fillColor: color });
+		}
+	   });
+	})
 	
-	//map.addLayer(locations);
+	
 
-    // Initialize the map object
-    //var map = new L.Map('map', {
-    //    doubleClickZoom: true,
-    //    maxZoom: 20,
-    //    minZoom: 11
-    //});
-
-    // Prep the background tile layer
-    //var tileUrl = 'http://api.tiles.mapbox.com/v3/dmeehan.map-t3op9nm9/{z}/{x}/{y}.png';
-
-    //var tileUrl = 'http://tile.stamen.com/toner/{z}/{x}/{y}.jpg'
-
-    //var tileAttribution = 'Data &copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors, Design &copy; MapBox';
-
-    //var streets = L.tileLayer(tileUrl, {
-    //    attribution: tileAttribution,
-    //    minZoom: 11,
-    //    maxZoom: 20
-    //}).addTo(map);
+    //markers.addLayer(locations);
+	//locations.addTo(map);
+	//map.fitBounds(markers.getBounds());
 
 
 
