@@ -34,7 +34,7 @@ urlpatterns = patterns('',
 
     url(r'^map/', include('apps.map.urls')),
 
-    url(r'^about/', TemplateView.as_view(template_name='about.html'), name="about"),
+    url(r'^about/', login_required(TemplateView.as_view(template_name='about.html')), name="about"),
 
     # api
     url(r"^api/", include(router.urls)),
