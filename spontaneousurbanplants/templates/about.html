@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
+{% block body_class %}about{% endblock %}
 {% block content %}
 <aside>
-	<p> Green Studio continues research on Spontaneous Urban Plants and develop an interactive inventory based on Instagram, showing location, existing conditions and highlighting the S.U.P.’s ecological, cultural, and aesthetic values. Join us to develop the inventory on Instagram by tagging your photos with #spontaneousurbanplants.</p>
+	<p><strong>Spontaneous Urban Plants</strong> is an interactive inventory based on Instagram, showing location, existing conditions and highlighting the S.U.P.’s ecological, cultural, and aesthetic values. Join us and help us expand our inventory on Instagram by tagging your photos with <strong>#spontaneousurbanplants</strong>.</p>
+	<p>This project is created, designed and funded by <a href="http://futuregreenstudio.com">Future Green Studio</a>.</p>
 	<ol>
 		<li>Follow us on instagram</li>
 		<li>Plan your walk, visit sites where urban plants are likely to be present</li>
@@ -13,5 +15,6 @@
 	</ol>
 </aside>
 <section>
+	<img src="{% static 'images/transect_walk_web.png'  %}" />
 </section>
 {% endblock content %}
