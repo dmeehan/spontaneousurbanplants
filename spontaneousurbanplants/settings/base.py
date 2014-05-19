@@ -7,6 +7,8 @@ from sys import path
 
 from djcelery import setup_loader
 
+from django.core.urlresolvers import reverse_lazy
+
 #==============================================================================
 # Path 
 #==============================================================================
@@ -207,6 +209,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 #==============================================================================
 
 AUTH_USER_MODEL = 'auth.User'
+LOGIN_URL = reverse_lazy('admin:index')
 
 
 #==============================================================================

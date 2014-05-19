@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', LatestImagesView.as_view(), name='home'),
+    url(r'^$', login_required(LatestImagesView.as_view()), name='home'),
 
     url(r'^feed/', include('apps.instamedia.urls')),
 
