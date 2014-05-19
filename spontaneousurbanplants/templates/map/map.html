@@ -33,6 +33,10 @@
 	<aside class="description">Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons.</aside>
 </section>
 <nav class="map-nav plants">
+	<ul class="all">
+	   <li><a
+		title="all" class="layer-link active" href="{% url 'map' %}">{{ plant.common_name }}</a></li>
+	</ul>
 	<ul class="pre">
 		{% for plant in plant_list|slice:":8" %}
 		<li style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
@@ -58,6 +62,7 @@
 	var map = L.map('map').setView([40.676898, -73.995308], 11);
 
 	//object to store layers for each tag
+	
 	var mapLayerGroups = {};
 
 	// add an OpenStreetMap tile layer
@@ -111,6 +116,7 @@
 	    	lg.addLayer(layer);
 	    }
 
+
     	var popupContent = '<img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '">';
         layer.bindPopup(popupContent);     
 	}
@@ -138,12 +144,6 @@
     			map.removeLayer(layer)
     		}
 		});
-		//for (var key in mapLayerGroups) {
-   		//	var layer = mapLayerGroups[key];
-   		//	if (map.hasLayer(layer)) {
-   		//		map.removeLayer(layer)
-   		//	}
-      	//}
 	}
 
 	$('a.layer-link').click(function (e) {
@@ -154,9 +154,6 @@
 	   removeAllLayers();
        map.addLayer(tagLayer);
        var text = $(this).data('description');
-       //$('aside.description').fadeOut('fast', function() {
-  	   //    $(this).text(text).fadeIn('fast');
-	   //});
 	   if (markerColors[tag] === undefined) {
 	       color = markerColors['defaultColor'];
 		} else {
@@ -167,6 +164,7 @@
        e.preventDefault()
        map.eachLayer(function (layer) {
 		if (layer != streets) {
+			//console.log(layer)
 			layer.setStyle({ fillColor: color });
 		}
 	   });

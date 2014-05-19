@@ -4,36 +4,52 @@
 @import "../bower_components/bitters/app/assets/stylesheets/bitters";
 
 $max-width: em(1088); // Max-width of the outer container
-$visual-grid: true;
 
 body {
 	header {
 		@include outer-container;
-                nav { 
-                       @include outer-container;
-                       background: url('../../images/banner.png') no-repeat;
-                       background-position: 0;
-                       background-size: 100% auto;
-                       margin-bottom: 1.35446%;
-                       margin-top: 1.35446%;
-                       height: 0;
-                       padding-bottom: 9.25%;
+            nav { 
+               position: relative;
+               @include outer-container;
+               background: url('../../images/banner.png') no-repeat;
+               background-position: 0;
+               background-size: 100% auto;
+               margin-bottom: 2.70892%;
+               margin-top: 2.70892%;
+               height: 0;
+               padding-bottom: 9.25%;
 
-                         h1 {
-                        @include span-columns(6); 
-                        overflow: hidden;
-                        text-indent: -999999px;
-                        /*padding-bottom: 50%;*/
-                       }
-			ul {
-                         @include span-columns(6);
-		         @include omega();
-			}
+                h1 {
+	                @include span-columns(6); 
+	                overflow: hidden;
+	                a {
+	                	display: block;
+	                	width: 100%;
+	                	height: 100%;
+	                	text-indent: -999999px;
+	                	/*padding-bottom: 50%;*/
+	                }
+                }
+				ul {
+             		position: absolute;
+             		top: 50%;
+             		right: 8.3333%;
+	         		text-align: right;
+	         		margin: 0;
+	         		padding: 0;
+	         		li {
+	         			display: inline;
+	         			margin: 0;
+	         			padding: 0;
+	         		}
+				}
 		}
 	}
 
 	section {
-		@include outer-container;
+	    div.content {
+		   @include outer-container;
+	    }
 	}
 
 	footer {
@@ -63,12 +79,26 @@ section.image-grid {
   			@include span-columns(3); 
   			@include omega(4n);
   			margin-bottom: 1.35446%;
+  			position:relative;
+  			a {
+  				display:block;
+  				width:100%;
+  				&:hover {
+  					-moz-box-shadow: inset 0px 0px 200px rgba(0,0,0,0.9);
+    				-webkit-box-shadow: inset 0px 0px 200px rgba(0,0,0,0.9);
+    				box-shadow: inset 0px 0px 200px rgba(0,0,0,0.9);
+				}
+			}
+
   			img {
   				width: 100%;
   				display: block;
+  				position: relative;
+  				z-index: -1;
   			}
   		}
   	}
+
 
 nav.map-nav {
 	ul {
@@ -87,6 +117,7 @@ nav.map-nav {
 			&:hover {
 				background-position: 100% 100%;
 			}
+
 		}
 	}
 }
@@ -125,20 +156,52 @@ nav.plants {
 	ul {
 		@include outer-container;
 		li {
-			@include span-columns(2);
 			padding-bottom: 15.53795%;
 			margin-bottom: 1.35446%;
 		}
 	}
-        ul.pre {
-                li {
-               	 @include omega(4n);
-              }
-        }
-        ul.post {
-                li {
-                  @include omega(6n);
-               }
-        }
 
+	ul.all {
+		li {
+			@include shift(8);
+			@include span-columns(4);
+			background: url('../../images/all.png') no-repeat;
+			background-size: 100% auto;
+			padding-bottom: 32.43036%;
+			margin-bottom: -32.43036%;
+			&:hover {
+				background-position: 100% 100%;
+			}
+		}
+	}
+
+    ul.pre {
+        li {
+           @include span-columns(2);
+           @include omega(4n);
+        }
+     }
+
+     ul.post {
+        li {
+        	@include span-columns(2);
+        	@include omega(6n);
+        }
+     }
+
+}
+
+
+body.about {
+	section {
+	   div.content {
+	       aside {
+		        @include span-columns(4);
+	       }
+		   section {
+			    @include span-columns(8);
+			    @include omega();
+		   }
+	   }
+	}
 }
