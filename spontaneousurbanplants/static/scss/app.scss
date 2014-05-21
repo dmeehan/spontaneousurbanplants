@@ -20,7 +20,7 @@ body {
                padding-bottom: 9.25%;
 
                 h1 {
-	                @include span-columns(6); 
+	                @include span-columns(8); 
 	                overflow: hidden;
 	                a {
 	                	display: block;
@@ -31,10 +31,15 @@ body {
 	                }
                 }
 	        ul {
-                   @include span-columns(6);
+                   position: absolute;
+                   top: 25%;
+                   right: 0;
+                   @include span-columns(4);
+                   @include omega();
 	           @include outer-container();
 	           li {
                      @include span-columns(4);
+                     @include omega(3n);
 	           }
 		}
 	    }
@@ -102,7 +107,7 @@ nav.map-nav {
 			text-indent: -999999px;
 			background-size: 100% auto;
 			background-repeat: no-repeat;
-			background-position: top right;
+			background-position: top left;
 			a {
 				display: block;
 				padding: 100%;
