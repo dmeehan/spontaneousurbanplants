@@ -30,20 +30,14 @@ body {
 	                	/*padding-bottom: 50%;*/
 	                }
                 }
-				ul {
-             		position: absolute;
-             		top: 50%;
-             		right: 8.3333%;
-	         		text-align: right;
-	         		margin: 0;
-	         		padding: 0;
-	         		li {
-	         			display: inline;
-	         			margin: 0;
-	         			padding: 0;
-	         		}
-				}
+	        ul {
+                   @include span-columns(6);
+	           @include outer-container();
+	           li {
+                     @include span-columns(4);
+	           }
 		}
+	    }
 	}
 
 	section {
