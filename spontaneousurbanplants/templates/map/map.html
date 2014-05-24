@@ -23,6 +23,7 @@
 	<ul>
 	    {% for attribute in attribute_list %}
 		<li style="background-image:url({{ attribute.icon.url }})"><a data-tag="{{ attribute.hashtag }}"
+		data-name="{{ attribute.name }}: "
 		data-description="{{ attribute.description }}"
 		title="{{ attribute.hashtag }}" class="layer-link" href="#">{{ attribute.name }}</a></li>
 	    {% endfor %}
@@ -30,27 +31,29 @@
 </nav>
 <section class="info">
 	<div class="map" id="map"></div>
-	<aside class="description">Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons.</aside>
+	<aside class="details">
+		<strong class="name"></strong>
+		<span class="description">Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons.</span>
+	</aside>
 </section>
 <nav class="map-nav plants">
-	<ul class="all">
-	   <li><a
-		title="all" class="layer-link active" href="{% url 'map' %}">{{ plant.common_name }}</a></li>
-	</ul>
-	<ul class="pre">
-		{% for plant in plant_list|slice:":8" %}
-		<li style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
-		data-description="{{ plant.common_name }} ({{ plant.latin_name }})"
+	<ul>
+	   
+		{% for plant in plant_list|slice:":6" %}
+		<li class="pre" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
+		data-name="{{ plant.latin_name }} "
+		data-description="({{ plant.common_name }})"
 		title="{{ plant.hashtag }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
 		{% endfor %}
 	</ul>
-        <ul class="post">
-        {% for plant in plant_list|slice:"8:" %}
-        <li style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
-        data-description="{{ plant.common_name }} ({{ plant.latin_name }})"
-        title="{{ plant.hashtag }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
-        {% endfor %}
-        </ul>
+	<ul>
+		{% for plant in plant_list|slice:"6:" %}
+		<li class="post" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
+		data-name="{{ plant.latin_name }} "
+		data-description="({{ plant.common_name }})"
+		title="{{ plant.hashtag }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
+		{% endfor %}
+    </ul>
 
 
 </nav>
@@ -72,12 +75,12 @@
 
 
 	var defaultMarkerStyle = {
-    	radius: 20,
+    	radius: 10,
 		fillColor: "#d9e45c",
 		color: "#000",
 		weight: 0,
 		opacity: 0,
-		fillOpacity: 0.8
+		fillOpacity: 0.7
 	};
 
 	var markerColors = {
@@ -153,14 +156,17 @@
 	   var tagLayer = mapLayerGroups[tag]; 
 	   removeAllLayers();
        map.addLayer(tagLayer);
-       var text = $(this).data('description');
+  
 	   if (markerColors[tag] === undefined) {
 	       color = markerColors['defaultColor'];
 		} else {
 		   color = markerColors[tag];
 		}
-	   $('aside.description').text(text);
-	   $('aside.description').css( 'border-color', color )
+	   $('.name').text($(this).data('name'));
+	   $('.description').text($(this).data('description'));
+	   $('aside.details').css( 'border-color', color )
+	   $('.map-nav ul li').removeClass("active");
+	   $(this).parent().toggleClass("active");
        e.preventDefault()
        map.eachLayer(function (layer) {
 		if (layer != streets) {

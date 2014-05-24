@@ -20,7 +20,7 @@ body {
                padding-bottom: 9.25%;
 
                 h1 {
-	                @include span-columns(8); 
+	                @include span-columns(16); 
 	                overflow: hidden;
 	                a {
 	                	display: block;
@@ -34,11 +34,11 @@ body {
                    position: absolute;
                    top: 25%;
                    right: 0;
-                   @include span-columns(4);
+                   @include span-columns(8);
                    @include omega();
 	           @include outer-container();
 	           li {
-                     @include span-columns(4);
+                     @include span-columns(8);
                      @include omega(3n);
 	           }
 		}
@@ -58,10 +58,10 @@ body {
 		@include outer-container;
                 p {
                  font-size: .75em;
-                 @include span-columns(6);
+                 @include span-columns(12);
                 }
                 ul {
-                 @include span-columns(6);
+                 @include span-columns(12);
                  @include omega();
                  text-align: right;
                  li { 
@@ -75,7 +75,7 @@ body {
 section.image-grid { 
 	@include outer-container;
   		div {
-  			@include span-columns(3); 
+  			@include span-columns(6); 
   			@include omega(4n);
   			margin-bottom: 1.35446%;
   			position:relative;
@@ -110,13 +110,15 @@ nav.map-nav {
 			background-position: top left;
 			a {
 				display: block;
-				padding: 100%;
+				padding-top: 100%;
 			}
 
 			&:hover {
 				background-position: 100% 100%;
 			}
-
+		}
+		li.active {
+				background-position: 100% 100%;
 		}
 	}
 }
@@ -124,81 +126,66 @@ nav.map-nav {
 nav.attributes {
 	@include span-columns(1);
 	ul {
-		@include outer-container;
 		li {
-			@include span-columns(12);
+			@include span-columns(1 of 1);
 			@include omega(1n);
-			padding-bottom: 53.2467532467532%;
-			margin-bottom: 4%;
-			background-size: 53.2467532467532% auto;
+			padding-bottom: 100%;
+			margin-bottom: 19.0991%;
 		}
 	}
 }
 
 section.info {
-	@include span-columns(8);
+	@include span-columns(18);
 	div.map {
 		height: 0px;
-		padding-bottom: 59%;
+		padding-bottom: 61%;
+		@include span-columns(16 of 18);
+		@include shift(1);
 	}
-	aside.description {
+	aside.details {
+		@include span-columns(16 of 18);
+		@include shift(1);
 		border:2px solid #d9e45c;
 		font-size: .75em;
 		margin-top: 1.35446%;
 		padding: 1.35446%;
-	}
+		clear: both;
+    }
 }
 
 nav.plants {
-	@include span-columns(3);
+	@include span-columns(5);
 	@include omega();
 	ul {
-		@include outer-container;
 		li {
-			padding-bottom: 15.53795%;
-			margin-bottom: 1.35446%;
+			@include span-columns(1 of 5);
+			padding-bottom: 17.34917%;
+			margin-bottom: 3.31354%;
 		}
-	}
+		li.pre {
+			@include omega(3n);
+		}
 
-	ul.all {
-		li {
-			@include shift(8);
-			@include span-columns(4);
-			background: url('../../images/all.png') no-repeat;
-			background-size: 100% auto;
-			padding-bottom: 32.43036%;
-			margin-bottom: -32.43036%;
-			&:hover {
-				background-position: 100% 100%;
+		li.post {
+			@include omega(5n);
+		
+			&:first-of-type {
+				clear: both;
 			}
 		}
 	}
 
-    ul.pre {
-        li {
-           @include span-columns(2);
-           @include omega(4n);
-        }
-     }
-
-     ul.post {
-        li {
-        	@include span-columns(2);
-        	@include omega(6n);
-        }
-     }
-
 }
-
 
 body.about {
 	section {
 	   div.content {
 	       aside {
-		        @include span-columns(4);
+		        @include span-columns(8);
 	       }
 		   section {
-			    @include span-columns(8);
+			    @include span-columns(16);
 			    @include omega();
 		   }
 	   }
