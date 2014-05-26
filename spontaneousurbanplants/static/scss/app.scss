@@ -27,7 +27,6 @@ body {
 	                	width: 100%;
 	                	height: 100%;
 	                	text-indent: -999999px;
-	                	/*padding-bottom: 50%;*/
 	                }
                 }
 	        ul {
@@ -110,6 +109,7 @@ nav.map-nav {
 			background-position: top left;
 			a {
 				display: block;
+				height:0;
 				padding-top: 100%;
 			}
 
@@ -157,12 +157,33 @@ section.info {
 nav.plants {
 	@include span-columns(5);
 	@include omega();
+	position: relative;
 	ul {
 		li {
 			@include span-columns(1 of 5);
 			padding-bottom: 17.34917%;
 			margin-bottom: 3.31354%;
 		}
+
+		li.all {
+			@include omega();
+			position: absolute;
+			top: 0;
+			right: 0;
+			@include span-columns(2 of 5);
+			background: url('../../images/all.png');
+			background-size: 100% auto;
+			padding-bottom: 38.01188%;
+
+			&:hover {
+				background-position: 100% 100%;
+			}
+		}
+
+		li.active {
+			background-position: 100% 100%;
+		}
+
 		li.pre {
 			@include omega(3n);
 		}

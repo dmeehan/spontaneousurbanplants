@@ -1,8 +1,12 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'bower_components/lightbox2/css/lightbox.css' %}" />
+{% endblock %}
 {% block content %}
 <section>
-	<img src="{{ image.remote_standard_resolution_url }}" />
+	<a data-lightbox="image-1" href="{{ image.remote_standard_resolution_url }}">
+	<img src="{{ image.remote_thumbnail_url }}" /></a>
 	<p>{{ image.caption }}</p>
 	<p>{{ image.raw_tags }}</p>
 	<ul>
@@ -12,3 +16,11 @@
 	</ul>
 </section>
 {% endblock content %}
+{% block extra_body %}
+<script src="{% static 'bower_components/lightbox2/js/lightbox.min.js' %}"></script>
+<script>
+$(function () {
+    $('.fluidbox').fluidbox();
+})
+</script>
+{% endblock extra_body %}

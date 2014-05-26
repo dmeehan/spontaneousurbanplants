@@ -6,7 +6,8 @@
 {% block extra_style %}
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
 {% compress css %}
-<script src="{% static 'bower_components/leaflet.markercluster/dist/Markercluster.css' %}"></script>
+<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/Markercluster.css' %}" />
+<link rel="stylesheet" href="{% static 'bower_components/lightbox2/css/lightbox.css' %}" />
 {% endcompress %}
 {% endblock %}
 
@@ -14,7 +15,7 @@
 <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
 {% compress js %}
 <script src="{% static 'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js' %}"></script>
-<script src="{% static 'bower_components/leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
+<script src="{% static 'bower_components/lightbox2/js/lightbox.min.js' %}"></script>
 {% endcompress %}
 {% endblock %}
 
@@ -25,7 +26,7 @@
 		<li style="background-image:url({{ attribute.icon.url }})"><a data-tag="{{ attribute.hashtag }}"
 		data-name="{{ attribute.name }}: "
 		data-description="{{ attribute.description }}"
-		title="{{ attribute.hashtag }}" class="layer-link" href="#">{{ attribute.name }}</a></li>
+		title="{{ attribute.name }}" class="layer-link" href="#">{{ attribute.name }}</a></li>
 	    {% endfor %}
 	</ul>
 </nav>
@@ -38,12 +39,17 @@
 </section>
 <nav class="map-nav plants">
 	<ul>
-	   
+	<li class="all active"><a data-tag="all"
+		data-name=""
+		data-description="Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons."
+		title="All" class="layer-link" href="#">{{ plant.common_name }}</a></li>
+	</ul>
+	<ul>
 		{% for plant in plant_list|slice:":6" %}
 		<li class="pre" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
-		title="{{ plant.hashtag }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
+		title="{{ plant.latin_name }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
 		{% endfor %}
 	</ul>
 	<ul>
@@ -51,7 +57,7 @@
 		<li class="post" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
-		title="{{ plant.hashtag }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
+		title="{{ plant.latin_name }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
 		{% endfor %}
     </ul>
 
@@ -103,6 +109,12 @@
 	/*
 	 *for all features create a layerGroup for each feature type and add the feature to the    layerGroup
 	*/
+
+	function bindLightbox(e) {
+		console.log(this);
+	}
+
+
 	function onEachFeature(feature, layer) {
 
 		var tags = feature.properties.tags
@@ -119,18 +131,19 @@
 	    	lg.addLayer(layer);
 	    }
 
+	    var all_lg = mapLayerGroups['all']
 
-    	var popupContent = '<img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '">';
-        layer.bindPopup(popupContent);     
+	    if (all_lg === undefined) {
+	    	all_lg = new L.layerGroup();
+	    	mapLayerGroups['all'] = all_lg
+	    }
+
+	    all_lg.addLayer(layer);
+
+
+    	var popupContent = '<a data-lightbox="' + feature.id + '"" data-title="' + feature.properties.caption + '"" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+        layer.bindPopup(popupContent);   
 	}
-
-	//var locations = L.geoJson.ajax(
-    //  "{% url 'api-image-list' %}?format=json", {
-    //    pointToLayer: function (feature, latlng) {
-    //   		return L.circleMarker(latlng, defaultMarkerStyle).addTo(map);
-    //		},
-    //		onEachFeature: onEachFeature
-	//})
 
 	var locations = $.getJSON("{% url 'api-image-list' %}?format=json", function(data) {
 		L.geoJson(data, {
@@ -176,13 +189,5 @@
 	   });
 	})
 	
-	
-
-    //markers.addLayer(locations);
-	//locations.addTo(map);
-	//map.fitBounds(markers.getBounds());
-
-
-
 </script>
 {% endblock extra_body %}
