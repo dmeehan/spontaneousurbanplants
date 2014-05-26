@@ -6,7 +6,7 @@ requests # http library
 simplejson # json tools
 python-instagram # instagram api
 
-django==1.6.3
+django==1.6.5
 
 # django third party modules
 south
@@ -16,5 +16,6 @@ django-celery
 djangorestframework-gis # REST framework + GIS addons
 easy-thumbnails # image manipulation
 django-grappelli==2.5.3 # admin extras
-django-js-reverse # use url tags in javascript
+django-positions==0.5.1 # ordering field
+
 

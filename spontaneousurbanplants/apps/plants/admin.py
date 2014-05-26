@@ -13,5 +13,10 @@ class PlantAdmin(admin.ModelAdmin):
         'm2m': ['attributes'],
     }
 
-admin.site.register(Attribute)
+class AttributeAdmin(admin.ModelAdmin):
+    list_display = ['name', 'order', 'description',]
+    list_editable = ['order', ]
+    
+
+admin.site.register(Attribute, AttributeAdmin)
 admin.site.register(Plant, PlantAdmin)

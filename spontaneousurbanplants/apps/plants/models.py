@@ -3,6 +3,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from positions.fields import PositionField
+
 from apps.instamedia.models import InstagramTag
 
 
@@ -18,6 +20,11 @@ class Attribute(models.Model):
     icon = models.ImageField(upload_to="images/icons", 
                               blank=True, 
                               null=True)
+
+    order = PositionField()
+
+    class Meta:
+      ordering = ["order"]
 
     @staticmethod
     def autocomplete_search_fields():
