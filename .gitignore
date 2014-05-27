@@ -1,9 +1,6 @@
 *.log
 *.pot
 *.pyc
-media/
-assets/
-uploads/
 .sass-cache/
 .DS_Store
 .env/
