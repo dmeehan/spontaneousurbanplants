@@ -96,6 +96,13 @@ body {
                  li { 
                      font-size: .75em;
                      display: inline;
+                     &:after {
+                     	content: "|";
+                     	padding: 0 8px;
+                     }
+                     &:last-child:after {
+                     	content: "";
+                     }
                  }
                 }
 	}

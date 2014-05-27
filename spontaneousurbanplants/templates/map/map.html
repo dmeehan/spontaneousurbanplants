@@ -82,6 +82,7 @@
 	//object to store layers for each tag
 	
 	var mapLayerGroups = {};
+	//var clusterLayerGroups = {};
 
 	// add an OpenStreetMap tile layer
 	var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/mnegret.hi0oglpi/{z}/{x}/{y}.png', {
@@ -91,15 +92,15 @@
 
 	var defaultMarkerStyle = {
     	radius: 10,
-		fillColor: "#d9e45c",
-		color: "#000",
+		fillColor: "#ADB649",
+		color: "#ADB649",
 		weight: 0,
 		opacity: 0,
-		fillOpacity: 0.7
+		fillOpacity: 0.55
 	};
 
 	var markerColors = {
-		defaultColor: "#d9e45c",
+		defaultColor: "#ADB649",
 	    SUPDisturbanceadapted: "#eb1f89",
 	    SUPwildlife: "#74498e",
 	    SUPphytoremediation: "#FFD847",
@@ -113,15 +114,22 @@
 	    SUPcarboncapture: "#1bda9f",
 	}
 
-	var markers = new L.MarkerClusterGroup();
+	//map.on('zoomend', function () {
+	//	var zoom = map.getZoom();
+	//	var ratio = zoom/20;
+	//	if (ratio > 1) {
+	//		ratio = 1
+	//	}
+	//	map.eachLayer(function (layer) {
+	//		if (layer != streets) {
+	//    		layer.setStyle({ fillOpacity: ratio })
+	//    	}
+	//	})
+	//}); 
 
 	/*
 	 *for all features create a layerGroup for each feature type and add the feature to the    layerGroup
 	*/
-
-	function bindLightbox(e) {
-		console.log(this);
-	}
 
 
 	function onEachFeature(feature, layer) {
@@ -130,6 +138,7 @@
 
 		for (var i = 0; i < tags.length; i++) { 
 			var lg = mapLayerGroups[tags[i]];
+			//var m = clusterLayerGroups[tags[i]];
 
 			if (lg === undefined) {
 	    	    lg = new L.layerGroup();
@@ -137,20 +146,33 @@
 	    		mapLayerGroups[tags[i]] = lg;
 	    	}
 
+	    	//if (m === undefined) {
+	    	//    m = new L.MarkerClusterGroup();
+	        	//store layer
+	    	//	clusterLayerGroups[tags[i]] = m;
+	    	//}
+
 	    	lg.addLayer(layer);
+	    	//m.addLayer(layer);
 	    }
 
 	    var all_lg = mapLayerGroups['all']
+	    //var all_m = clusterLayerGroups['all']
 
 	    if (all_lg === undefined) {
 	    	all_lg = new L.layerGroup();
 	    	mapLayerGroups['all'] = all_lg
 	    }
 
+	    //if (all_m === undefined) {
+	    //	all_m = new L.MarkerClusterGroup();
+	    //	clusterLayerGroups['all'] = all_m
+	    //}
+
 	    all_lg.addLayer(layer);
+	    //all_m.addLayer(layer);
 
-
-    	var popupContent = '<a data-lightbox="' + feature.id + '"" data-title="' + feature.properties.caption + '"" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+    	var popupContent = '<a data-lightbox="' + feature.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
         layer.bindPopup(popupContent);   
 	}
 
