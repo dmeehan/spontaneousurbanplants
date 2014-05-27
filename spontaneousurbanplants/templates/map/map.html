@@ -8,6 +8,7 @@
 {% compress css %}
 <link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/Markercluster.css' %}" />
 <link rel="stylesheet" href="{% static 'bower_components/lightbox2/css/lightbox.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/tooltipster/css/tooltipster.css' %}" />
 {% endcompress %}
 {% endblock %}
 
@@ -16,6 +17,7 @@
 {% compress js %}
 <script src="{% static 'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js' %}"></script>
 <script src="{% static 'bower_components/lightbox2/js/lightbox.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/tooltipster/js/jquery.tooltipster.min.js' %}"></script>
 {% endcompress %}
 {% endblock %}
 
@@ -26,7 +28,8 @@
 		<li style="background-image:url({{ attribute.icon.url }})"><a data-tag="{{ attribute.hashtag }}"
 		data-name="{{ attribute.name }}: "
 		data-description="{{ attribute.description }}"
-		title="{{ attribute.name }}" class="layer-link" href="#">{{ attribute.name }}</a></li>
+		title="{{ attribute.name }}" 
+		class="layer-link tooltip" href="#">{{ attribute.name }}</a></li>
 	    {% endfor %}
 	</ul>
 </nav>
@@ -42,14 +45,18 @@
 	<li class="all active"><a data-tag="all"
 		data-name=""
 		data-description="Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons."
-		title="All" class="layer-link" href="#">{{ plant.common_name }}</a></li>
+		title="All" 
+		class="layer-link tooltip" 
+		href="#">{{ plant.common_name }}</a></li>
 	</ul>
 	<ul>
 		{% for plant in plant_list|slice:":6" %}
 		<li class="pre" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
-		title="{{ plant.latin_name }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
+		title="{{ plant.latin_name }}" 
+		class="layer-link tooltip"
+		href="#">{{ plant.common_name }}</a></li>
 		{% endfor %}
 	</ul>
 	<ul>
@@ -57,7 +64,9 @@
 		<li class="post" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
-		title="{{ plant.latin_name }}" class="layer-link" href="#">{{ plant.common_name }}</a></li>
+		title="{{ plant.latin_name }}" 
+		class="layer-link tooltip"
+		href="#">{{ plant.common_name }}</a></li>
 		{% endfor %}
     </ul>
 
@@ -189,5 +198,13 @@
 	   });
 	})
 	
+</script>
+
+<script>
+     $(document).ready(function() {
+     	$('.tooltip').tooltipster({
+   			position: 'right'
+     	});
+     });
 </script>
 {% endblock extra_body %}
