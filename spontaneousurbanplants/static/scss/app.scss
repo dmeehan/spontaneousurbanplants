@@ -5,28 +5,10 @@
 
 $max-width: em(1088); // Max-width of the outer container
 
-
-a[title]:hover:after {
-  content: attr(title);
-  padding: 4px 8px;
-  color: #333;
-  position: absolute;
-  left: 0;
-  top: 100%;
-  white-space: nowrap;
-  z-index: 20px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -moz-box-shadow: 0px 0px 4px #222;
-  -webkit-box-shadow: 0px 0px 4px #222;
-  box-shadow: 0px 0px 4px #222;
-  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eeeeee),color-stop(1, #cccccc));
-  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+div.leaflet-control-attribution {
+	a {
+		color: #475146;
+	}
 }
 
 body {
@@ -44,7 +26,7 @@ body {
                padding-bottom: 9.25%;
 
                 h1 {
-	                @include span-columns(16); 
+	                @include span-columns(15); 
 	                overflow: hidden;
 	                a {
 	                	display: block;
@@ -55,14 +37,38 @@ body {
                 }
 	        ul {
                    position: absolute;
-                   top: 25%;
+                   top: 30%;
                    right: 0;
                    @include span-columns(8);
+                   @include shift(1);
                    @include omega();
-	           @include outer-container();
 	           li {
-                     @include span-columns(8);
+                     @include span-columns(2 of 8);
                      @include omega(3n);
+
+                     a {
+                     	display: block;
+                     	height:0;
+                     	padding-bottom: 25%;
+                     	background-size: auto 100%;
+                     	text-indent: -99999px
+                     }
+                     #about-nav {
+                     	background: url('../../images/about.png') no-repeat;
+                     	background-size: auto 100%;
+                     	background-position: 50% 50%;
+
+                     }
+                     #map-nav {
+                     	background: url('../../images/map.png') no-repeat;
+                     	background-size: auto 100%;
+                     	background-position: 50% 50%;
+                     }
+                     #gallery-nav {
+                     	background: url('../../images/gallery.png') no-repeat;
+                     	background-size: auto 100%;
+                     	background-position: 50% 50%;
+                     }
 	           }
 		}
 	    }
@@ -172,6 +178,7 @@ section.info {
 		@include shift(1);
 		border:2px solid #d9e45c;
 		font-size: .75em;
+		line-height: 1.2em;
 		margin-top: 1.35446%;
 		padding: 1.35446%;
 		clear: both;
