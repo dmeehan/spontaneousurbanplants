@@ -113,7 +113,9 @@ section.image-grid {
   		div {
   			@include span-columns(6); 
   			@include omega(4n);
-  			margin-bottom: 1.35446%;
+  			margin-bottom: 0.67267%;
+  			padding-bottom: 0.67267%;
+  			padding-right: 0.67267%;
   			position:relative;
   			a {
   				display:block;
