@@ -6,5 +6,5 @@ from django.contrib.auth.decorators import login_required
 from .views import MapView
 
 urlpatterns = patterns('',
-	url(r'^$', login_required(MapView.as_view()), name='map'),
+	url(r'^$', MapView.as_view(), name='map'),
 )
