@@ -242,32 +242,16 @@ nav.plants {
 body.about {
 	section {
 	   div.content {
-	   	   position: relative;
+	       position: relative;
 	       aside {
-		        @include span-columns(9);
-		        ol.steps {
-		        	padding-top: 20px;
-		        	li {
-		        		span.order {
-		        			font-size: 2em;
-		        			float: left;
-		        			margin-right:10px;
-		        			margin-bottom: 10px;
-		        		}
-
-
-		        		background: #7E857D;
-		        		color: white;
-		        		font-weight: bold;
-		        		margin-bottom: 20px;
-		        		padding: 5px 10px;
-		        	}
-		        }
+                 font-size: .75em;
+		 @include span-columns(12);
 	       }
-		   section {
-			    @include span-columns(15);
-			    @include omega();
-		   }
+	    
+	       section {
+                 @include span-columns(12);
+                 @include omega();
+	       }
 	   }
 	}
 }
