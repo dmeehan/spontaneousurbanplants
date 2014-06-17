@@ -231,6 +231,12 @@ class InstagramTag(models.Model):
     def delete_subscription(self):
         api.delete_subscriptions(id=self.subscription_id)
 
+    def image_count(self):
+        return self.instagramimage_set.count()
+
+    image_count.short_description = 'image count'
+    image_count.allow_tags = True
+
 
     @staticmethod
     def autocomplete_search_fields():

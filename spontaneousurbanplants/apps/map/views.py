@@ -47,7 +47,7 @@ class ImageApiViewSet(BBoxMixin, viewsets.ReadOnlyModelViewSet):
     """
 
     def get_queryset(self):
-        queryset = InstagramImage.objects.prefetch_related().filter(verified=True)
+        queryset = InstagramImage.objects.all()
         tag = self.request.QUERY_PARAMS.get('tag', None)
         if tag:
             queryset = queryset.filter(tags__name__iexact=tag)

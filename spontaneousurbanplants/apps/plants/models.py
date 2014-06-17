@@ -21,6 +21,7 @@ class Attribute(models.Model):
                               blank=True, 
                               null=True)
 
+    visible = models.BooleanField(default=True)
     order = PositionField()
 
     class Meta:
@@ -49,6 +50,9 @@ class Plant(models.Model):
                               null=True)
 
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
+
+    visible = models.BooleanField(default=True)
+    order = PositionField()
 
     def __unicode__(self):
         return u'%s' % (self.latin_name)

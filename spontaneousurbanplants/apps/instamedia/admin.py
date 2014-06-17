@@ -25,7 +25,7 @@ class InstagramImageAdmin(admin.ModelAdmin):
     }
 
 class InstagramTagAdmin(admin.ModelAdmin):
-    list_display = ['name', 'sync', 'subscribe', 'moderate']
+    list_display = ['name', 'sync', 'subscribe', 'moderate', 'image_count']
 
 admin.site.register(InstagramImage, InstagramImageAdmin)
 admin.site.register(InstagramTag, InstagramTagAdmin)

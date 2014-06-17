@@ -1,43 +1,76 @@
 	/* IE 6-8 fallback colors */
 .leaflet-oldie .marker-cluster-small {
-	background-color: rgb(181, 226, 140);
+	background-color: rgb(210, 223, 59);
 	}
 .leaflet-oldie .marker-cluster-small div {
-	background-color: rgb(110, 204, 57);
+	background-color: rgb(210, 223, 59);
 	}
 
 .leaflet-oldie .marker-cluster-medium {
-	background-color: rgb(241, 211, 87);
+	background-color: rgb(210, 223, 59);
 	}
 .leaflet-oldie .marker-cluster-medium div {
-	background-color: rgb(240, 194, 12);
+	background-color: rgb(210, 223, 59);
 	}
 
 .leaflet-oldie .marker-cluster-large {
-	background-color: rgb(253, 156, 115);
+	background-color: rgb(210, 223, 59);
 	}
 .leaflet-oldie .marker-cluster-large div {
-	background-color: rgb(241, 128, 23);
+	background-color: rgb(210, 223, 59,);
 }
 
 .marker-cluster {
-	background-color: rgba(210, 223, 59, 0.8);
+	background-color: rgba(210, 223, 59, 0.7);
 	background-clip: padding-box;
 	border-radius: 50%;
 	border: 1px solid #fff;
 }
 
-.marker-cluster-SUPDisturbanceadapated {
-	background-color: "#eb1f89"
+.marker-cluster-SUPDisturbanceadapted {
+	background-color: #eb1f89!important;
+}
+
+.marker-cluster-SUPwildlife {
+	background-color: #74498e!important;
+}
+
+.marker-cluster-SUPphytoremediation {
+	background-color: #FFD847!important;
 }
 
 .marker-cluster-SUPmedicinal {
-	background-color: "#eb1f89"
+	background-color: #01a4a0!important;
+}
+
+.marker-cluster-SUPmitigatingurbanheat {
+	background-color: #455657!important;
+}
+
+.marker-cluster-SUPretainstormh2o {
+	background-color: #0e7599!important;
+}
+
+.marker-cluster-SUPnoiseregulation {
+	background-color: #0a4874!important;
+}
+
+.marker-cluster-SUPpreventerosion {
+	background-color: #dd4d15!important;
+}
+
+.marker-cluster-SUPinvasive {
+	background-color: #f55100!important;
 }
 
 .marker-cluster-SUPEdible {
-	background-color: rgba(255, 0, 0, 0.8);
+	background-color: #006838!important;
 }
+
+.marker-cluster-SUPcarboncapture {
+	background-color: #1bda9f!important;
+}
+
 
 
 .marker-cluster span {
@@ -58,7 +91,7 @@
 
 
 .marker-cluster-small {
-	background-color: rgba(210, 223, 59, 0.9);
+	opacity: 0.9;
 }
 
 .marker-cluster-small span {
@@ -70,7 +103,7 @@
 }
 
 .marker-cluster-medium {
-	background-color: rgba(210, 223, 59, 0.8);
+	opacity: 0.8;
 }
 
 .marker-cluster-medium span {
@@ -82,7 +115,7 @@
 }
 
 .marker-cluster-large {
-	background-color: rgba(210, 223, 59, 0.7);
+	opacity: 0.7;
 	
 }
 
