@@ -17,8 +17,8 @@
 {% compress js %}
 <script src="{% static 'bower_components/lightbox2/js/lightbox.min.js' %}"></script>
 <script src="{% static 'bower_components/leaflet/dist/leaflet.js' %}"></script>
-<script src="{% static 'bower_components/leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
 <script src="{% static 'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js' %}"></script>
+<script src="{% static 'bower_components/leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/tooltipster/js/jquery.tooltipster.min.js' %}"></script>
 {% endcompress %}
 {% endblock %}
@@ -100,7 +100,7 @@
 	    SUPpreventerosion: "#dd4d15",
 	    SUPinvasive: "#f55100",
 	    SUPEdible: "#006838",
-	    SUPSequesterCO2: "#1bda9f",
+	    SUPcarboncapture: "#1bda9f",
 	}
 
 
@@ -183,7 +183,7 @@
 	   var tagLayer = markerClusterGroups[tag];
 
 
-	   removeAllLayers();
+	   //removeAllLayers();
 	   map.addLayer(tagLayer);
 	   map.fitBounds(tagLayer);
 

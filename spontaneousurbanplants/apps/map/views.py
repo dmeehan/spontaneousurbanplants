@@ -32,8 +32,8 @@ class MapView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(MapView, self).get_context_data(**kwargs)
-		plants = Plant.objects.all()
-		attributes = Attribute.objects.all()
+		plants = Plant.objects.filter(visible=True)
+		attributes = Attribute.objects.filter(visible=True)
 		context.update({
 			'plant_list': plants,
 			'attribute_list': attributes

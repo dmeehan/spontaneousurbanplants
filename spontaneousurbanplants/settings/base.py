@@ -242,6 +242,7 @@ THIRD_PARTY_APPS = (
     'compressor', # static file management
     'djcelery', # asynchronous task queue
     'djsupervisor', # process mgmt
+    'leaflet', # maps
     'notification', # event notifications
     'rest_framework', # api
     'rest_framework_gis', # api geo add-ons
@@ -388,6 +389,10 @@ INSTAGRAM_REALTIME_CALLBACK_URL = 'http://spontaneousurbanplants.org/feed/realti
 NOTIFICATION_BACKENDS = [
     ("email", "notification.backends.email.EmailBackend"),
 ]
+
+LEAFLET_CONFIG = {
+    'TILES': 'http://api.tiles.mapbox.com/v3/mnegret.i9i0hhj2/{z}/{x}/{y}.png'
+}
 
 
 #==============================================================================

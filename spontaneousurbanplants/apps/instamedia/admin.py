@@ -3,6 +3,8 @@
 from django.contrib import admin
 from django.contrib import messages
 
+from leaflet.admin import LeafletGeoAdmin
+
 from .models import InstagramImage, InstagramTag
 
 def make_verified(modeladmin, request, queryset):
@@ -10,8 +12,8 @@ def make_verified(modeladmin, request, queryset):
 
 make_verified.short_description = "Mark selected images as verified"
 
-class InstagramImageAdmin(admin.ModelAdmin):
-    fields = ['remote_id', 'tags', 'username', 'image_file', 'verified',]
+class InstagramImageAdmin(LeafletGeoAdmin):
+    fields = ['remote_id', 'tags', 'username', 'image_file', 'verified', 'coordinates']
     list_display = ['thumbnail', 'verified', 'username', 
                     'caption', 'raw_tags', 'display_tags', 
                     'created', 'updated', 'last_synced',]

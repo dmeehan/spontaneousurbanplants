@@ -6,7 +6,8 @@ from .models import Attribute, Plant
 
 
 class PlantAdmin(admin.ModelAdmin):
-    list_display = ['latin_name', 'common_name', 'hashtag',]
+    list_display = ['latin_name', 'order', 'visible', 'common_name', 'hashtag',]
+    list_editable = ['order', 'visible' ]
     raw_id_fields = ('attributes',)
    
     autocomplete_lookup_fields = {
@@ -14,8 +15,8 @@ class PlantAdmin(admin.ModelAdmin):
     }
 
 class AttributeAdmin(admin.ModelAdmin):
-    list_display = ['name', 'order', 'description',]
-    list_editable = ['order', ]
+    list_display = ['name', 'order', 'visible', 'description',]
+    list_editable = ['order', 'visible' ]
     
 
 admin.site.register(Attribute, AttributeAdmin)
