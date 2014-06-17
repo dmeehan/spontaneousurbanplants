@@ -4,17 +4,21 @@
 {% block head_title %}Plant Map{% endblock %}
 
 {% block extra_style %}
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+<link rel="stylesheet" href="{% static 'bower_components/leaflet/dist/leaflet.css' %}" />
 {% compress css %}
+<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.css' %}" />
+<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.default.css' %}" />
 <link rel="stylesheet" href="{% static 'bower_components/lightbox2/css/lightbox.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/tooltipster/css/tooltipster.css' %}" />
 {% endcompress %}
 {% endblock %}
 
 {% block extra_js %}
-<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
 {% compress js %}
 <script src="{% static 'bower_components/lightbox2/js/lightbox.min.js' %}"></script>
+<script src="{% static 'bower_components/leaflet/dist/leaflet.js' %}"></script>
+<script src="{% static 'bower_components/leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
+<script src="{% static 'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/tooltipster/js/jquery.tooltipster.min.js' %}"></script>
 {% endcompress %}
 {% endblock %}
@@ -77,20 +81,16 @@
 	 // create a map in the "map" div, set the view to a given place and zoom
 	var map = L.map('map').setView([40.676898, -73.995308], 11);
 
-	//object to store layers for each tag
-	
-	var mapLayerGroups = {};
-	//var clusterLayerGroups = {};
-
 	// add an OpenStreetMap tile layer
-	var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/mnegret.hi0oglpi/{z}/{x}/{y}.png', {
+	var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/mnegret.i9i0hhj2/{z}/{x}/{y}.png', {
     	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 
+	var markerClusterGroups = {}
 
 	var defaultMarkerStyle = {
     	radius: 10,
-		fillColor: "#ADB649",
+		fillColor: "#d2df3b",
 		color: "#ADB649",
 		weight: 0,
 		opacity: 0,
@@ -98,7 +98,7 @@
 	};
 
 	var markerColors = {
-		defaultColor: "#ADB649",
+		defaultColor: "#d2df3b",
 	    SUPDisturbanceadapted: "#eb1f89",
 	    SUPwildlife: "#74498e",
 	    SUPphytoremediation: "#FFD847",
@@ -112,76 +112,62 @@
 	    SUPcarboncapture: "#1bda9f",
 	}
 
-	//map.on('zoomend', function () {
-	//	var zoom = map.getZoom();
-	//	var ratio = zoom/20;
-	//	if (ratio > 1) {
-	//		ratio = 1
-	//	}
-	//	map.eachLayer(function (layer) {
-	//		if (layer != streets) {
-	//    		layer.setStyle({ fillOpacity: ratio })
-	//    	}
-	//	})
-	//}); 
 
-	/*
-	 *for all features create a layerGroup for each feature type and add the feature to the    layerGroup
-	*/
+	function createIcon(cluster) {
+		var childCount = cluster.getChildCount();
+		var radius = 10;
+		var area = (Math.PI * (radius * radius)) * childCount;
+      	var size = Math.sqrt(area / Math.PI) * 1;
+      	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+      	var className = 'marker-cluster';
+      	return new L.DivIcon({ html: html, className: className, iconSize: new L.Point(size, size) });	
+	} 
+
 
 
 	function onEachFeature(feature, layer) {
-
 		var tags = feature.properties.tags
 
 		for (var i = 0; i < tags.length; i++) { 
-			var lg = mapLayerGroups[tags[i]];
-			//var m = clusterLayerGroups[tags[i]];
-
-			if (lg === undefined) {
-	    	    lg = new L.layerGroup();
+			var tag = tags[i]
+			var markers = markerClusterGroups[tag];
+		
+			if (markers === undefined) {
+				markers = L.markerClusterGroup({ 
+						singleMarkerMode: true,
+						maxClusterRadius: 30,
+						showCoverageOnHover: false,
+						iconCreateFunction: createIcon
+					});
 	        	//store layer
-	    		mapLayerGroups[tags[i]] = lg;
+	    		markerClusterGroups[tags[i]] = markers;
 	    	}
 
-	    	//if (m === undefined) {
-	    	//    m = new L.MarkerClusterGroup();
+	    	markers.addLayer(layer);
+	    }
+
+	    var all = markerClusterGroups['all'];
+
+	    if (all === undefined) {
+				all = L.markerClusterGroup({ 
+						singleMarkerMode: true,
+						maxClusterRadius: 30,
+						showCoverageOnHover: false,
+						iconCreateFunction: createIcon
+					});
 	        	//store layer
-	    	//	clusterLayerGroups[tags[i]] = m;
-	    	//}
-
-	    	lg.addLayer(layer);
-	    	//m.addLayer(layer);
+	    		markerClusterGroups[tags[i]] = all;
 	    }
 
-	    var all_lg = mapLayerGroups['all']
-	    //var all_m = clusterLayerGroups['all']
+	    all.addLayer(layer);
 
-	    if (all_lg === undefined) {
-	    	all_lg = new L.layerGroup();
-	    	mapLayerGroups['all'] = all_lg
-	    }
-
-	    //if (all_m === undefined) {
-	    //	all_m = new L.MarkerClusterGroup();
-	    //	clusterLayerGroups['all'] = all_m
-	    //}
-
-	    all_lg.addLayer(layer);
-	    //all_m.addLayer(layer);
-
-    	var popupContent = '<a data-lightbox="' + feature.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+    	var popupContent = '<a data-lightbox="' + feature.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '">'+feature.properties.tags+'<img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
         layer.bindPopup(popupContent);   
 	}
 
-	var locations = $.getJSON("{% url 'api-image-list' %}?format=json", function(data) {
-		L.geoJson(data, {
-    		pointToLayer: function (feature, latlng) {
-       		return L.circleMarker(latlng, defaultMarkerStyle);
-    		},
-    		onEachFeature: onEachFeature
-		}).addTo(map);
-	})
+	var locations = L.geoJson.ajax('{% url "api-image-list" %}?format=json', {
+		onEachFeature: onEachFeature
+	});
 
 	function removeAllLayers() {
 		map.eachLayer(function (layer) {
@@ -195,6 +181,7 @@
 		//Get the id of the element clicked
        var tag = $(this).data('tag');
        // look up layer object by id
+
 	   var tagLayer = mapLayerGroups[tag]; 
 
 	   removeAllLayers();
@@ -206,21 +193,23 @@
 		   color = markerColors[tag];
 	   }
 
+
+	   var tagLayer = markerClusterGroups[tag];
+	   var markerClass = 'marker-cluster-' + tag
+	   removeAllLayers();
+	   map.addLayer(tagLayer);
+	   map.fitBounds(tagLayer);
+
 	   $('.name').text($(this).data('name'));
 	   $('.description').text($(this).data('description'));
 	   $('aside.details').css( 'border-color', color )
 	   $('.map-nav ul li').removeClass("active");
 	   $(this).parent().toggleClass("active");
-       e.preventDefault()
-       map.eachLayer(function (layer) {
-		if (layer != streets) {
-			//console.log(layer)
-			layer.setStyle({ fillColor: color });
-		}
-	   });
+	   $('.marker-cluster').addClass(markerClass);
 	})
-	
+
 </script>
+
 
 <script>
      $(document).ready(function() {

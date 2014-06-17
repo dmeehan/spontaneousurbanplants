@@ -14,6 +14,7 @@ django-supervisor
 django-compressor # static file compression
 django-celery
 djangorestframework-gis # REST framework + GIS addons
+django-filter
 easy-thumbnails # image manipulation
 django-grappelli==2.5.3 # admin extras
 django-positions==0.5.1 # ordering field
