@@ -3,18 +3,44 @@
 {% block body_class %}about{% endblock %}
 {% block content %}
 <aside>
-	<p><strong>Spontaneous Urban Plants</strong> is an interactive inventory based on Instagram, showing location, existing conditions and highlighting the S.U.P.’s ecological, cultural, and aesthetic values. Join us and help us expand our inventory on Instagram by tagging your photos with <strong>#spontaneousurbanplants</strong>.</p>
-	<p>This project is created, designed and funded by <a href="http://futuregreenstudio.com">Future Green Studio</a>.</p>
-	<ol class="steps">
-		<li><span class="order">1</span><span class="item">Follow us on instagram</span></li>
-		<li><span class="order">2</span><span class="item">Plan your walk, visit sites where urban plants are likely to be present</span></li>
-		<li><span class="order">3</span>Find SUPs and capture their beauty in a picture</li>
-		<li><span class="order">4</span>Add hashtags and comments about the plant</li>
-		<li><span class="order">5</span>Upload to instagram and share with friends</li>
-		<li><span class="order">6</span>Check your input in the SUP map</li>
-	</ol>
+    <p><strong>Spontaneous Urban Plants</strong> is a research project that opens up 
+discourse to ecologists, artists and the general public as to the role of weeds in society, our 
+perception of them and their ecological performance. By integrating principles from urban ecology and 
+environmental aesthetics, we are encouraging an unbiased debate on Wild Urban Plants.</p>
+
+<p>Large cities, culturally diverse and rich, are constantly shifting with complexities 
+unmatched by other environments; anthropogenic emissions and the continual disturbance of 
+the earth's surface with the constant renewal of the built environment are reason enough 
+for us to reconsider the role of the weed in these disturbed, and to most other plants, 
+uninhabitable sites. Artists and writers such as Andre Breton and Robert Smithson have used 
+walking as a tool to appreciate urban environments. Similar to this, Allen Carlson has 
+described Environmental aesthetics of engagement as the beckoning of appreciators to 
+immerse themselves in the natural environment.</p>
+
+<p>At Future Green we have been developing a similar phenomenological approach to the 
+environment by inviting members of the public interact with the weeds by traversing urban 
+spaces on foot and documenting their findings through social media application Instagram. 
+This allows us to consider the aesthetic value of the environment from the individual.s 
+perspective through immediate and hands-on experience. The <a href="{% url 'map' %}">Interactive MAP</a> 
+filters photos by species or performance attributes, thus highlighting SUP's ecological, cultural, and 
+aesthetic significance.</p>
+
+<h3>How to participate?</h3> 
+
+<p>Join us and help us expand our inventory on Instagram by tagging your photos with 
+#spontaneousurbanplants.</p>
+
+<ul class="social">
+  <li class="instagram">Follow us on <a href="http://instagram.com/spontaneousurbanplants">Instagram</a></li>
+  <li class="facebook">Join our <a href="https://www.facebook.com/spontaneousurbanplants">Facebook 
+page</a></li>
+</ul>
+
+<p>Project created, designed and funded by <a href="http://futuregreenstudio.com">Future 
+Green Studio</a>. 
+
 </aside>
 <section>
-	<img src="{% static 'images/transect_walk_web.png'  %}" />
+	<img src="{% static 'images/about_diagram.png'  %}" />
 </section>
 {% endblock content %}
