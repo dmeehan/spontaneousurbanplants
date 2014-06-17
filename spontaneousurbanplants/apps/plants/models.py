@@ -5,7 +5,7 @@ from django.dispatch import receiver
 
 from positions.fields import PositionField
 
-from apps.instamedia.models import InstagramTag
+from apps.instamedia.models import InstagramTag, InstagramImage
 
 
 class Attribute(models.Model):
@@ -50,6 +50,7 @@ class Plant(models.Model):
                               null=True)
 
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
+    images = models.ManyToManyField(InstagramImage, blank=True, null=True)
 
     visible = models.BooleanField(default=True)
     order = PositionField()
