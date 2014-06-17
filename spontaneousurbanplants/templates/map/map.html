@@ -196,14 +196,16 @@
        var tag = $(this).data('tag');
        // look up layer object by id
 	   var tagLayer = mapLayerGroups[tag]; 
+
 	   removeAllLayers();
        map.addLayer(tagLayer);
   
 	   if (markerColors[tag] === undefined) {
 	       color = markerColors['defaultColor'];
-		} else {
+	   } else {
 		   color = markerColors[tag];
-		}
+	   }
+
 	   $('.name').text($(this).data('name'));
 	   $('.description').text($(this).data('description'));
 	   $('aside.details').css( 'border-color', color )
