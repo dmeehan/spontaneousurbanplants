@@ -55,6 +55,9 @@ class Plant(models.Model):
     visible = models.BooleanField(default=True)
     order = PositionField()
 
+    class Meta:
+      ordering = ["order", "latin_name"]
+
     def __unicode__(self):
         return u'%s' % (self.latin_name)
 
