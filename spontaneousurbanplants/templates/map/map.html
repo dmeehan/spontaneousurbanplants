@@ -78,6 +78,16 @@
 {% block extra_body %}
 <script>
 	// style
+
+	var defaultMarkerStyle = {
+        radius: 10,
+        fillColor: "#d2df3b",
+        color: "#d2df3b",
+        weight: 0,
+        opacity: 0,
+        fillOpacity: 0.8
+     };
+
 	var markerColors = {
 		defaultColor: "#d2df3b",
 	    SUPDisturbanceadapted: "#eb1f89",
@@ -98,7 +108,7 @@
         fillOpacity: 0
     };
 
-	 // create a map in the "map" div
+	// create a map in the "map" div
 	var map = L.map('map');
 
 	// add an OpenStreetMap tile layer
@@ -126,101 +136,56 @@
 			marker.openPopup();
 		});
 	{% else %}
-
-	    map.setView([40.676898, -73.995308], 11);
-	    var bbox = map.getBounds().toBBoxString();
-	    
+	    map.setView([40.676898, -73.995308], 11);  
 	{% endif %}
 
 	
 	// object that hold marker clusters
-	var markerClusterGroups = {}
+	var mapLayerGroups = {}
 
 
 	function onEachFeature(feature, layer) {
-		var tags = feature.properties.tags
-		for (var i = 0; i < tags.length; i++) { 
-			var tag = tags[i];
-			var m = markerClusterGroups[tag];
-		
-			if (m === undefined) {
-				m = L.markerClusterGroup({ 
-						singleMarkerMode: true,
-						maxClusterRadius: 30,
-						showCoverageOnHover: false,
-						iconCreateFunction: function(cluster) {
-							var childCount = cluster.getChildCount();
-							var radius = 10;
-							var area = (Math.PI * (radius * radius)) * childCount;
-		      				var size = Math.sqrt(area / Math.PI) * 0.8;
-		      				if (size < 10) { size = 10 }
-		      				var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      				return new L.DivIcon({ html: html, className: 'marker-cluster marker-class-'+tag, iconSize: new L.Point(size, size) });	
-						}
-					});
-	        	//store layer
-	    		markerClusterGroups[tag] = m;
-	    	}
 
-	    	m.addLayer(layer);
-	    	//map.addLayer(m);
-	    }
+       var tags = feature.properties.tags
 
-	    var all = markerClusterGroups['all'];
+       for (var i = 0; i < tags.length; i++) {
+        	var lg = mapLayerGroups[tags[i]];
+                        
+            if (lg === undefined) {
+            	lg = new L.featureGroup();
+                //store layer
+                mapLayerGroups[tags[i]] = lg;
+            }
 
-	    if (all === undefined) {
-				all = L.markerClusterGroup({ 
-						singleMarkerMode: true,
-						maxClusterRadius: 30,
-						showCoverageOnHover: false,
-						iconCreateFunction: function(cluster) {
-							var childCount = cluster.getChildCount();
-							var radius = 10;
-							var area = (Math.PI * (radius * radius)) * childCount;
-		      				var size = Math.sqrt(area / Math.PI) * 0.8;
-		      				if (size < 10) { size = 10 }
-		      				var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      				return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
-		      			}
-					});
-	        	//store layer
-	    		markerClusterGroups['all'] = all;
-	    }
+            lg.addLayer(layer);
+              
+        }
 
-	    all.addLayer(layer);
-	    //map.addLayer(all);
+ 		var all_lg = mapLayerGroups['all'];
+          
 
-    	var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
-
-    	layer.bindPopup(popupContent);	
-
-	}
+        if (all_lg === undefined) {
+        	all_lg = new L.layerGroup();
+            mapLayerGroups['all'] = all_lg;
+        }
 
 
-	//var tempLayer = L.geoJson.ajax('{% url "api-image-list" %}?bbox='+bbox+'&format=json', {
-		//onEachFeature: onEachFeature,
-	//});
+        all_lg.addLayer(layer);
 
-	// load GeoJson for all images
-	//var locations = L.geoJson.ajax('{% url "api-image-list" %}?format=json', {
-	//	onEachFeature: onEachFeature,
-	//});
+        var popupContent = '<a data-lightbox="' + feature.id +'" data-title="' + feature.properties.plant +' ' + feature.properties.caption +'" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
 
-	var SUPEdible = L.geoJson.ajax('{% url "api-image-list" %}?tag=SUPedible&format=json', {
-		onEachFeature: onEachFeature,
-	});
+        layer.bindPopup(popupContent);
+     }
+    
 
-	locations.on('data:loaded',function(){
-		//map.addLayer(markerClusterGroups['SUPEdible']);
-		//map.addLayer(markerClusterGroups['SUPwildlife']);
-		//map.addLayer(markerClusterGroups['SUPDisturbanceadapted']);
-		//map.addLayer(markerClusterGroups['SUPmedicinal']);
-        //map.addLayer(markerClusterGroups['SUPpreventerosion']);
-		//map.addLayer(markerClusterGroups['SUPphytoremediation']);
-		//map.addLayer(markerClusterGroups['SUPmitigatingurbanheat']);
-		//map.addLayer(markerClusterGroups['SUPretainstormh2o']);
-		map.addLayer(markerClusterGroups['SUPcarboncapture']);
-	});
+	var locations = $.getJSON("{% url 'api-image-list' %}?format=json", function(data) {
+    		L.geoJson(data, {
+              	pointToLayer: function (feature, latlng) {
+            	return L.circleMarker(latlng, defaultMarkerStyle);
+            },
+            onEachFeature: onEachFeature
+            }).addTo(map);
+    })
 
 
 	function removeAllLayers() {
@@ -235,19 +200,28 @@
     // click function to change between layers
 	$('a.layer-link').click(function (e) {
 		//Get the id of the element clicked
-       var ref = $(this).data('tag');
+       var tagName = $(this).data('tag');
        // look up layer object by id 
   
-	   if (markerColors[ref] === undefined) {
+	   if (markerColors[tagName] === undefined) {
 	       color = markerColors['defaultColor'];
 	   } else {
-		   color = markerColors[ref];
+		   color = markerColors[tagName];
 	   }
 
 	   removeAllLayers();
 
-	   map.addLayer(markerClusterGroups[ref]);
-	   //map.fitBounds(tagLayer);
+	   var tagLayer = mapLayerGroups[tagName]
+
+	   var bounds = tagLayer.getBounds();
+
+	   console.log(bounds);
+
+	   map.addLayer(tagLayer);
+
+	   map.fitBounds(bounds);
+	   
+	   //tagLayer.setStyle({ fillColor: color });
 
 	   $(".leaflet-popup-close-button").click()
 	   $('.name').text($(this).data('name'));
@@ -255,7 +229,14 @@
 	   $('aside.details').css( 'border-color', color )
 	   $('.map-nav ul li').removeClass("active");
 	   $(this).parent().toggleClass("active");
-	   //$('.marker-cluster').css('background-color', color);
+	   e.preventDefault()
+       map.eachLayer(function (layer) {
+       		if (layer != streets) {
+          		//console.log(layer)
+          		layer.setStyle({ fillColor: color });
+        	}
+     	});
+
 	})
 </script>
 
