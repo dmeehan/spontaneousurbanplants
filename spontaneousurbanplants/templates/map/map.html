@@ -79,12 +79,41 @@
 <script>
 
 	 // create a map in the "map" div, set the view to a given place and zoom
-	var map = L.map('map').setView([40.676898, -73.995308], 11);
+	var map = L.map('map');
 
 	// add an OpenStreetMap tile layer
 	var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/mnegret.i9i0hhj2/{z}/{x}/{y}.png', {
     	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
+
+	var emptyMarkerStyle = {
+		radius: 10,
+        opacity: 0,
+        fillOpacity: 0
+    };
+
+	// if linking to specific image, load image, display on map, zoom, and open popup
+	{% if image_id %}
+		var image = L.geoJson.ajax('{% url "api-image-detail" image_id %}?format=json', {
+			pointToLayer: function (feature, latlng) {
+        		return L.circleMarker(latlng, emptyMarkerStyle);
+    		},
+			onEachFeature: function(feature, layer) {
+				var popupContent = '<a data-lightbox="' + feature.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+				marker = layer;
+        		marker.bindPopup(popupContent);
+			}
+		}).addTo(map);
+
+		image.on('data:loaded',function(){
+			map.fitBounds(image);
+			marker.openPopup();
+		});
+	{% else %}
+
+	    map.setView([40.676898, -73.995308], 11);
+	    
+	{% endif %}
 
 	var markerClusterGroups = {}
 
@@ -102,7 +131,6 @@
 	    SUPEdible: "#006838",
 	    SUPcarboncapture: "#1bda9f",
 	}
-
 
 	function onEachFeature(feature, layer) {
 		var tags = feature.properties.tags
@@ -151,12 +179,18 @@
 	    all_m.addLayer(layer);
 	    map.addLayer(all_m);
 
-    	var popupContent = '<a data-lightbox="' + feature.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '">'+feature.properties.tags+'<img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
-        layer.bindPopup(popupContent); 
+    	var popupContent = feature.properties.id + '<a data-lightbox="' + feature.properties.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    	layer.bindPopup(popupContent);	
+
 	}
 
 	var locations = L.geoJson.ajax('{% url "api-image-list" %}?format=json', {
 		onEachFeature: onEachFeature,
+	});
+
+	locations.on('data:loaded',function(){
+		console.log('complete');
 	});
 
 
@@ -183,11 +217,11 @@
 	   var tagLayer = markerClusterGroups[tag];
 
 
-	   //removeAllLayers();
+	   removeAllLayers();
 	   map.addLayer(tagLayer);
 	   map.fitBounds(tagLayer);
 
-
+	   $(".leaflet-popup-close-button").click()
 	   $('.name').text($(this).data('name'));
 	   $('.description').text($(this).data('description'));
 	   $('aside.details').css( 'border-color', color )
@@ -195,6 +229,7 @@
 	   $(this).parent().toggleClass("active");
 	   //$('.marker-cluster').css('background-color', color);
 	})
+
 
 </script>
 

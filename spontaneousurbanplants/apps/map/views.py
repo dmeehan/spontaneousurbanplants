@@ -27,20 +27,24 @@ class BBoxMixin(object):
         return queryset
 
 class MapView(TemplateView):
-	
-	template_name = "map/map.html"
+    
+    template_name = "map/map.html"
 
-	def get_context_data(self, **kwargs):
-		context = super(MapView, self).get_context_data(**kwargs)
-		plants = Plant.objects.filter(visible=True)
-		attributes = Attribute.objects.filter(visible=True)
-		context.update({
-			'plant_list': plants,
-			'attribute_list': attributes
-		})
+    def get_context_data(self, **kwargs):
+        context = super(MapView, self).get_context_data(**kwargs)
+        image_id = self.request.GET.get('image_id', None)
+        plants = Plant.objects.filter(visible=True)
+        attributes = Attribute.objects.filter(visible=True)
+        context.update({
+            'plant_list': plants,
+            'attribute_list': attributes
+        })
 
-		return context
-	
+        if image_id:
+            context.update({'image_id': image_id,})
+
+        return context
+    
 class ImageApiViewSet(BBoxMixin, viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows Images to be consumed as geojson

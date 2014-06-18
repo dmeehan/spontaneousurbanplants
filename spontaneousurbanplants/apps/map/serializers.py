@@ -18,8 +18,9 @@ class ImageSerializer(gis_serializers.GeoFeatureModelSerializer):
 	class Meta:
 		model = InstagramImage
 		geo_field = 'coordinates'
+		id_field = None
 		#fields = ('tags', 'plant', 'caption', 'remote_thumbnail_url', 'remote_standard_resolution_url')
-		fields = ('tags', 'caption', 'remote_thumbnail_url', 'remote_standard_resolution_url')
+		fields = ('id', 'tags', 'caption', 'remote_thumbnail_url', 'remote_standard_resolution_url')
 		#fields = ('caption', 'remote_thumbnail_url', 'remote_standard_resolution_url')
 
 	def get_plant(self, obj):
