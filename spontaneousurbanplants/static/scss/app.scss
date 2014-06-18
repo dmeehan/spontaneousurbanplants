@@ -38,12 +38,11 @@ body {
 	        ul {
                    position: absolute;
                    top: 30%;
-                   right: 0;
-                   @include span-columns(8);
-                   @include shift(1);
+                   right: 2.5%;
+                   @include span-columns(7);
                    @include omega();
 	           li {
-                     @include span-columns(2 of 8);
+                     @include span-columns(2 of 7);
                      @include omega(3n);
 
                      a {

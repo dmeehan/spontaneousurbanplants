@@ -4,10 +4,9 @@
 {% block head_title %}Plant Map{% endblock %}
 
 {% block extra_style %}
-<link rel="stylesheet" href="{% static 'bower_components/leaflet/dist/leaflet.css' %}" />
+
 {% compress css %}
-<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.css' %}" />
-<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.default.css' %}" />
+<link rel="stylesheet" href="{% static 'bower_components/leaflet/dist/leaflet.css' %}" />
 <link rel="stylesheet" href="{% static 'bower_components/lightbox2/css/lightbox.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/tooltipster/css/tooltipster.css' %}" />
 {% endcompress %}
@@ -17,8 +16,6 @@
 {% compress js %}
 <script src="{% static 'bower_components/lightbox2/js/lightbox.min.js' %}"></script>
 <script src="{% static 'bower_components/leaflet/dist/leaflet.js' %}"></script>
-<script src="{% static 'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js' %}"></script>
-<script src="{% static 'bower_components/leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/tooltipster/js/jquery.tooltipster.min.js' %}"></script>
 {% endcompress %}
 {% endblock %}
