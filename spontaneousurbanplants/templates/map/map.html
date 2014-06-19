@@ -127,7 +127,7 @@
         		return L.circleMarker(latlng, emptyMarkerStyle);
     		},
 			onEachFeature: function(feature, layer) {
-				var popupContent = '<a data-lightbox="' + feature.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
 				marker = layer;
         		marker.bindPopup(popupContent);
 			}
@@ -185,6 +185,73 @@
 	map.addLayer(all_layer);
 	
 
+	{% for attribute in attribute_list %}
+
+	var {{ attribute.hashtag }}_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.8;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ attribute.hashtag }}', iconSize: new L.Point(size, size) });
+		    }
+	});
+
+	markerClusterGroups['{{ attribute.hashtag}}'] = {{ attribute.hashtag}}_layer 
+
+	var {{ attribute.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ attribute.hashtag }}&format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			{{ attribute.hashtag }}_layer.addLayer(layer);
+
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
+	});
+
+	//map.addLayer({{ attribute.hashtag }}_layer);
+
+	{% endfor %}
+
+
+	{% for plant in plant_list %}
+
+	var {{ plant.hashtag }}_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.8;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ plant.hashtag }}', iconSize: new L.Point(size, size) });
+		    }
+	});
+
+	markerClusterGroups['{{ plant.hashtag}}'] = {{ plant.hashtag}}_layer 
+
+	var {{ plant.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ plant.hashtag }}&format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			{{ plant.hashtag }}_layer.addLayer(layer);
+
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
+	});
+
+
+	//map.addLayer({{ plant.hashtag }}_layer);
+
+	{% endfor %}
 	
 
 
