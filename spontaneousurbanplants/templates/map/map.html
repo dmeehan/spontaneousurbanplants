@@ -78,6 +78,16 @@
 {% block extra_body %}
 <script>
 	// style
+
+	var defaultMarkerStyle = {
+        radius: 10,
+        fillColor: "#d2df3b",
+        color: "#d2df3b",
+        weight: 0,
+        opacity: 0,
+        fillOpacity: 0.8
+     };
+
 	var markerColors = {
 		defaultColor: "#d2df3b",
 	    SUPDisturbanceadapted: "#eb1f89",
@@ -98,7 +108,7 @@
         fillOpacity: 0
     };
 
-	 // create a map in the "map" div
+	// create a map in the "map" div
 	var map = L.map('map');
 
 	// add an OpenStreetMap tile layer
@@ -126,10 +136,7 @@
 			marker.openPopup();
 		});
 	{% else %}
-
-	    map.setView([40.676898, -73.995308], 11);
-	    var bbox = map.getBounds().toBBoxString();
-	    
+	    map.setView([40.676898, -73.995308], 11);  
 	{% endif %}
 
 
@@ -231,6 +238,7 @@
 		}
 	});
 
+
 	//map.addLayer({{ plant.hashtag }}_layer);
 
 	{% endfor %}
@@ -248,19 +256,19 @@
     // click function to change between layers
 	$('a.layer-link').click(function (e) {
 		//Get the id of the element clicked
-       var ref = $(this).data('tag');
+       var tagName = $(this).data('tag');
        // look up layer object by id 
   
-	   if (markerColors[ref] === undefined) {
+	   if (markerColors[tagName] === undefined) {
 	       color = markerColors['defaultColor'];
 	   } else {
-		   color = markerColors[ref];
+		   color = markerColors[tagName];
 	   }
 
 	   removeAllLayers();
 
-	   map.addLayer(markerClusterGroups[ref]);
-	   map.fitBounds(markerClusterGroups[ref]);
+	   map.addLayer(markerClusterGroups[tagName]);
+	   map.fitBounds(markerClusterGroups[tagName]);
 
 	   $(".leaflet-popup-close-button").click()
 	   $('.name').text($(this).data('name'));
@@ -268,7 +276,7 @@
 	   $('aside.details').css( 'border-color', color )
 	   $('.map-nav ul li').removeClass("active");
 	   $(this).parent().toggleClass("active");
-	   //$('.marker-cluster').css('background-color', color);
+
 	})
 </script>
 
