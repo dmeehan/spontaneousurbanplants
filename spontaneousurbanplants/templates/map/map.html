@@ -132,95 +132,108 @@
 	    
 	{% endif %}
 
-	
+
+
 	// object that hold marker clusters
 	var markerClusterGroups = {}
 
 
-	function onEachFeature(feature, layer) {
-		var tags = feature.properties.tags
-		for (var i = 0; i < tags.length; i++) { 
-			var tag = tags[i];
-			var m = markerClusterGroups[tag];
-		
-			if (m === undefined) {
-				m = L.markerClusterGroup({ 
-						singleMarkerMode: true,
-						maxClusterRadius: 30,
-						showCoverageOnHover: false,
-						iconCreateFunction: function(cluster) {
-							var childCount = cluster.getChildCount();
-							var radius = 10;
-							var area = (Math.PI * (radius * radius)) * childCount;
-		      				var size = Math.sqrt(area / Math.PI) * 0.8;
-		      				if (size < 10) { size = 10 }
-		      				var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      				return new L.DivIcon({ html: html, className: 'marker-cluster marker-class-'+tag, iconSize: new L.Point(size, size) });	
-						}
-					});
-	        	//store layer
-	    		markerClusterGroups[tag] = m;
-	    	}
-
-	    	m.addLayer(layer);
-	    	//map.addLayer(m);
-	    }
-
-	    var all = markerClusterGroups['all'];
-
-	    if (all === undefined) {
-				all = L.markerClusterGroup({ 
-						singleMarkerMode: true,
-						maxClusterRadius: 30,
-						showCoverageOnHover: false,
-						iconCreateFunction: function(cluster) {
-							var childCount = cluster.getChildCount();
-							var radius = 10;
-							var area = (Math.PI * (radius * radius)) * childCount;
-		      				var size = Math.sqrt(area / Math.PI) * 0.8;
-		      				if (size < 10) { size = 10 }
-		      				var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      				return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
-		      			}
-					});
-	        	//store layer
-	    		markerClusterGroups['all'] = all;
-	    }
-
-	    all.addLayer(layer);
-	    //map.addLayer(all);
-
-    	var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
-
-    	layer.bindPopup(popupContent);	
-
-	}
-
-
-	//var tempLayer = L.geoJson.ajax('{% url "api-image-list" %}?bbox='+bbox+'&format=json', {
-		//onEachFeature: onEachFeature,
-	//});
-
-	// load GeoJson for all images
-	//var locations = L.geoJson.ajax('{% url "api-image-list" %}?format=json', {
-	//	onEachFeature: onEachFeature,
-	//});
-
-	var SUPEdible = L.geoJson.ajax('{% url "api-image-list" %}?tag=SUPedible&format=json', {
-		onEachFeature: onEachFeature,
+	var all_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.8;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
+		    }
 	});
 
-	locations.on('data:loaded',function(){
-		//map.addLayer(markerClusterGroups['SUPEdible']);
-		//map.addLayer(markerClusterGroups['SUPwildlife']);
-		//map.addLayer(markerClusterGroups['SUPDisturbanceadapted']);
-		//map.addLayer(markerClusterGroups['SUPmedicinal']);
-        //map.addLayer(markerClusterGroups['SUPpreventerosion']);
-		//map.addLayer(markerClusterGroups['SUPphytoremediation']);
-		//map.addLayer(markerClusterGroups['SUPmitigatingurbanheat']);
-		//map.addLayer(markerClusterGroups['SUPretainstormh2o']);
-		map.addLayer(markerClusterGroups['SUPcarboncapture']);
+	markerClusterGroups['all'] = all_layer 
+
+	var all_data = L.geoJson.ajax('{% url "api-image-list" %}?format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			all_layer.addLayer(layer);
+
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
 	});
+
+	map.addLayer(all_layer);
+	
+
+	{% for attribute in attribute_list %}
+
+	var {{ attribute.hashtag }}_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.8;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ attribute.hashtag }}', iconSize: new L.Point(size, size) });
+		    }
+	});
+
+	markerClusterGroups['{{ attribute.hashtag}}'] = {{ attribute.hashtag}}_layer 
+
+	var {{ attribute.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ attribute.hashtag }}&format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			{{ attribute.hashtag }}_layer.addLayer(layer);
+
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
+	});
+
+	//map.addLayer({{ attribute.hashtag }}_layer);
+
+	{% endfor %}
+
+
+	{% for plant in plant_list %}
+
+	var {{ plant.hashtag }}_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.8;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ plant.hashtag }}', iconSize: new L.Point(size, size) });
+		    }
+	});
+
+	markerClusterGroups['{{ plant.hashtag}}'] = {{ plant.hashtag}}_layer 
+
+	var {{ plant.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ plant.hashtag }}&format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			{{ plant.hashtag }}_layer.addLayer(layer);
+
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + feature.properties.plant + ' ' + feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
+	});
+
+	//map.addLayer({{ plant.hashtag }}_layer);
+
+	{% endfor %}
 
 
 	function removeAllLayers() {
@@ -247,7 +260,7 @@
 	   removeAllLayers();
 
 	   map.addLayer(markerClusterGroups[ref]);
-	   //map.fitBounds(tagLayer);
+	   map.fitBounds(markerClusterGroups[ref]);
 
 	   $(".leaflet-popup-close-button").click()
 	   $('.name').text($(this).data('name'));
