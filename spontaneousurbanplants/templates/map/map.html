@@ -91,7 +91,7 @@
         weight: 0,
         opacity: 0,
         fillOpacity: 0.8
-     };
+    };
 
 	var markerColors = {
 		defaultColor: "#d2df3b",
@@ -187,7 +187,7 @@
 	map.addLayer(all_layer);
 	
 
-	{% for attribute in attribute_list %}
+{% for attribute in attribute_list %}
 
 	var {{ attribute.hashtag }}_layer = L.markerClusterGroup({ 
 		singleMarkerMode: true,
@@ -217,12 +217,10 @@
 		}
 	});
 
-	//map.addLayer({{ attribute.hashtag }}_layer);
-
-	{% endfor %}
+{% endfor %}
 
 
-	{% for plant in plant_list %}
+{% for plant in plant_list %}
 
 	var {{ plant.hashtag }}_layer = L.markerClusterGroup({ 
 		singleMarkerMode: true,
@@ -252,9 +250,7 @@
 	});
 
 
-	//map.addLayer({{ plant.hashtag }}_layer);
-
-	{% endfor %}
+{% endfor %}
 
 	function removeAllLayers() {
 		map.eachLayer(function (layer) {
