@@ -7,6 +7,8 @@
 
 {% compress css %}
 <link rel="stylesheet" href="{% static 'bower_components/leaflet/dist/leaflet.css' %}" />
+<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.css' %}" />
+<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' %}" />
 <link rel="stylesheet" href="{% static 'bower_components/lightbox2/css/lightbox.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/tooltipster/css/tooltipster.css' %}" />
 {% endcompress %}
@@ -17,6 +19,8 @@
 <script src="{% static 'bower_components/lightbox2/js/lightbox.min.js' %}"></script>
 <script src="{% static 'bower_components/leaflet/dist/leaflet.js' %}"></script>
 <script src="{% static 'bower_components/leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
+<script src="{% static 'bower_components/spin.js/spin.js' %}"></script>
+<script src="{% static 'js/leaflet.spin.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/tooltipster/js/jquery.tooltipster.min.js' %}"></script>
 <script src="{% static 'bower_components/spin.js/spin.js' %}"></script>
 <script src="{% static 'js/leaflet.spin.js' %}">
@@ -101,7 +105,7 @@
 	    SUPpreventerosion: "#dd4d15",
 	    SUPinvasive: "#f55100",
 	    SUPEdible: "#006838",
-	    SUPcarboncapture: "#1bda9f",
+	    SUPSequesterCO2: "#1bda9f",
 	}
 
 	var emptyMarkerStyle = {
@@ -140,51 +144,117 @@
 	    map.setView([40.676898, -73.995308], 11);  
 	{% endif %}
 
-	
+
+
 	// object that hold marker clusters
-	var mapLayerGroups = {}
+	var markerClusterGroups = {}
 
 
-	function onEachFeature(feature, layer) {
+	var all_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.5;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
+		    }
+	});
 
-       var tags = feature.properties.tags
+	markerClusterGroups['all'] = all_layer 
 
-       for (var i = 0; i < tags.length; i++) {
-        	var lg = mapLayerGroups[tags[i]];
-                        
-            if (lg === undefined) {
-            	lg = new L.featureGroup();
-                //store layer
-                mapLayerGroups[tags[i]] = lg;
-            }
+	map.spin(true);
 
-            lg.addLayer(layer);
-              
-        }
+	var all_data = L.geoJson.ajax('{% url "api-image-list" %}?format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			all_layer.addLayer(layer);
 
- 		var all_lg = mapLayerGroups['all'];
-          
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
 
-        if (all_lg === undefined) {
-        	all_lg = new L.featureGroup();
-            mapLayerGroups['all'] = all_lg;
-        }
+    		layer.bindPopup(popupContent);
+		}
+	});
+
+	all_data.on('data:loaded',function(){
+    	map.spin(false);
+	});
 
 
-        all_lg.addLayer(layer);
+	map.addLayer(all_layer);
+	
 
-        var popupContent = '<a data-lightbox="' + feature.properties.id +'" data-title="'+ feature.properties.caption +'" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+	{% for attribute in attribute_list %}
 
-        layer.bindPopup(popupContent);
-     }
+	var {{ attribute.hashtag }}_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.5;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ attribute.hashtag }}', iconSize: new L.Point(size, size) });
+		    }
+	});
 
-     var locations = L.geoJson.ajax('{% url 'api-image-list' %}?format=json', {
-			pointToLayer: function (feature, latlng) {
-        		return L.circleMarker(latlng, defaultMarkerStyle);
-    		},
-			onEachFeature: onEachFeature
-		}).addTo(map);
+	markerClusterGroups['{{ attribute.hashtag}}'] = {{ attribute.hashtag}}_layer 
 
+	var {{ attribute.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ attribute.hashtag }}&format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			{{ attribute.hashtag }}_layer.addLayer(layer);
+
+
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
+	});
+
+	//map.addLayer({{ attribute.hashtag }}_layer);
+
+	{% endfor %}
+
+
+	{% for plant in plant_list %}
+
+	var {{ plant.hashtag }}_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.5;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ plant.hashtag }}', iconSize: new L.Point(size, size) });
+		    }
+	});
+
+	markerClusterGroups['{{ plant.hashtag}}'] = {{ plant.hashtag}}_layer 
+
+	var {{ plant.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ plant.hashtag }}&format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			{{ plant.hashtag }}_layer.addLayer(layer);
+
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
+	});
+
+
+	//map.addLayer({{ plant.hashtag }}_layer);
+
+	{% endfor %}
 
 	function removeAllLayers() {
 		map.eachLayer(function (layer) {
@@ -209,17 +279,8 @@
 
 	   removeAllLayers();
 
-	   var tagLayer = mapLayerGroups[tagName]
-
-	   var bounds = tagLayer.getBounds();
-
-	   console.log(bounds);
-
-	   map.addLayer(tagLayer);
-
-	   map.fitBounds(bounds);
-	   
-	   //tagLayer.setStyle({ fillColor: color });
+	   map.addLayer(markerClusterGroups[tagName]);
+	   map.fitBounds(markerClusterGroups[tagName]);
 
 	   $(".leaflet-popup-close-button").click()
 	   $('.name').text($(this).data('name'));
@@ -227,13 +288,6 @@
 	   $('aside.details').css( 'border-color', color )
 	   $('.map-nav ul li').removeClass("active");
 	   $(this).parent().toggleClass("active");
-	   e.preventDefault()
-       map.eachLayer(function (layer) {
-       		if (layer != streets) {
-          		//console.log(layer)
-          		layer.setStyle({ fillColor: color });
-        	}
-     	});
 
 	})
 </script>
