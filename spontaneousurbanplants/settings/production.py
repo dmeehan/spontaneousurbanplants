@@ -47,6 +47,10 @@ DEFAULT_FROM_EMAIL = 'Spontaneous Urban Plants <info@spontaneousurbanplants.org>
 # Installed Apps
 #==============================================================================
 
+INSTALLED_APPS += (
+    'memcache_status',
+)
+
 
 
 #==============================================================================
