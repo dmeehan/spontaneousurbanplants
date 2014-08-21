@@ -33,11 +33,13 @@
 <nav class="map-nav attributes">
 	<ul>
 	    {% for attribute in attribute_list %}
+	        {% if attribute.icon %}
 		<li style="background-image:url({{ attribute.icon.url }})"><a data-tag="{{ attribute.hashtag }}"
 		data-name="{{ attribute.name }}: "
 		data-description="{{ attribute.description }}"
 		title="{{ attribute.name }}" 
 		class="layer-link tooltip" href="#">{{ attribute.name }}</a></li>
+		{% endif %}
 	    {% endfor %}
 	</ul>
 </nav>
@@ -59,22 +61,26 @@
 	</ul>
 	<ul>
 		{% for plant in plant_list|slice:":6" %}
+		{% if plant.icon %}
 		<li class="pre" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
 		class="layer-link tooltip"
 		href="#">{{ plant.common_name }}</a></li>
+		{% endif %}
 		{% endfor %}
 	</ul>
 	<ul>
 		{% for plant in plant_list|slice:"6:" %}
+		{% if plant.icon %}
 		<li class="post" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
 		class="layer-link tooltip"
 		href="#">{{ plant.common_name }}</a></li>
+		{% endif %}
 		{% endfor %}
     </ul>
 
