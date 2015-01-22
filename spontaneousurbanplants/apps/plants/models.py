@@ -15,6 +15,33 @@ class Attribute(models.Model):
     name = models.CharField(max_length=255)
     hashtag = models.CharField(max_length=255, 
                                unique=True,
+                               help_text='A unique hashtag indentifying this attribute. Do not include #.')
+    description = models.TextField(blank=True)
+    icon = models.ImageField(upload_to="images/icons", 
+                              blank=True, 
+                              null=True)
+
+    visible = models.BooleanField(default=True)
+    order = PositionField()
+
+    class Meta:
+      ordering = ["order"]
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains", "hashtag__icontains")
+
+    def __unicode__(self):
+        return u'%s' % (self.name)
+        
+
+class Category(models.Model):
+    """ Categories to group plants.
+
+    """
+    name = models.CharField(max_length=255)
+    hashtag = models.CharField(max_length=255, 
+                               unique=True,
                                help_text='A unique hashtag indentifying this plant. Do not include #.')
     description = models.TextField(blank=True)
     icon = models.ImageField(upload_to="images/icons", 
@@ -34,10 +61,9 @@ class Attribute(models.Model):
     def __unicode__(self):
         return u'%s' % (self.name)
 
-
 class Plant(models.Model):
     """An individual plant species.
-
+    
     """
     latin_name = models.CharField(max_length=255)
     common_name = models.CharField(max_length=255)
@@ -51,7 +77,13 @@ class Plant(models.Model):
 
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
     images = models.ManyToManyField(InstagramImage, blank=True, null=True)
-
+    
+    # stormwater in gallons
+    # CO2 in pounds
+    # energy in kWh
+    
+    origin = models.Charfield(max_lenght=255)
+    
     visible = models.BooleanField(default=True)
     order = PositionField()
 
