@@ -246,7 +246,6 @@ THIRD_PARTY_APPS = (
     'notification', # event notifications
     'rest_framework', # api
     'rest_framework_gis', # api geo add-ons
-    'south', # database migration
 )
 
 # Apps specific for this project go here.
