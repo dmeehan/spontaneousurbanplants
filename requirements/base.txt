@@ -1,22 +1,24 @@
 # python modules
-gunicorn # server
-psycopg2 # postgres bindings
-pillow # image manipulation
-requests # http library
-simplejson # json tools
-python-instagram # instagram api
+gunicorn==18.0 # server
+psycopg2==2.5.4 # postgres bindings
+pillow==2.4.0 # image manipulation
+requests==2.2.1 # http library
+simplejson==3.4.0 # json tools
+python-instagram==0.8.0 # instagram api
 
 django==1.6.5
 
 # django third party modules
-south
-django-supervisor
-django-compressor # static file compression
-django-celery
-djangorestframework-gis # REST framework + GIS addons
-django-leaflet
-easy-thumbnails # image manipulation
+south==0.8.4
+django-supervisor==0.3.2
+django-compressor==1.3 # static file compression
+django-celery==3.1.10
+djangorestframework==2.4.3
+djangorestframework-gis==0.7 # REST framework + GIS addons
+django-leaflet==0.13.5
+easy-thumbnails==2.0.1 # image manipulation
 django-grappelli==2.5.3 # admin extras
 django-positions==0.5.1 # ordering field
+django-notification==1.1.1
 
 
