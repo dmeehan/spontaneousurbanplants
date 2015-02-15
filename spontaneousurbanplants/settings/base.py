@@ -249,9 +249,10 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'apps.about',
     'apps.instamedia',
-    'apps.plants',
     'apps.map',
+    'apps.plants',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

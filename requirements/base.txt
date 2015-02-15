@@ -5,8 +5,9 @@ pillow==2.4.0 # image manipulation
 requests==2.2.1 # http library
 simplejson==3.4.0 # json tools
 python-instagram==0.8.0 # instagram api
+markdown==2.5.2
 
-django==1.7.3
+django==1.7.4
 
 
 # django third party modules

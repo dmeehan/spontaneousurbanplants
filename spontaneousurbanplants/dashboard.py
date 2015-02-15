@@ -37,6 +37,11 @@ class CustomIndexDashboard(Dashboard):
                     collapsible=False,
                     models=('apps.instamedia.models.*',),
                 ),
+                modules.ModelList(
+                    title='About',
+                    collapsible=False,
+                    models=('apps.about.models.*',),
+                ),
             ]
         ))
         
@@ -53,7 +58,8 @@ class CustomIndexDashboard(Dashboard):
             title='System Admin',
             column=3,
             collapsible=False,
-            exclude=('apps.instamedia.models.*', 'apps.plants.models.*',)
+            exclude=('apps.instamedia.models.*', 'apps.plants.models.*', 
+                'apps.about.models.*')
         ))
 
 
