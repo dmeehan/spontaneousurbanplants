@@ -3,7 +3,7 @@
 {% block body_class %}about{% endblock %}
 {% block content %}
 {% for about in about_list %}
-<section class="about">
+<section class="about-block">
 	<h2 class="about-title">{{ about.title }}</h2>
 	{% if about.image %}
 	<img src="{{ about.image.url }}" />
@@ -11,11 +11,11 @@
 	<div class="about-text">{{ about.text_html|safe }}</div>
 </section>
 {% endfor %}
-<section class="sources">
+<section class="about-sources">
 	<h2 class="sources-title">{{ sources.title }}</h2>
 	<div class="about-text">{{ sources.text_html|safe }}</div>
 </section>
-<section class="credits">
+<section class="about-credits">
 	<h2 class="credits-title">{{ credits.title }}</h2>
 	<div class="credits-text">{{ credits.text_html|safe }}</div>
 </section>
