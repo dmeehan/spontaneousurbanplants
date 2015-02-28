@@ -72,12 +72,12 @@ class Plant(models.Model):
                                unique=True,
                                help_text='A unique hashtag indentifying this plant. Do not include #.')
     description = models.TextField(blank=True)
-    #flowers = models.TextField(blank=True)
-    #habitat = models.TextField(blank=True)
-    #origin = models.CharField(max_length=255)
-    #stormwater = models.FloatField(help_text="Stormwater retention in gallons")
-    #carbon = models.FloatField(help_text="CO2 sequestration in pounds")
-    #energy = models.FloatField(help_text="Energy savings in kWh")
+    flowers = models.TextField(blank=True)
+    habitat = models.TextField(blank=True)
+    origin = models.CharField(blank=True, max_length=255)
+    stormwater = models.FloatField(blank=True, null=True, help_text="Stormwater retention in gallons")
+    carbon = models.FloatField(blank=True, null=True, help_text="CO2 sequestration in pounds")
+    energy = models.FloatField(blank=True, null=True, help_text="Energy savings in kWh")
 
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
     categories = models.ManyToManyField(Category, blank=True, null=True)
