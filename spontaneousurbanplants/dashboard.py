@@ -30,7 +30,8 @@ class CustomIndexDashboard(Dashboard):
                 modules.ModelList(
                     title='Plant Catalog',
                     collapsible=False,
-                    models=('apps.plants.models.Plant', 'apps.plants.models.Attribute'),
+                    models=('apps.plants.models.Plant', 'apps.plants.models.Attribute',
+                        'apps.plants.models.Category'),
                 ),
                 modules.ModelList(
                     title='Instagram',

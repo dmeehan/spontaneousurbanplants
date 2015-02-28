@@ -40,9 +40,6 @@ class Category(models.Model):
 
     """
     name = models.CharField(max_length=255)
-    hashtag = models.CharField(max_length=255, 
-                               unique=True,
-                               help_text='A unique hashtag indentifying this plant. Do not include #.')
     description = models.TextField(blank=True)
     icon = models.ImageField(upload_to="images/icons", 
                               blank=True, 
@@ -53,10 +50,11 @@ class Category(models.Model):
 
     class Meta:
       ordering = ["order"]
+      verbose_name_plural = 'categories'
 
     @staticmethod
     def autocomplete_search_fields():
-        return ("name__icontains", "hashtag__icontains")
+        return ("name__icontains",)
 
     def __unicode__(self):
         return u'%s' % (self.name)
@@ -65,25 +63,26 @@ class Plant(models.Model):
     """An individual plant species.
     
     """
+    icon = models.ImageField(upload_to="images/icons", 
+                              blank=True, 
+                              null=True)
     latin_name = models.CharField(max_length=255)
     common_name = models.CharField(max_length=255)
     hashtag = models.CharField(max_length=100, 
                                unique=True,
                                help_text='A unique hashtag indentifying this plant. Do not include #.')
     description = models.TextField(blank=True)
-    icon = models.ImageField(upload_to="images/icons", 
-                              blank=True, 
-                              null=True)
+    #flowers = models.TextField(blank=True)
+    #habitat = models.TextField(blank=True)
+    #origin = models.CharField(max_length=255)
+    #stormwater = models.FloatField(help_text="Stormwater retention in gallons")
+    #carbon = models.FloatField(help_text="CO2 sequestration in pounds")
+    #energy = models.FloatField(help_text="Energy savings in kWh")
 
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
+    categories = models.ManyToManyField(Category, blank=True, null=True)
     images = models.ManyToManyField(InstagramImage, blank=True, null=True)
-    
-    # stormwater in gallons
-    # CO2 in pounds
-    # energy in kWh
-    
-    origin = models.Charfield(max_lenght=255)
-    
+
     visible = models.BooleanField(default=True)
     order = PositionField()
 
@@ -94,10 +93,41 @@ class Plant(models.Model):
         return u'%s' % (self.latin_name)
 
 
-@receiver(post_save, sender=Attribute)
+'''class AttributeDescription(models.Model):
+  """Specific information about a species' performance
+
+  """
+  attribute = models.ForignKey(Attribute)
+  plant = models.ForignKey(Plant)
+  description = models.TextField(blank=True)
+
+  visible = models.BooleanField(default=True)
+
+class TimeSpan(models.Model):
+  """Abstract model for monthly span of time
+
+  """
+  begin = 
+  end =
+
+  class Meta:
+    abstract = True
+
+class Bloom(TimeSpan):
+  color = 
+
+class Leaf(TimeSpan):
+  color = 
+
+class Dispersal(TimeSpan):
+  pass 
+'''
+
+'''@receiver(post_save, sender=Attribute)
 def attribute_post_save(sender, instance, created, **kwargs):
     InstagramTag.objects.get_or_create(name=instance.hashtag)
 
 @receiver(post_save, sender=Plant)
 def plant_post_save(sender, instance, created, **kwargs):
     InstagramTag.objects.get_or_create(name=instance.hashtag)
+'''
