@@ -54,6 +54,12 @@ class Category(models.Model):
       ordering = ["order"]
       verbose_name_plural = 'categories'
 
+    visible = models.BooleanField(default=True)
+    order = PositionField()
+
+    class Meta:
+      ordering = ["order"]
+
     @staticmethod
     def autocomplete_search_fields():
         return ("name__icontains",)
@@ -88,14 +94,14 @@ class Plant(models.Model):
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
     categories = models.ManyToManyField(Category, blank=True, null=True)
 
-    def get_images(self):
-      return InstagramImage.objects.filter(tags__name__iexact=self.hashtag)
-
     visible = models.BooleanField(default=True)
     order = PositionField()
 
     class Meta:
       ordering = ["order", "latin_name"]
+
+    def get_images(self):
+      return InstagramImage.objects.filter(tags__name__iexact=self.hashtag)
 
     def __unicode__(self):
         return u'%s' % (self.latin_name)
