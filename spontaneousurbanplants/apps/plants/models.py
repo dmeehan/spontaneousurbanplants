@@ -93,17 +93,17 @@ class Plant(models.Model):
         return u'%s' % (self.latin_name)
 
 
-'''class AttributeDescription(models.Model):
+class AttributeDescription(models.Model):
   """Specific information about a species' performance
 
   """
-  attribute = models.ForignKey(Attribute)
-  plant = models.ForignKey(Plant)
+  attribute = models.ForeignKey(Attribute)
+  plant = models.ForeignKey(Plant)
   description = models.TextField(blank=True)
 
   visible = models.BooleanField(default=True)
 
-class TimeSpan(models.Model):
+'''class TimeSpan(models.Model):
   """Abstract model for monthly span of time
 
   """

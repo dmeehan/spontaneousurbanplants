@@ -2,7 +2,11 @@
 
 from django.contrib import admin
 
-from .models import Attribute, Category, Plant
+from .models import Attribute, Category, Plant, AttributeDescription
+
+
+class AttributeDescriptionInline(admin.TabularInline):
+    model = AttributeDescription
 
 
 class PlantAdmin(admin.ModelAdmin):
@@ -13,6 +17,10 @@ class PlantAdmin(admin.ModelAdmin):
     autocomplete_lookup_fields = {
         'm2m': ['attributes', 'categories'], 
     }
+
+    inlines = [
+        AttributeDescriptionInline,
+    ]
 
 class AttributeAdmin(admin.ModelAdmin):
     list_display = ['name', 'order', 'visible', 'description',]
