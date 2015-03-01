@@ -1,4 +1,6 @@
 # plants/models.py
+import calendar
+
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -63,6 +65,7 @@ class Plant(models.Model):
     """An individual plant species.
     
     """
+
     icon = models.ImageField(upload_to="images/icons", 
                               blank=True, 
                               null=True)
@@ -75,13 +78,18 @@ class Plant(models.Model):
     flowers = models.TextField(blank=True)
     habitat = models.TextField(blank=True)
     origin = models.CharField(blank=True, max_length=255)
-    stormwater = models.FloatField(blank=True, null=True, help_text="Stormwater retention in gallons")
-    carbon = models.FloatField(blank=True, null=True, help_text="CO2 sequestration in pounds")
-    energy = models.FloatField(blank=True, null=True, help_text="Energy savings in kWh")
+    stormwater = models.FloatField(blank=True, null=True, 
+      help_text="Stormwater retention per plant in gallons")
+    carbon = models.FloatField(blank=True, null=True, 
+      help_text="CO2 sequestration per plant in pounds")
+    energy = models.FloatField(blank=True, null=True, 
+      help_text="Energy savings per plant in kWh")
 
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
     categories = models.ManyToManyField(Category, blank=True, null=True)
-    images = models.ManyToManyField(InstagramImage, blank=True, null=True)
+
+    def get_images(self):
+      return InstagramImage.objects.filter(tags__name__iexact=self.hashtag)
 
     visible = models.BooleanField(default=True)
     order = PositionField()
@@ -103,31 +111,12 @@ class AttributeDescription(models.Model):
 
   visible = models.BooleanField(default=True)
 
-'''class TimeSpan(models.Model):
-  """Abstract model for monthly span of time
 
-  """
-  begin = 
-  end =
 
-  class Meta:
-    abstract = True
-
-class Bloom(TimeSpan):
-  color = 
-
-class Leaf(TimeSpan):
-  color = 
-
-class Dispersal(TimeSpan):
-  pass 
-'''
-
-'''@receiver(post_save, sender=Attribute)
+@receiver(post_save, sender=Attribute)
 def attribute_post_save(sender, instance, created, **kwargs):
     InstagramTag.objects.get_or_create(name=instance.hashtag)
 
 @receiver(post_save, sender=Plant)
 def plant_post_save(sender, instance, created, **kwargs):
     InstagramTag.objects.get_or_create(name=instance.hashtag)
-'''
