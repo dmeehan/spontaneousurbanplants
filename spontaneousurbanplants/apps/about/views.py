@@ -1,17 +1,17 @@
 # about/views.py
 from django.views.generic import ListView
 
-from .models import About, Sources, Credits
+from .models import AboutContent, SourcesContent, CreditsContent
 
 class AboutListView(ListView):
-    queryset = About.objects.filter(visible=True)
+    queryset = AboutContent.objects.filter(visible=True)
     template_name = 'about.html'
 
     def get_context_data(self, **kwargs):
         context = super(AboutListView, self).get_context_data(**kwargs)
         extra_context = {
-            'sources': Sources.objects.first(),
-            'credits': Credits.objects.first(),  
+            'sources': SourcesContent.objects.first(),
+            'credits': CreditsContent.objects.first(),  
         }
         context.update(extra_context)
         return context

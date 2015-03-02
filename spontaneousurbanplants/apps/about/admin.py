@@ -2,12 +2,12 @@
 
 from django.contrib import admin
 
-from .models import About, Sources, Credits
+from .models import AboutContent, SourcesContent, CreditsContent
 
-class AboutAdmin(admin.ModelAdmin):
+class AboutContentAdmin(admin.ModelAdmin):
     list_display = ['title', 'order', 'visible',]
     list_editable = ['order', 'visible', ]
 
-admin.site.register(About, AboutAdmin)
-admin.site.register(Sources)
-admin.site.register(Credits)
+admin.site.register(AboutContent, AboutContentAdmin)
+admin.site.register(SourcesContent)
+admin.site.register(CreditsContent)

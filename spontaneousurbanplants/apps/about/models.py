@@ -8,7 +8,7 @@ from positions.fields import PositionField
 from apps.content.models import Content
 
 
-class About(Content):
+class AboutContent(Content):
 	"""Content block for about section. Includes image."""
 	image = models.ImageField(upload_to='images/about', blank=True)
 	
@@ -23,13 +23,13 @@ class About(Content):
 	def __unicode__(self):
 		return u'%s' % (self.title)
 
-class Sources(Content):
+class SourcesContent(Content):
 	"""Content block for data sources."""
 	class Meta:
 		verbose_name = "sources text"
 		verbose_name_plural = "sources text"
 
-class Credits(Content):
+class CreditsContent(Content):
 	"""Content block for site credits."""
 	class Meta:
 		verbose_name = "credits text"

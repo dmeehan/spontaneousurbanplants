@@ -6,7 +6,7 @@ from .models import NewsItem, NewsItemImage
 
 class NewsImageInline(admin.StackedInline):
     model = NewsItemImage
-    extra = 0
+    extra = 1
 
     # Grappelli options
     allow_add = True

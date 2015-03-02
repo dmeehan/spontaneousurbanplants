@@ -254,6 +254,7 @@ LOCAL_APPS = (
     'apps.map',
     'apps.news',
     'apps.plants',
+    'apps.services',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

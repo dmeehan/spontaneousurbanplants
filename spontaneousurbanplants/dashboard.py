@@ -43,6 +43,11 @@ class CustomIndexDashboard(Dashboard):
                     collapsible=False,
                     models=('apps.news.models.*',),
                 ),
+                 modules.ModelList(
+                    title='Services',
+                    collapsible=False,
+                    models=('apps.services.models.*',),
+                ),
                 modules.ModelList(
                     title='About',
                     collapsible=False,
