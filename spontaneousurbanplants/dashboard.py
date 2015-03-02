@@ -38,6 +38,11 @@ class CustomIndexDashboard(Dashboard):
                     collapsible=False,
                     models=('apps.instamedia.models.*',),
                 ),
+                 modules.ModelList(
+                    title='News',
+                    collapsible=False,
+                    models=('apps.news.models.*',),
+                ),
                 modules.ModelList(
                     title='About',
                     collapsible=False,

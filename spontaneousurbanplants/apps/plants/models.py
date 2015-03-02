@@ -52,13 +52,7 @@ class Category(models.Model):
 
     class Meta:
       ordering = ["order"]
-      verbose_name_plural = 'categories'
-
-    visible = models.BooleanField(default=True)
-    order = PositionField()
-
-    class Meta:
-      ordering = ["order"]
+      verbose_name_plural = "categories"
 
     @staticmethod
     def autocomplete_search_fields():

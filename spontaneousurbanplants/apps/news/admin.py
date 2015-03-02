@@ -6,8 +6,6 @@ from .models import NewsItem, NewsItemImage
 
 class NewsImageInline(admin.StackedInline):
     model = NewsItemImage
-    fields = ('image', 'name', 'caption',
-              'is_main', 'order' )
     extra = 0
 
     # Grappelli options
@@ -22,7 +20,7 @@ class NewsItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
 class NewsItemImageAdmin(admin.ModelAdmin):
-    list_display = ('image', 'admin_thumbnail_view','news_item')
+    list_display = ('image_file', 'news_item')
 
 
 admin.site.register(NewsItem, NewsItemAdmin)

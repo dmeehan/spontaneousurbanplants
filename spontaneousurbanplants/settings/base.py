@@ -252,6 +252,7 @@ LOCAL_APPS = (
     'apps.about',
     'apps.instamedia',
     'apps.map',
+    'apps.news',
     'apps.plants',
 )
 

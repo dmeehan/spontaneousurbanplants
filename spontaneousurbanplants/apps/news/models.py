@@ -1,4 +1,5 @@
 # news/models.py
+import datetime
 import markdown
 
 from django.db import models
@@ -67,7 +68,7 @@ class NewsItem(models.Model):
         return u'%s' % (self.title)
 
 
-class NewsItemImage(RelatedImageAutoBase):
+class NewsItemImage(models.Model):
     """Image for a news item.
 
     """
