@@ -24,8 +24,13 @@ class Service(models.Model):
 	"""A model to display attributes
 
 	"""
+	image = models.ImageField(upload_to="images/services")
+
 	attribute = models.ForeignKey(Attribute)
 	order = PositionField()
+
+	class Meta:
+		ordering = ["order"]
 
 	def __unicode__(self):
 		return u'%s' % (self.attribute.name)
