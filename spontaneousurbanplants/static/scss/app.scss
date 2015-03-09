@@ -238,6 +238,36 @@ nav.plants {
 
 }
 
+nav.category {
+	@include span-columns(5);
+	@include omega();
+	position: relative;
+	ul {
+		li {
+			@include span-columns(1 of 2);
+			padding-bottom: 17.34917%;
+			margin-bottom: 3.31354%;
+		}
+
+		li.active {
+			background-position: 100% 100%;
+		}
+
+		li.pre {
+			@include omega(3n);
+		}
+
+		li.post {
+			@include omega(5n);
+		
+			&:first-of-type {
+				clear: both;
+			}
+		}
+	}
+
+}
+
 body.about {
 	section {
 	   div.content {

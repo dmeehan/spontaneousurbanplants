@@ -50,7 +50,7 @@
 		<span class="description">Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons.</span>
 	</aside>
 </section>
-<nav class="map-nav plants">
+<nav class="map-nav categories">
 	<ul>
 	<li class="all active"><a data-tag="all"
 		data-name=""
@@ -60,29 +60,19 @@
 		href="#">{{ plant.common_name }}</a></li>
 	</ul>
 	<ul>
-		{% for plant in plant_list|slice:":6" %}
-		{% if plant.icon %}
-		<li class="pre" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
-		data-name="{{ plant.latin_name }} "
-		data-description="({{ plant.common_name }})"
-		title="{{ plant.latin_name }}" 
+		{% for category in category_list %}
+		<img src="{{ category.icon.url }}" />
+		{% if category.icon %}
+		<li class="pre" style="background-image:url({{ category.icon.url }})"><a 
+		data-name="{{ category.name }} "
+		data-description="({{ category.description }})"
+		title="{{ category.name }}" 
 		class="layer-link tooltip"
-		href="#">{{ plant.common_name }}</a></li>
+		href="#">{{ category.name }}</a></li>
 		{% endif %}
+		{{ category.name }}
 		{% endfor %}
 	</ul>
-	<ul>
-		{% for plant in plant_list|slice:"6:" %}
-		{% if plant.icon %}
-		<li class="post" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
-		data-name="{{ plant.latin_name }} "
-		data-description="({{ plant.common_name }})"
-		title="{{ plant.latin_name }}" 
-		class="layer-link tooltip"
-		href="#">{{ plant.common_name }}</a></li>
-		{% endif %}
-		{% endfor %}
-    </ul>
 
 
 </nav>

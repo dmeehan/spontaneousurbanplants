@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 
 from rest_framework import viewsets
 
-from apps.plants.models import Plant, Attribute
+from apps.plants.models import Plant, Attribute, Category
 from apps.instamedia.models import InstagramImage
 
 from .serializers import ImageSerializer
@@ -35,9 +35,11 @@ class MapView(TemplateView):
         image_id = self.request.GET.get('image_id', None)
         plants = Plant.objects.filter(visible=True)
         attributes = Attribute.objects.filter(visible=True)
+        categories = Category.objects.filter(visible=True)
         context.update({
             'plant_list': plants,
-            'attribute_list': attributes
+            'attribute_list': attributes,
+            'category_list': categories
         })
 
         if image_id:
