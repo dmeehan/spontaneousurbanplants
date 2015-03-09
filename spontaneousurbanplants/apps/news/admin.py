@@ -1,12 +1,13 @@
 # news/admin.py
-
 from django.contrib import admin
+
+from grappelli.forms import GrappelliSortableHiddenMixin
 
 from .models import NewsItem, NewsItemImage
 
-class NewsImageInline(admin.StackedInline):
+class NewsImageInline(GrappelliSortableHiddenMixin, admin.StackedInline):
     model = NewsItemImage
-    extra = 1
+    extra = 0
 
     # Grappelli options
     allow_add = True

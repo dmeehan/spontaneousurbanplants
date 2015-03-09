@@ -18,7 +18,7 @@ djangorestframework==2.4.3
 djangorestframework-gis==0.7 # REST framework + GIS addons
 django-leaflet==0.13.5
 easy-thumbnails==2.0.1 # image manipulation
-django-grappelli==2.5.3 # admin extras
+django-grappelli==2.6.3 # admin extras
 django-positions==0.5.1 # ordering field
 django-notification==1.2
 
