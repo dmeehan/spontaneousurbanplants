@@ -61,16 +61,12 @@
 	</ul>
 	<ul>
 		{% for category in category_list %}
-		<img src="{{ category.icon.url }}" />
-		{% if category.icon %}
-		<li class="pre" style="background-image:url({{ category.icon.url }})"><a 
+		<li style="background-image:url({{ category.icon.url }})"><a 
 		data-name="{{ category.name }} "
 		data-description="({{ category.description }})"
 		title="{{ category.name }}" 
 		class="layer-link tooltip"
 		href="#">{{ category.name }}</a></li>
-		{% endif %}
-		{{ category.name }}
 		{% endfor %}
 	</ul>
 
