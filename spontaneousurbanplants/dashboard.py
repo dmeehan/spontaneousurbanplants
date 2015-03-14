@@ -70,7 +70,7 @@ class CustomIndexDashboard(Dashboard):
             column=3,
             collapsible=False,
             exclude=('apps.instamedia.models.*', 'apps.plants.models.*', 
-                'apps.about.models.*')
+                'apps.about.models.*', 'apps.services.models.*', 'apps.news.models.*')
         ))
 
 
