@@ -36,6 +36,8 @@ urlpatterns = patterns('',
 
     url(r'^about/', include('apps.about.urls')),
 
+    url(r'^services/', include('apps.services.urls')),
+
     # api
     url(r"^api/", include(router.urls)),
     url(r"^api-auth/", include("rest_framework.urls", namespace="rest_framework")),

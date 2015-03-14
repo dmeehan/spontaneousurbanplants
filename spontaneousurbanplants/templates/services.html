@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body_class %}services{% endblock %}
+{% block content %}
+<section class="services-intro">
+	<div class="services-text">{{ introduction.text_html|safe }}</div>
+</section>
+{% for service in service_list %}
+<section class="service-block">
+	<h2 class="service-title">{{ service.attribute.name }}</h2>
+	{% if service.image %}
+	<img src="{{ service.image.url }}" />
+	{% endif %}
+	<div class="service-text">{{ service.text_html|safe }}</div>
+</section>
+{% endfor %}
+{% endblock content %}
