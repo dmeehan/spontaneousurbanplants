@@ -85,6 +85,10 @@ class Plant(models.Model):
     energy = models.FloatField(blank=True, null=True, 
       help_text="Energy savings per plant in kWh")
 
+    seasonality_chart = models.ImageField(upload_to="images/plants", 
+                              blank=True, 
+                              null=True)
+
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
     categories = models.ManyToManyField(Category, blank=True, null=True)
 
