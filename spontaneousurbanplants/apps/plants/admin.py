@@ -2,17 +2,19 @@
 
 from django.contrib import admin
 
-from .models import Attribute, Category, Plant, AttributeDescription
+from apps.instamedia.models import InstagramImage
 
+from .models import Attribute, Category, Plant, AttributeDescription
 
 class AttributeDescriptionInline(admin.TabularInline):
     model = AttributeDescription
 
 
 class PlantAdmin(admin.ModelAdmin):
-    list_display = ['latin_name', 'order', 'visible', 'common_name', 'hashtag',]
+
+    list_display = ['latin_name', 'thumbnail', 'order', 'visible', 'common_name', 'hashtag',]
     list_editable = ['order', 'visible' ]
-    raw_id_fields = ('attributes', 'categories')
+    raw_id_fields = ('attributes', 'categories', 'lead_image')
    
     autocomplete_lookup_fields = {
         'm2m': ['attributes', 'categories'], 

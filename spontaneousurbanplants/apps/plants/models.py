@@ -66,18 +66,19 @@ class Plant(models.Model):
     
     """
 
-    icon = models.ImageField(upload_to="images/icons", 
-                              blank=True, 
-                              null=True)
     latin_name = models.CharField(max_length=255)
     common_name = models.CharField(max_length=255)
     hashtag = models.CharField(max_length=100, 
                                unique=True,
                                help_text='A unique hashtag indentifying this plant. Do not include #.')
+    lead_image = models.ForeignKey(InstagramImage, blank=True, null=True)
     description = models.TextField(blank=True)
     flowers = models.TextField(blank=True)
     habitat = models.TextField(blank=True)
     origin = models.CharField(blank=True, max_length=255)
+    seasonality_chart = models.ImageField(upload_to="images/plants", 
+                              blank=True, 
+                              null=True)
     stormwater = models.FloatField(blank=True, null=True, 
       help_text="Stormwater retention per plant in gallons")
     carbon = models.FloatField(blank=True, null=True, 
@@ -85,12 +86,12 @@ class Plant(models.Model):
     energy = models.FloatField(blank=True, null=True, 
       help_text="Energy savings per plant in kWh")
 
-    seasonality_chart = models.ImageField(upload_to="images/plants", 
-                              blank=True, 
-                              null=True)
-
     attributes = models.ManyToManyField(Attribute, blank=True, null=True)
     categories = models.ManyToManyField(Category, blank=True, null=True)
+
+    icon = models.ImageField(upload_to="images/icons", 
+                              blank=True, 
+                              null=True)
 
     visible = models.BooleanField(default=True)
     order = PositionField()
@@ -98,11 +99,20 @@ class Plant(models.Model):
     class Meta:
       ordering = ["order", "latin_name"]
 
+    def thumbnail(self):
+        if self.lead_image:
+          return u'<img src="%s" />' % (self.lead_image.remote_thumbnail_url)
+        else:
+          return u''
+
     def get_images(self):
       return InstagramImage.objects.filter(tags__name__iexact=self.hashtag)
 
     def __unicode__(self):
         return u'%s' % (self.latin_name)
+
+    thumbnail.short_description = 'lead image'
+    thumbnail.allow_tags = True
 
 
 class AttributeDescription(models.Model):
