@@ -108,9 +108,13 @@ class Plant(models.Model):
     def get_images(self):
       return InstagramImage.objects.filter(tags__name__iexact=self.hashtag)
 
+    def image_count(self):
+      return self.get_images().count()
+
     def __unicode__(self):
         return u'%s' % (self.latin_name)
 
+    image_count.short_description = 'image count'
     thumbnail.short_description = 'lead image'
     thumbnail.allow_tags = True
 
