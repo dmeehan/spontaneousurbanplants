@@ -26,13 +26,13 @@ class Service(models.Model):
 	"""A model to display attributes
 
 	"""
+	attribute = models.ForeignKey(Attribute)
 	image = models.ImageField(upload_to="images/services", blank=True, null=True)
 	text = models.TextField(blank=True)
 
 	# Fields to store generated HTML. 
 	text_html = models.TextField(editable=False, blank=True)
 
-	attribute = models.ForeignKey(Attribute)
 	order = PositionField()
 
 	class Meta:
