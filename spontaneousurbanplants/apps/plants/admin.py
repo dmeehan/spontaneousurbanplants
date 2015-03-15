@@ -12,7 +12,7 @@ class AttributeDescriptionInline(admin.TabularInline):
 
 class PlantAdmin(admin.ModelAdmin):
 
-    list_display = ['latin_name', 'thumbnail', 'image_count', 'order', 'visible', 'common_name', 'hashtag',]
+    list_display = ['latin_name', 'order', 'thumbnail', 'image_count', 'common_name', 'hashtag', 'visible', ]
     list_editable = ['order', 'visible' ]
     raw_id_fields = ('attributes', 'categories', 'lead_image')
    
