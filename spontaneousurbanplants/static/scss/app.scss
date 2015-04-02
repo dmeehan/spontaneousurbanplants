@@ -2,11 +2,10 @@
 @import "base/base";
 @import "neat/neat";
 
-$max-width: em(1088); // Max-width of the outer container
 
 div.leaflet-control-attribution {
 	a {
-		color: #475146;
+		color: $dark-gray;
 	}
 }
 
@@ -183,7 +182,7 @@ section.info {
 	aside.details {
 		@include span-columns(16 of 18);
 		@include shift(1);
-		border:2px solid #d9e45c;
+		border:2px solid $green;
 		font-size: .75em;
 		line-height: 1.2em;
 		margin-top: 1.35446%;
@@ -240,11 +239,32 @@ nav.plants {
 body.about {
 	section.about-content {
 		@include span-columns(6);
-		@include omega(5n);
-		border-left: 1px solid green;
+		@include omega(4n);
+
+		h1 {
+			padding-left: $gutter;
+		}
+
+		div.about-body {
+			border-left: 1px solid $green;
+			padding-left: $gutter;
+			font-size: .75em;
+
+			img {
+				width: 100%;
+			}
+
+		}
 
 		&:first-child {
-			border-left: none;
+			h1 {
+				padding-left: 0;
+			}
+
+			div.about-body {
+				padding-left: 0;
+				border-left: none;
+			}
 		}
 	   
 	}

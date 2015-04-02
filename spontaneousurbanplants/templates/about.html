@@ -4,11 +4,13 @@
 {% block content %}
 {% for about in object_list %}
 <section class="about-content">
-	<h1>{{ about.title }} test</h1>
-	{% if about.image %}
-	<div>{{ about.image.url }}</div>
-	{% endif %}
-	<div>{{ about.text }}</div>
+	<h1>{{ about.title }}</h1>
+	<div class="about-body">
+		{% if about.image %}
+		<div class="about-image"><img src="{{ about.image.url }}" /></div>
+		{% endif %}
+		<div class="about-text">{{ about.text }}</div>
+	</div>
 </section>
 {% endfor %}
 {% endblock content %}

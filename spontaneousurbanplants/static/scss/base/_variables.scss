@@ -2,7 +2,7 @@
 $sans-serif: "nimbus-sans", $helvetica;
 $serif: $georgia;
 $base-font-family: $sans-serif;
-$heading-font-family: "nimbus-sans-condensed";
+$heading-font-family: $base-font-family;
 
 // Font Sizes
 $base-font-size: 1em;
