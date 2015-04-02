@@ -238,30 +238,15 @@ nav.plants {
 }
 
 body.about {
-	section {
-	   div.content {
-	       position: relative;
-	       aside {
-                 font-size: .75em;
-		 		 @include span-columns(12);
-		 		 ul, ol {
-  					margin: 0 0 ($base-line-height * .5);
-				 }
-				 ol {
-				 	margin-left: $base-line-height;
-				 	list-style-type: decimal;
-				 }
+	section.about-content {
+		@include span-columns(6);
+		@include omega(5n);
+		border-left: 1px solid green;
 
-				 h3 {
-				 	margin-top: $base-line-height * .5;
-				 }
-	       }
-	    
-	       section {
-                 @include span-columns(12);
-                 @include omega();
-	       }
-	   }
+		&:first-child {
+			border-left: none;
+		}
+	   
 	}
 }
 
