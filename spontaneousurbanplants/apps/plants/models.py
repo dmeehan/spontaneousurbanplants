@@ -1,6 +1,5 @@
 # plants/models.py
-import calendar
-
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -108,8 +107,14 @@ class Plant(models.Model):
     def get_images(self):
       return InstagramImage.objects.filter(tags__name__iexact=self.hashtag)
 
+    def get_absolute_url(self):
+        return reverse('plant_detail', args=[str(self.hashtag)])
+
     def image_count(self):
       return self.get_images().count()
+
+    def get_stormwater_total(self):
+        return self.image_count() * self.stormwater
 
     def __unicode__(self):
         return u'%s' % (self.latin_name)
