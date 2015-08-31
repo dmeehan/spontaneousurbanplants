@@ -12,13 +12,12 @@ class ImageSerializer(gis_serializers.GeoFeatureModelSerializer):
 	tags = serializers.SlugRelatedField(many=True, read_only=True,
                                         slug_field='name')
 	plant = serializers.SerializerMethodField('get_plant')
-	image_url = serializers.Field(source='image_url')
 
 	class Meta:
 		model = InstagramImage
 		geo_field = 'coordinates'
 		id_field = None
-		fields = ('id', 'caption', 'image_url')
+		fields = ('id', 'caption', 'remote_thumbnail_url', 'remote_standard_resolution_url')
 
 	def get_plant(self, obj):
 		for tag in obj.tags.all():
