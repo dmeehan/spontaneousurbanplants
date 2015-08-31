@@ -28,4 +28,4 @@ class ImageSerializer(gis_serializers.GeoFeatureModelSerializer):
 				return ""
 
 	def get_image_url(self, obj):
-        return obj.image_file.url
+		return obj.image_file.url
