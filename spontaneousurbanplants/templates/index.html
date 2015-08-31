@@ -3,7 +3,7 @@
 {% block content %}
 <section class="image-grid">
 {% for image in object_list %}
-	<div><a href="{% url 'map' %}?image_id={{ image.id }}"><img src="{{ image.remote_standard_resolution_url }}" /></a></div>
+	<div><a href="{% url 'map' %}?image_id={{ image.id }}"><img src="{{ image.image_file.url }}" /></a></div>
 {% endfor %}
 </section>
 {% endblock content %}
