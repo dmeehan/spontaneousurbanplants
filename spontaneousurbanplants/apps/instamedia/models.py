@@ -79,6 +79,19 @@ class InstagramImage(models.Model):
     def __unicode__(self):
         return u'Instagram Media: %s' % (self.remote_id)
 
+    @property
+    def image_url(self):
+        try:
+            return self.image_file.url
+        except ValueError:
+            try:
+                r = requests.get(self.remote_standard_resolution_url)
+                if r.status_code == 200:
+                    return self.remote_standard_resolution_url
+            except requests.exceptions.RequestException:
+                # TODO: add a placeholder image
+                pass
+
     def thumbnail(self):
         return u'<img src="%s" />' % (self.remote_thumbnail_url)
 

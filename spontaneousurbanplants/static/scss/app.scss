@@ -237,36 +237,30 @@ nav.plants {
 }
 
 body.about {
-	section.about-content {
-		@include span-columns(6);
-		@include omega(4n);
+	section {
+	   div.content {
+	       position: relative;
+	       aside {
+                 font-size: .75em;
+		 		 @include span-columns(12);
+		 		 ul, ol {
+  					margin: 0 0 ($base-line-height * .5);
+				 }
+				 ol {
+				 	margin-left: $base-line-height;
+				 	list-style-type: decimal;
+				 }
 
-		h1 {
-			padding-left: $gutter;
-		}
-
-		div.about-body {
-			border-left: 1px solid $green;
-			padding-left: $gutter;
-			font-size: $small-font-size;
-
-			img {
-				width: 100%;
-			}
-
-		}
-
-		&:first-child {
-			h1 {
-				padding-left: 0;
-			}
-
-			div.about-body {
-				padding-left: 0;
-				border-left: none;
-			}
-		}
-	   
+				 h3 {
+				 	margin-top: $base-line-height * .5;
+				 }
+	       }
+	    
+	       section {
+                 @include span-columns(12);
+                 @include omega();
+	       }
+	   }
 	}
 }
 
