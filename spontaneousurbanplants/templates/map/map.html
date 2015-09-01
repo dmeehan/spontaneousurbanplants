@@ -180,7 +180,7 @@
 		onEachFeature: function onEachFeature(feature, layer) {
 			all_layer.addLayer(layer);
 
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
 		}
@@ -218,7 +218,7 @@
 			{{ attribute.hashtag }}_layer.addLayer(layer);
 
 
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url+ '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
 		}
@@ -252,7 +252,7 @@
 		onEachFeature: function onEachFeature(feature, layer) {
 			{{ plant.hashtag }}_layer.addLayer(layer);
 
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url+ '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
 		}
