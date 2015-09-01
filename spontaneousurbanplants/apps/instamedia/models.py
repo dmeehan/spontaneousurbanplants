@@ -15,6 +15,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 
 from notification import models as notification
+from easy_thumbnails.files import get_thumbnailer
 
 from .client import get_api
 from .signals import image_added
@@ -67,11 +68,12 @@ class InstagramImage(models.Model):
 
     def download_remote_image(self):
         result = requests.get(self.remote_standard_resolution_url)
-        img_temp = NamedTemporaryFile(delete=True)
-        img_temp.write(result.content)
-        img_temp.flush()
+        if result.status_code == 200:
+            img_temp = NamedTemporaryFile(delete=True)
+            img_temp.write(result.content)
+            img_temp.flush()
 
-        self.image_file.save('%s.jpg' % self.remote_id, File(img_temp), save=True)
+            self.image_file.save('%s.jpg' % self.remote_id, File(img_temp), save=True)
 
     def get_absolute_url(self):
         return reverse('instamedia_image_detail', args=[str(self.id)])
@@ -87,7 +89,12 @@ class InstagramImage(models.Model):
             return self.remote_standard_resolution_url
 
     def thumbnail(self):
-        return u'<img src="%s" />' % (self.remote_thumbnail_url)
+        try:
+            options = {'size': (150, 150), 'crop': True}
+            thumbnail_url = get_thumbnailer(self.image_file).get_thumbnail(options).url
+            return u'<img src="%s" />' % (thumbnail_url)
+        except:
+            return u'<img src="%s" />' % (self.remote_thumbnail_url)
 
     def display_tags(self):
         return ', '.join([ tag.name for tag in self.tags.all() ])

@@ -240,6 +240,7 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'compressor', # static file management
+    'easy_thumbnails', # image manipulation
     'djsupervisor', # process mgmt
     'leaflet', # maps
     'notification', # event notifications
