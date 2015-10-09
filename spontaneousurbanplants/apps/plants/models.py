@@ -114,7 +114,10 @@ class Plant(models.Model):
       return self.get_images().count()
 
     def get_stormwater_total(self):
-        return self.image_count() * int(self.stormwater)
+        if self.stormwater:
+          return self.image_count() * self.stormwater
+        else:
+          return 0
 
     def __unicode__(self):
         return u'%s' % (self.latin_name)
