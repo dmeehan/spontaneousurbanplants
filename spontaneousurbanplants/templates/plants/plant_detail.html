@@ -3,7 +3,7 @@
 {% block content %}
 <section>
 	{% for image in plant.get_images %}
-	<img src="{{ image.image_file.url }}" />
+	<img src="{{ image.image_file.url }}" width="150" />
 	{% endfor %}
 </section>
 <section>
