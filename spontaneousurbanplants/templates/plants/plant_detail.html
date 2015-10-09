@@ -3,7 +3,7 @@
 {% block content %}
 <section>
 	{% for image in plant.get_images %}
-	<img src="{{ image.remote_thumbnail_url }}" />
+	<img src="{{ image.image_file.url }}" />
 	{% endfor %}
 </section>
 <section>
@@ -11,11 +11,16 @@
 <p>{{ plant.common_name }}</p>
 <p>{{ plant.description }}</p>
 <p>{{ plant.flowers }}</p>
-<p>{{ plant.habitat }}</p>
-<p>{{ plant.origin }}</p>
-<p>{% for category in plant.categories.all %}{{ category }}{% endfor %}<p>
+<p>Habitat{{ plant.habitat }}</p>
+<p>Origin: {{ plant.origin }}</p>
+<p>Categories: {% for category in plant.categories.all %}{{ category }}{% endfor %}<p>
+<p>Attributes: {% for attribute in plant.attributes.all %}{{ attribute }}{% endfor %}<p>
 
-<p>{{ plant.image_count }}</p>
+{% if plant.seasonality_chart %}
+<p><img src="{{ plant.seasonality_chart.url }}" /></p>
+{% endif %}
+
+<p>Image count: {{ plant.image_count }}</p>
 <p>Stormwater: {{ plant.get_stormwater_total }} gallons</p>
 </section>
 {% endblock content %}
