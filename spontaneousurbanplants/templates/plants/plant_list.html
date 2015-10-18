@@ -2,7 +2,12 @@
 {% block content %}
 <section class="image-grid">
 {% for plant in object_list %}
-	<div><a href="{{ plant.get_absolute_url }}"><img src="{{ plant.lead_image.remote_standard_resolution_url }}" /></a></div>
+	<div>
+		<a href="{{ plant.get_absolute_url }}">
+		<img src="{{ plant.lead_image.remote_standard_resolution_url }}" />
+		<h1>{{ plant.latin_name }}</h1>
+		</a>	
+	</div>
 {% endfor %}
 </section>
 {% endblock content %}

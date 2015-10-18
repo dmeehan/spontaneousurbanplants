@@ -1,5 +1,5 @@
 # news/urls.py
-from django.conf.urls.defaults import *
+from django.conf.urls import url, patterns
 from django.views.generic import ListView, DetailView, TemplateView, DateDetailView, MonthArchiveView
 
 from .models import NewsItem

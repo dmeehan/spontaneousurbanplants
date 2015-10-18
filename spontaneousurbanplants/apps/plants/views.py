@@ -5,10 +5,10 @@ from django.views.generic import ListView, DetailView
 from .models import Plant
 
 class PlantListView(ListView):
-    model = Plant
+    queryset = Plant.objects.filter(visible=True)
 
 class PlantDetailView(DetailView):
-    model = Plant
+    queryset = Plant.objects.filter(visible=True)
     slug_field = 'hashtag'
 
 	
