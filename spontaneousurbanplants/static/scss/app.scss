@@ -313,15 +313,55 @@ body.services {
 body.profiles {
   .slideshow {
     @include span-columns(14);
-    background: red;
   }
 
   .details {
     @include span-columns(10);
     @include omega;
-    background: blue;
   }
 }
+
+.slideshow-carousel {
+  width: 100%
+  @include display (flex);
+}
+
+.slideshow-slide {
+  position: relative;
+  width: 100%;
+  @include flex(none);
+  img {
+    width: 100%;
+  }
+
+  figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 999999;
+    @include display(flex);
+    @include flex-wrap(wrap);
+    background: transparentize(black, 0.5);
+    color: white;
+    
+
+    .caption-description {
+      width: 100%;
+    }
+
+    .caption-location {
+      @include flex(1);
+    }
+
+    .caption-date {
+      @include flex(none);
+
+    }
+  }
+}
+
+   
+  
 
 
 /* slideshow */

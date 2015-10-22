@@ -2,19 +2,22 @@
 {% load staticfiles %}
 {% block body_class %}profiles{% endblock %}
 {% block content %}
-{% if plant.get_images %}
+
 <section class="slideshow">
+{% if plant.get_images %}
+    <div class="slidwshow-carousel">
 {% for image in plant.get_images %}
-    <figure>
-      <img src="{{ image.image_file.url }}" alt="{{ image.caption }}" />
-      
-      <figcaption>
-            {% if image.caption %}<span class="caption-description">{{ image.caption }}</span>{% endif %}
-            {% if image.caption %}<span class="caption-date">{{ image.created|date:"M d, Y - f A"}}</span>{% endif %}
-            <span class="caption-location">{{ image.coordinates.y }} {{ image.coordinates.x }}</span>
-      </figcaption>
-    </figure>
+        <figure class="slideshow-slide">
+          <img src="{{ image.image_file.url }}" alt="{{ image.caption }}" />
+          
+          <figcaption>
+                {% if image.caption %}<span class="caption-description">{{ image.caption }}</span>{% endif %}
+                {% if image.caption %}<span class="caption-date">{{ image.created|date:"M d, Y - f A"}}</span>{% endif %}
+                <span class="caption-location">{{ image.coordinates.y }} {{ image.coordinates.x }}</span>
+          </figcaption>
+        </figure>
 {% endfor %}
+    <div>
 {% endif %}
 </section>
 <section class="details">
