@@ -312,12 +312,12 @@ body.services {
 
 body.profiles {
   .slideshow {
-    @include span-columns(14);
+    @include span-columns(13);
     padding-right: $gutter;
   }
 
   .details {
-    @include span-columns(10);
+    @include span-columns(11);
     @include omega;
 
     h1 {
