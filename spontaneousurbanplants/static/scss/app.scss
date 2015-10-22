@@ -324,16 +324,18 @@ body.profiles {
       font-size: 1.1em;
       font-weight: 600;
       margin-bottom: 0;
+      text-transform: none;
     }
 
     h2 {
       font-size: 1.1em;
       font-weight: 400;
+      text-transform: none;
     }
 
     .chart {
       display: block;
-      margin-bottom: $base-spacing;
+      margin: $base-spacing 0;
     }
 
     .description {
