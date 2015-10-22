@@ -322,14 +322,16 @@ body.profiles {
 }
 
 .slideshow-carousel {
-  width: 100%;
-  @include display (flex);
+  @include display(flex);
+  overflow-x: hidden;
 }
 
 .slideshow-slide {
   position: relative;
   width: 100%;
   @include flex(none);
+  margin: 0;
+  padding: 0;
   img {
     width: 100%;
   }
