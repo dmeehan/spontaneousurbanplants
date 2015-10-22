@@ -322,7 +322,7 @@ body.profiles {
 }
 
 .slideshow-carousel {
-  width: 100%
+  width: 100%;
   @include display (flex);
 }
 
@@ -335,6 +335,8 @@ body.profiles {
   }
 
   figcaption {
+    width: 100%;
+    padding: $small-spacing;
     position: absolute;
     bottom: 0;
     left: 0;
