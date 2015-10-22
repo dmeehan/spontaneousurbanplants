@@ -24,7 +24,7 @@
     <h1>{{ plant.latin_name }}</h1>
     <h2>{{ plant.common_name }}</h2>
     {% if plant.seasonality_chart %}
-    <p><img src="{{ plant.seasonality_chart.url }}" /></p>
+    <img class="chart" src="{{ plant.seasonality_chart.url }}" />
     {% endif %}
     <p class="description"><strong>Botanical description:</strong> {{ plant.description }}</p>
     <div class="metrics">
