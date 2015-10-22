@@ -336,6 +336,7 @@ body.profiles {
     h3 {
       font-size: $base-font-size;
       text-transform: none;
+      margin-bottom: $small-spacing/2;
     }
 
     .chart {
@@ -362,7 +363,7 @@ body.profiles {
       font-weight: 700;
       text-align: center;
       //padding: $small-spacing;
-      margin-bottom: 0;
+      margin-bottom: $small-spacing;
       color: white;
 
       h3 {
@@ -385,8 +386,8 @@ body.profiles {
     }
 
     .origin {
-      background: green;
-      padding: $small-spacing/2;
+      background: $green;
+      //padding: $small-spacing/2;
     }
   }
 }
