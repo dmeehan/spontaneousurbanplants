@@ -329,6 +329,32 @@ body.profiles {
       font-size: 1.2em;
       font-weight: 400;
     }
+
+    .description {
+      font-size: $small-font-size;
+      @include span-columns(7 of 11);
+    }
+
+    .metrics {
+      @include span-columns(4 of 11);
+    }
+
+    .count {
+      width: 100%;
+      position: relative;
+      background: $green;
+      font-size: 4em;
+      text-align: center;
+      padding: $base-spacing;
+      color: white;
+
+      &::after {
+        position: absolute;
+        content: "specimens";
+        bottom: $small-spacing;
+        right: $base-spacing;
+      }
+    }
   }
 }
 
