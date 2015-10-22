@@ -26,7 +26,7 @@
     {% if plant.seasonality_chart %}
     <p><img src="{{ plant.seasonality_chart.url }}" /></p>
     {% endif %}
-    <p class="description">{{ plant.description }}</p>
+    <p class="description"><strong>Botanical description:</strong> {{ plant.description }}</p>
     <div class="metrics">
         <h3>Indexed</h3>
         <p class="count">{{ plant.image_count }}</p>
