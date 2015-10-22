@@ -364,6 +364,11 @@ body.profiles {
       //padding: $small-spacing;
       color: white;
 
+      h3 {
+        margin: 0;
+        padding: 0;
+      }
+
       &::after {
         content: "specimens";
         background: $green;
