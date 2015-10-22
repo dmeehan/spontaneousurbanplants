@@ -377,7 +377,7 @@ body.profiles {
         text-align: right;
         display: block;
         font-size: 1rem;
-        padding: $small-spacing/2;
+        padding: $small-spacing/2 $small-spacing;
         margin: 0;
         font-family: $heading-font-family;
         font-weight: bold;
@@ -387,7 +387,9 @@ body.profiles {
 
     .origin {
       background: $green;
-      //padding: $small-spacing/2;
+      padding: $small-spacing/2 $small-spacing;
+      color: white;
+      font-weight: 600;
     }
   }
 }
