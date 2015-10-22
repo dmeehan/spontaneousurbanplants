@@ -319,6 +319,16 @@ body.profiles {
   .details {
     @include span-columns(10);
     @include omega;
+
+    h1 {
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      font-weight: 400;
+    }
   }
 }
 
