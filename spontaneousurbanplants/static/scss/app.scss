@@ -341,19 +341,24 @@ body.profiles {
 
     .count {
       width: 100%;
-      position: relative;
       background: $green;
       font-size: 4em;
+      font-weight: 700;
       text-align: center;
-      padding: $base-spacing;
+      padding: $small-spacing;
       color: white;
 
       &::after {
-        position: absolute;
-        content: "specimens";
-        bottom: $small-spacing;
-        right: $base-spacing;
+        //position: absolute;
+        //content: "specimens";
+        //bottom: $small-spacing;
+        //right: $base-spacing;
       }
+    }
+
+    .origin {
+      background: green;
+      padding: $small-spacing/2;
     }
   }
 }
