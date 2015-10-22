@@ -309,3 +309,300 @@ body.services {
 	   }
 	}
 }
+
+body.profiles {
+  .slideshow {
+    @include span-columns(14);
+    background: red;
+  }
+
+  .details {
+    @include span-columns(10);
+    @include omega;
+    background: blue;
+  }
+}
+
+
+/* slideshow */
+
+/*
+.slideshow {
+    float:left;
+    width:58.33333%;
+    position: relative;
+    overflow: hidden;
+
+}
+
+
+.slideshow .carousel {
+    position: relative;
+    margin: 10px;
+}
+
+.slideshow .carousel .slides img {
+    width:100%;
+    display:block;
+}
+
+.slideshow .carousel .slides li {
+    display:none;
+    position:relative;
+}
+
+.slideshow .carousel .flex-caption {
+    position:absolute;
+    width:100%;
+    bottom:0;
+    left:0;
+    background:rgba(0,0,0,0.6);
+    color:#fff;
+    line-height:40px;
+    padding:0 10px;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+
+.slideshow .controls {
+    margin:0 0 0 0;
+    padding:0 0 0 0;
+    overflow: auto;
+    background:url('images/vertical-bg.png') no-repeat 10px top,
+               url('images/bottom-bg.png') no-repeat left 10px,
+               url('images/corner-bg-bottom-right.png') no-repeat right bottom;
+
+}
+
+.slideshow .controls ul {
+    margin:0 0 0 0;
+    padding:0 0 0 0;
+    overflow: auto;
+}
+
+.slideshow .controls li {
+    list-style: none;
+    float:left;
+    width: 14.2857143%;
+}
+
+.slideshow .controls img {
+    width:100%;
+    display:block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    opacity:0.4;
+    filter:alpha(opacity=40); For IE8 and earlier 
+}
+
+.slideshow .controls a.active img,
+.slideshow .controls a:hover img {
+    opacity:1.0;
+    filter:alpha(opacity=100);  For IE8 and earlier 
+}
+
+.slideshow nav.expand {
+    position:absolute;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    top:0;
+    right:40px;
+    width:40px;
+    background: transparent;
+    z-index:20000;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .2s ease-in;
+   -moz-transition: all .2s ease-in;
+   -o-transition: all .2s ease-in;
+   -ms-transition: all .2s ease-in;
+   -transition: all .2s ease-in;
+}
+
+.slideshow nav.expand a,
+.slideshow nav.expand a:link,
+.slideshow nav.expand a:hover,
+.slideshow nav.expand a:active,
+.slideshow nav.expand a:visited {
+    display:block;
+    height:0;
+    line-height:0;
+    text-align:center;
+    text-decoration: none;
+    color: rgba(255,255,255,0.8);
+    -webkit-transition: all .2s ease-in;
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -ms-transition: all .2s ease-in;
+    -transition: all .2s ease-in;
+    font-size:2em;
+    font-family:monospace;
+    font-weight:bold;
+    background:rgba(0,0,0,0.6);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.slideshow nav.expand a:hover {
+   -webkit-transition: all .2s ease-in;
+   -moz-transition: all .2s ease-in;
+   -o-transition: all .2s ease-in;
+   -ms-transition: all .2s ease-in;
+   -transition: all .2s ease-in;
+    font-size:3em;
+    color: rgba(255,255,255,1.0);
+}
+
+.slideshow:hover nav.expand a {
+   height:40px;
+   line-height:40px;
+}
+
+.slideshow #close {
+    display:none;
+}
+
+.slideshow .flex-direction-nav {
+   width:120px;
+   position:absolute;
+   top:10px;
+   right:10px;
+   z-index:15000;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   -o-box-sizing: border-box;
+   -ms-box-sizing: border-box;
+   box-sizing: border-box;
+   overflow: hidden;
+   -webkit-transition: all .2s ease-in;
+   -moz-transition: all .2s ease-in;
+   -o-transition: all .2s ease-in;
+   -ms-transition: all .2s ease-in;
+   -transition: all .2s ease-in;
+    overflow: hidden;
+    -moz-box-shadow: -1px 1px 5px rgba(0,0,0,.5);
+    -webkit-box-shadow: -1px 1px 5px rgba(0,0,0,.5);
+    box-shadow: -1px 1px 5px rgba(0,0,0,.5);
+}
+
+.slideshow .flex-direction-nav li {
+    width:40px;
+    float:right;
+    background:rgba(0,0,0,0.6);
+    overflow: hidden;
+}
+
+.slideshow .flex-direction-nav li:first-child {
+    float:left;
+}
+
+.slideshow .flex-direction-nav a {
+    display:block;
+    float:left;
+    width:40px;
+    height:0;
+    line-height:0;
+    margin:0;
+    text-align:center;
+    text-decoration: none;
+    color: rgba(255,255,255,0.8);
+    -webkit-transition: all .2s ease-in;
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -ms-transition: all .2s ease-in;
+    -transition: all .2s ease-in;
+    font-size:2em;
+    font-family:monospace;
+    font-weight:bold;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.slideshow .flex-direction-nav a:hover {
+    font-size:3em;
+    color: rgba(255,255,255,1.0);
+}
+
+.slideshow:hover .flex-direction-nav a {
+    height:40px;
+    line-height:40px;
+}
+
+.slideshow .flex-direction-nav .next {
+
+}
+
+.slideshow .flex-direction-nav .prev {}
+
+.home .slideshow {
+    width:100%;
+    margin-bottom: 10px;
+}
+
+.home .slideshow .text {
+    position:absolute;
+    bottom:0px;
+    left:0px;
+    background-color: rgba(255,255,255,0.6);
+    font-size:.9em;
+}
+
+.home .slideshow .image {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    
+}
+
+.home .slideshow .text h2 {
+    text-transform: uppercase;
+}
+
+
+.home .slideshow .text a {
+
+}
+
+.portfolio .slideshow,
+.portfolio .slideshow .carousel .slides li {
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    -ms-transition: all .3s ease-out;
+    -transition: all .3s ease-out;
+}
+
+.portfolio .slideshow {
+    background:url('images/corner-bg-top-right.png') no-repeat right top,
+               url('images/vertical-bg.png') no-repeat 10px 90%,
+               url('images/vertical-bg.png') no-repeat 10px top,
+               url('images/bottom-bg.png') no-repeat left 10px;
+
+}
+
+
+.portfolio .slideshow .carousel {
+   background:url('images/vertical-bg.png') no-repeat right bottom,
+               url('images/bottom-bg.png') no-repeat left bottom;
+
+}
+
+*/

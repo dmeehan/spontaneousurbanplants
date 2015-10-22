@@ -105,7 +105,7 @@ class Plant(models.Model):
           return u''
 
     def get_images(self):
-      return InstagramImage.objects.filter(tags__name__iexact=self.hashtag)
+      return InstagramImage.objects.filter(tags__name__iexact=self.hashtag).filter(verified=True)
 
     def get_absolute_url(self):
         return reverse('plant_detail', args=[str(self.hashtag)])
