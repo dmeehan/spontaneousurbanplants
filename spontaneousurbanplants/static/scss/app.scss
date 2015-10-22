@@ -332,7 +332,9 @@ body.profiles {
 
     .description {
       font-size: $small-font-size;
+      text-align: justify;
       @include span-columns(7 of 11);
+      padding-right: $small-spacing;
     }
 
     .metrics {
@@ -340,19 +342,21 @@ body.profiles {
     }
 
     .count {
+      position: relative;
       width: 100%;
       background: $green;
       font-size: 4em;
       font-weight: 700;
       text-align: center;
-      padding: $small-spacing;
+      //padding: $small-spacing;
       color: white;
 
       &::after {
-        //position: absolute;
-        //content: "specimens";
-        //bottom: $small-spacing;
-        //right: $base-spacing;
+        position: absolute;
+        content: "specimens";
+        bottom: 0;
+        right: 0;
+        font-weight: $base-font-size;
       }
     }
 
