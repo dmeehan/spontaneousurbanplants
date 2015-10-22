@@ -313,6 +313,7 @@ body.services {
 body.profiles {
   .slideshow {
     @include span-columns(14);
+    padding-right: $gutter;
   }
 
   .details {
@@ -329,7 +330,7 @@ body.profiles {
 .slideshow-slide {
   position: relative;
   width: 100%;
-  @include flex(none);
+  display: block;
   margin: 0;
   padding: 0;
   img {
