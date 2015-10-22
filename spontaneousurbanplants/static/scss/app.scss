@@ -333,6 +333,11 @@ body.profiles {
       text-transform: none;
     }
 
+    h3 {
+      font-size: $base-font-size;
+      text-transform: none;
+    }
+
     .chart {
       display: block;
       margin: $base-spacing 0 $base-spacing*1.5 0;
