@@ -352,11 +352,14 @@ body.profiles {
       color: white;
 
       &::after {
-        position: absolute;
         content: "specimens";
-        bottom: 0;
-        right: 0;
-        font-weight: $base-font-size;
+        background: $green;
+        text-align: right;
+        display: block;
+        font-size: $base-font-size;
+        font-family: $heading-font-family;
+        font-weight: bold;
+        color: white;
       }
     }
 
