@@ -428,15 +428,12 @@ body.profiles {
         text-indent: -999999px;
         background-size: 100% auto;
         background-repeat: no-repeat;
-        background-position: top left;
-        //@include span-columns(1 of 3);
-        //@include omega(3n);
-        padding-bottom: 30%;
+        background-position: 100% 100%;
         float: left;
-        //margin-bottom: 9.09091%;
-        width: 30%;
-        margin-right: 5%;
-        margin-bottom: 5%;
+        padding-bottom: 31%;
+        width: 31%;
+        margin-right: 3.5%;
+        margin-bottom: 3.5%;
 
         &:nth-child(3) {
           margin-right: 0;
@@ -453,13 +450,13 @@ body.profiles {
           padding-top: 100%;
         }
 
-        &:hover {
-          background-position: 100% 100%;
-        }
-      }
-      li.active {
-          background-position: 100% 100%;
-      }
+        //&:hover {
+          //background-position: 100% 100%;
+        //}
+      //}
+      //li.active {
+      //    background-position: 100% 100%;
+      //}
     }
   }
 }
