@@ -34,9 +34,11 @@
         <p class="count">{{ plant.image_count }}</p>
         <h3>Place of Origin</h3>
         <p class="origin">{{ plant.origin }}</p>
-        <div class="attributes">
-            {% for attribute in plant.attributes.all %}<p><img src="{{ attribute.icon.url }}" /></p>{% endfor %}
-        </div>
+        <ul class="attributes">
+            {% for attribute in plant.attributes.all %}
+            <li style="background-image:url({{ attribute.icon.url }})"></li>
+            {% endfor %}
+        </ul>
     </div>
 </section>
 {% endblock content %}
