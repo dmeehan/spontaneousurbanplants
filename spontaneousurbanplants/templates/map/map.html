@@ -50,7 +50,7 @@
 		<span class="description">Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons.</span>
 	</aside>
 </section>
-<nav class="plants">
+<nav class="map-nav plants">
 	<ul class="category-list icon-list">
 	{% for category in category_list %}
 		{% if category.icon %}
@@ -72,7 +72,7 @@
 	<ul class="plant-list">
 		{% for plant in plant_list %}
 		{% if plant.icon %}
-		<li class="{% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %} all is-hidden"><a data-tag="{{ plant.hashtag }}"
+		<li class="{% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %} all active"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 

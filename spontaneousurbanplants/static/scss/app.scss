@@ -165,7 +165,6 @@ section.image-grid {
 
 body.map {
   .content {
-    max-height: 600px;
     @include display(flex);
     @include align-content(stretch);
     @include justify-content(stretch);
@@ -234,7 +233,6 @@ nav.plants {
   @include flex-direction(column);
 	@include span-columns(5);
 	@include omega();
-  overflow-y: hidden;
 	//position: relative;
 
 	ul.category-list {
@@ -252,6 +250,7 @@ nav.plants {
 
   ul.plant-list {
     @include flex(1);
+    max-height: 350px;
     overflow-y: auto;
     clear: both;
     @include clearfix;
