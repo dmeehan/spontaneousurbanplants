@@ -431,7 +431,7 @@ body.profiles {
         background-position: top left;
         @include span-columns(1 of 2);
         @include omega(2n);
-        padding-bottom: 42.85714;
+        padding-bottom: 42.85714%;
         margin-bottom: 14.28571%;
         a {
           display: block;
