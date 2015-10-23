@@ -328,9 +328,10 @@
 	$('.js-category-trigger').click(function (e) {
 		//Get the id of the element clicked
        var category = $(this).data('tag');
+       alert(category);
        
        $('.plant-list li').addClass('is-hidden');
-       $('[data-category="' + category + '"]').removeClass('is-hidden');
+       $('.plant-list li[data-category="' + category + '"]').removeClass('is-hidden');
 
 	});
 </script>
