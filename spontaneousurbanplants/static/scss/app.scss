@@ -79,30 +79,30 @@ body {
 	}
 
 	footer {
-               margin-bottom: 1.35446%;
-               margin-top: 1.35446%;
+    margin-bottom: 1.35446%;
+    margin-top: 1.35446%;
 
 		@include outer-container;
-                p {
-                 font-size: .75em;
-                 @include span-columns(12);
-                }
-                ul {
-                 @include span-columns(12);
-                 @include omega();
-                 text-align: right;
-                 li { 
-                     font-size: .75em;
-                     display: inline;
-                     &:after {
-                     	content: "|";
-                     	padding: 0 8px;
-                     }
-                     &:last-child:after {
-                     	content: "";
-                     }
-                 }
-                }
+    p {
+     font-size: $small-font-size;
+     @include span-columns(12);
+    }
+    ul {
+     @include span-columns(12);
+     @include omega();
+     text-align: right;
+     li { 
+         font-size: $small-font-size;
+         display: inline;
+         &:after {
+         	content: "|";
+         	padding: 0 8px;
+         }
+         &:last-child:after {
+         	content: "";
+         }
+     }
+    }
 	}
 }
 
@@ -258,7 +258,16 @@ nav.plants {
 }
 
 body.about {
+  div.content {
+    @include display(flex);
+    @include flex-wrap(wrap);
+    @include align-content(stretch);
+    @include justify-content(stretch);
+    @include align-items(stretch);
+  }
+
 	section.about-content {
+    @include flex(none);
 		@include span-columns(6);
 		@include omega(4n);
 
@@ -294,7 +303,7 @@ body.about {
 
 .service-group {
   padding-top: $small-spacing;
-  
+
   @include display(flex);
   @include flex-wrap(wrap);
   @include align-content(stretch);
