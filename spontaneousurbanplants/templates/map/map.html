@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block body_class %}map{% endblock %}
 {% load compress %}
 {% block head_title %}Plant Map{% endblock %}
 
 {% block extra_style %}
-
 {% compress css %}
 <link rel="stylesheet" href="{% static 'bower_components/leaflet/dist/leaflet.css' %}" />
 <link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.css' %}" />
