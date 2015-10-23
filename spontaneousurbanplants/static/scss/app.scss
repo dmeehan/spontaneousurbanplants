@@ -300,6 +300,7 @@ section.service-group {
 }
 
 article.service-block {
+  @include flex(none);
   @include span-columns(6);
   @include omega(5n);
   background-color: #333;
