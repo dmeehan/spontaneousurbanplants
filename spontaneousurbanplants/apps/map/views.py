@@ -38,7 +38,7 @@ class MapView(TemplateView):
         categories = Category.objects.filter(visible=True)
         context.update({
             'plant_list': plants,
-            'attribute_list': attributes
+            'attribute_list': attributes,
             'category_list': categories
         })
 
