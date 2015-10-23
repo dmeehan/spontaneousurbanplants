@@ -51,30 +51,22 @@
 	</aside>
 </section>
 <nav class="map-nav plants">
-	<ul>
-	<li class="all active"><a data-tag="all"
-		data-name=""
-		data-description="Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons."
-		title="All" 
-		class="layer-link tooltip" 
-		href="#">{{ plant.common_name }}</a></li>
-	</ul>
-	<ul>
-		{% for plant in plant_list|slice:":6" %}
-		{% if plant.icon %}
-		<li class="pre" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
-		data-name="{{ plant.latin_name }} "
-		data-description="({{ plant.common_name }})"
-		title="{{ plant.latin_name }}" 
+	<ul class="category-list">
+	{% for category in category_list %}
+		{% if category.icon %}
+		<li><a data-tag="category_{{ category.id }}"
+		data-name="{{ category.name }} "
+		data-description="({{ category.description }})"
+		title="{{ category.name }}" 
 		class="layer-link tooltip"
-		href="#">{{ plant.common_name }}</a></li>
+		href="#">{{ category.name }}</a></li>
 		{% endif %}
-		{% endfor %}
+    {% endfor %}
 	</ul>
-	<ul>
-		{% for plant in plant_list|slice:"6:" %}
+	<ul class="plant-list">
+		{% for plant in plant_list %}
 		{% if plant.icon %}
-		<li class="post" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
+		<li><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
@@ -83,8 +75,6 @@
 		{% endif %}
 		{% endfor %}
     </ul>
-
-
 </nav>
 {% endblock content %}
 {% block extra_body %}
@@ -224,7 +214,37 @@
 		}
 	});
 
-	//map.addLayer({{ attribute.hashtag}}_layer);
+{% endfor %}
+
+{% for category in category_list %}
+
+	var category_{{ category.id }}_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.5;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-category-{{ category.id }}', iconSize: new L.Point(size, size) });
+		    }
+	});
+
+	markerClusterGroups['category_{{ category.id }}'] = category_{{ category.id }}_layer 
+
+	var category_{{ category.id }}_data = L.geoJson.ajax('{% url "api-image-list" %}?category={{ category.id }}&format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			category_{{ category.id }}_layer.addLayer(layer);
+
+
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
+	});
 
 {% endfor %}
 

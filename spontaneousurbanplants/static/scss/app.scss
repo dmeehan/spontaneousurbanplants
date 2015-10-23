@@ -216,9 +216,10 @@ nav.plants {
 	@include span-columns(5);
 	@include omega();
 	position: relative;
-	ul {
+
+	ul.category-list {
 		li {
-			@include span-columns(1 of 5);
+			@include span-columns(2.5 of 5);
 			padding-bottom: 17.34917%;
 			margin-bottom: 3.31354%;
 		}
@@ -255,34 +256,31 @@ nav.plants {
 		}
 	}
 
+  ul.plants {
+    li {
+      background: $green;
+      margin-bottom: $small-spacing/2;
+      padding: $small-spacing/2 $small-spacing;
+    }
+  }
+
 }
 
 body.about {
   section.about-group {
-    @include display(flex);
-    @include flex-wrap(wrap);
-    @include align-content(stretch);
-    @include justify-content(stretch);
-    @include align-items(stretch);
+    
   }
 
 	article.about-block {
-    @include flex(none);
-    @include display(flex);
-    @include flex-direction(column);
-    @include align-content(stretch);
-    @include justify-content(stretch);
-    @include align-items(stretch);
+    
 		@include span-columns(6);
 		@include omega(4n);
 
 		h1 {
 			padding-left: $gutter;
-      @include flex(none);
 		}
 
 		div.about-body {
-      @include flex(1);
 			border-left: 1px solid $green;
 			padding-left: $gutter;
 			font-size: $small-font-size;
