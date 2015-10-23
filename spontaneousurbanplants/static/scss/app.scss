@@ -274,16 +274,30 @@ body.about {
     
   }
 
-  section.about-sources{
+  section.about-colophone {
     font-size: $small-font-size;
     clear: both;
     margin-top: $base-spacing;
     border: 1px solid $green;
+    padding: $base-spacing;
+    @include display(flex);
 
     h2 {
       background: $green;
       color: white;
       padding: $small-spacing/2 $small-spacing;
+      width: 100%;
+      display: block;
+    }
+
+    .about-sources {
+      @include flex(1);
+      @include align-self(flex-start);
+    }
+
+    .about-credits {
+      @include flex(1);
+      @include align-self(flex-end);
     }
   }
 
@@ -309,7 +323,7 @@ body.about {
 
 		&:first-child {
 			h1 {
-				//padding-left: 0;
+				margin-left: -$gutter;
 			}
 
 			div.about-body {
