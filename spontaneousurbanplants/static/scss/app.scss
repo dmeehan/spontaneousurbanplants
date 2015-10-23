@@ -258,7 +258,7 @@ nav.plants {
 }
 
 body.about {
-  div.content {
+  section.about-group {
     @include display(flex);
     @include flex-wrap(wrap);
     @include align-content(stretch);
@@ -266,7 +266,7 @@ body.about {
     @include align-items(stretch);
   }
 
-	section.about-content {
+	article.about-block {
     @include flex(none);
 		@include span-columns(6);
 		@include omega(4n);

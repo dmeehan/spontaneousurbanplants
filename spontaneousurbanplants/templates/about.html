@@ -2,15 +2,17 @@
 {% load staticfiles %}
 {% block body_class %}about{% endblock %}
 {% block content %}
+<section class="about-group">
 {% for about in object_list %}
-<section class="about-content">
-	<h1>{{ about.title }}</h1>
-	<div class="about-body">
-		{% if about.image %}
-		<div class="about-image"><img src="{{ about.image.url }}" /></div>
-		{% endif %}
-		<div class="about-text">{{ about.text }}</div>
-	</div>
-</section>
+	<article class="about-block">
+		<h1>{{ about.title }}</h1>
+		<div class="about-body">
+			{% if about.image %}
+			<div class="about-image"><img src="{{ about.image.url }}" /></div>
+			{% endif %}
+			<div class="about-text">{{ about.text }}</div>
+		</div>
+	<article>
 {% endfor %}
+</section>
 {% endblock content %}
