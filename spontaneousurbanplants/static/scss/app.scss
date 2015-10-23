@@ -231,9 +231,10 @@ section.info {
 nav.plants {
 	@include span-columns(5);
 	@include omega();
-	position: relative;
+	//position: relative;
 
 	ul.category-list {
+    @include clearfix;
 		li {
 			@include span-columns(2.5 of 5);
 			padding-bottom: 47.36842%;
@@ -242,6 +243,8 @@ nav.plants {
 	}
 
   ul.plant-list {
+    clear: both;
+    @include clearfix;
     li {
       a {
         font-size: $small-font-size;
