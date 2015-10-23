@@ -318,6 +318,12 @@
 	   $('.description').text($(this).data('description'));
 	   $('aside.details').css( 'border-color', color )
 	   $('.map-nav ul li').removeClass("active");
+
+	   var list = $(this).closest('ul');
+	   if ($(list).hasClass('attribute-list')) {
+	   		$('.plant-list li').removeClass('is-hidden');
+	   		$('.category-list li.all').addClass('active');
+	   }
 	   $(this).parent().toggleClass("active");
 
 	});
