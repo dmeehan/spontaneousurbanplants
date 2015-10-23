@@ -272,6 +272,7 @@ nav.plants {
 body.about {
   section.about-group {
     @include clearfix;
+    margin-left: -$gutter;
   }
 
   section.about-colophone {
@@ -326,11 +327,11 @@ body.about {
 
 		&:first-child {
 			h1 {
-				margin-left: -$gutter;
+				
 			}
 
 			div.about-body {
-				margin-left: -$gutter;
+				//margin-left: -$gutter;
 				border-left: none;
 			}
 		}
