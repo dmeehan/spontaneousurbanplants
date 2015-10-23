@@ -231,7 +231,7 @@ section.info {
 
 nav.plants {
   @include display(flex);
-  @include flex-display(column);
+  @include flex-direction(column);
 	@include span-columns(5);
 	@include omega();
   overflow-y: auto;
