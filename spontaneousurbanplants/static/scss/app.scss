@@ -231,20 +231,20 @@ nav.plants {
 
 	ul.category-list {
 		li {
-			@include span-columns(2.5 of 5);
-			padding-bottom: 17.34917%;
-			margin-bottom: 3.31354%;
+			//@include span-columns(2.5 of 5);
+			//padding-bottom: 17.34917%;
+			//margin-bottom: 3.31354%;
 		}
 
 		li.all {
-			@include omega();
-			position: absolute;
-			top: 0;
-			right: 0;
-			@include span-columns(2 of 5);
-			background: url('../../images/all.png');
-			background-size: 100% auto;
-			padding-bottom: 38.01188%;
+			//@include omega();
+			//position: absolute;
+			//top: 0;
+			//right: 0;
+			//@include span-columns(2 of 5);
+			//background: url('../../images/all.png');
+			//background-size: 100% auto;
+			//padding-bottom: 38.01188%;
 
 			&:hover {
 				background-position: 100% 100%;
