@@ -234,7 +234,7 @@ nav.plants {
   @include flex-direction(column);
 	@include span-columns(5);
 	@include omega();
-  overflow-y: auto;
+  overflow-y: hidden;
 	//position: relative;
 
 	ul.category-list {
