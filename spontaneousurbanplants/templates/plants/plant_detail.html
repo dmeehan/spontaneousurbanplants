@@ -36,7 +36,14 @@
         <p class="origin">{{ plant.origin }}</p>
         <ul class="attributes">
             {% for attribute in plant.attributes.all %}
-            <li style="background-image:url({{ attribute.icon.url }})"></li>
+            <li style="background-image:url({{ attribute.icon.url }})">
+                <a data-tag="{{ attribute.hashtag }}"
+                    data-name="{{ attribute.name }}: "
+                    data-description="{{ attribute.description }}"
+                    title="{{ attribute.name }}" 
+                    class="layer-link tooltip" href="#">{{ attribute.name }}
+                </a>
+            </li>
             {% endfor %}
         </ul>
     </div>
