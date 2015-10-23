@@ -279,25 +279,27 @@ body.about {
     clear: both;
     margin-top: $base-spacing;
     border: 1px solid $green;
-    padding: $base-spacing;
     @include display(flex);
+    @include flex-wrap(wrap);
 
     h2 {
       background: $green;
       color: white;
       padding: $small-spacing/2 $small-spacing;
       width: 100%;
-      display: block;
+      @include flex(none);
     }
 
     .about-sources {
       @include flex(1);
       @include align-self(flex-start);
+      padding: $base-spacing;
     }
 
     .about-credits {
       @include flex(1);
       @include align-self(flex-end);
+      padding: $base-spacing;
     }
   }
 
