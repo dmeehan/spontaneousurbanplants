@@ -329,8 +329,9 @@ body.profiles {
       font-size: $small-font-size;
       line-height: 1.75rem;
       background: transparentize(black, 0.5);
-      padding: $small-spacing/2 0;
+      padding: 0 $small-spacing/2;
       text-transform: uppercase;
+      font-weight: bold;
     }
 
     .caption-location {
