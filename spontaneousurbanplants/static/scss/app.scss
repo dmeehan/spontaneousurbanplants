@@ -268,14 +268,18 @@ body.about {
 
 	article.about-block {
     @include flex(none);
+    @include display(flex);
+    @include flex-direction(column);
 		@include span-columns(6);
 		@include omega(4n);
 
 		h1 {
 			padding-left: $gutter;
+      @include flex(none);
 		}
 
 		div.about-body {
+      @include flex(1);
 			border-left: 1px solid $green;
 			padding-left: $gutter;
 			font-size: $small-font-size;
