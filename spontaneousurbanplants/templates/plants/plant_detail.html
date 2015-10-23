@@ -14,7 +14,7 @@
           
                 <p class="flex-caption">
                     {% if image.caption %}<span class="caption-date">{{ image.created|date:"M d, Y - f A"}}</span>{% endif %}
-                    <span class="caption-location">{{ image.coordinates.y }} {{ image.coordinates.x }}</span>
+                    <span class="caption-location">{{ image.coordinates.y }}, {{ image.coordinates.x }}</span>
                 </p>
             </li>
         {% endfor %}
