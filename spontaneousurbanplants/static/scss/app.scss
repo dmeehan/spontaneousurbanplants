@@ -327,7 +327,7 @@ body.profiles {
       //width: 100%;
       //bottom: 0;
       //left: 0;
-      background: transparentize(black, 0.5);
+      background-color: transparentize(black, 0.5);
       //color: white;
       //padding:0 $small-spacing;
       //margin: 0;
@@ -335,10 +335,12 @@ body.profiles {
 
     .caption-location {
       float: left;
+      color: white;
     }
 
     .caption-date {
       float: right;
+      color: white;
     }
   }
 
