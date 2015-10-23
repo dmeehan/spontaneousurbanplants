@@ -430,8 +430,8 @@ body.profiles {
         background-repeat: no-repeat;
         background-position: top left;
         @include span-columns(1 of 3);
-        @include omega(2n);
-        padding-bottom: 45.45455%;
+        @include omega(3n);
+        padding-bottom: 27.27273%;
         margin-bottom: 9.09091%;
         a {
           display: block;
