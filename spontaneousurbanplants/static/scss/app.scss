@@ -262,13 +262,16 @@ nav.plants {
         color: white;
         margin-bottom: $small-spacing/3;
         padding: 0 $small-spacing/2;
-        font-weight: bold;
+        font-weight: 400;
       }
 
       &.active {
-        color: $green;
-        border: 1px solid $green;
-        background: white;
+        a {
+          color: $green;
+          border: 1px solid $green;
+          background: white;
+        }
+        
       }
       
     }
