@@ -431,10 +431,18 @@ body.profiles {
         background-position: top left;
         //@include span-columns(1 of 3);
         //@include omega(3n);
-        padding-bottom: 33%;
+        padding-bottom: 31%;
         float: left;
         //margin-bottom: 9.09091%;
-        width: 33%;
+        width: 31%;
+        margin-right: 2%;
+        margin-bottom: 2%;
+
+        &:nth-child(2) {
+          margin-right: 0;
+          clear: left;
+        }
+
         a {
           display: block;
           height:0;
