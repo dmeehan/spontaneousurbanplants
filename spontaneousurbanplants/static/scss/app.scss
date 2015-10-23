@@ -291,23 +291,33 @@ body.about {
 	}
 }
 
-body.services {
-	section.service-block {
-	   @include span-columns(6);
-	   @include omega(5n);
-	   background-color: #333;
-	   color: white;
-	   padding: $gutter;
-	   h2 {
-	     text-transform: uppercase;
-	     text-align: center;
-	     font-size: 1em;
-	   }
-	   div.service-text {
-	     text-align: justify;
-	     font-size: .75em
-	   }
-	}
+
+section.service-group {
+  @include display(flex);
+  @include flex-wrap(wrap);
+  @include align-content(stretch);
+  @include justify-content(stretch);
+  @include align-items(stretch);
+}
+
+article.service-block {
+  //@include flex(none);
+  @include span-columns(6);
+  @include omega(5n);
+  background-color: #333;
+  color: white;
+  padding: $gutter;
+
+  h2 {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1em;
+  }
+      
+  div.service-text {
+    text-align: justify;
+    font-size: $small-font-size;
+  }
 }
 
 body.profiles {
