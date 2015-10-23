@@ -72,7 +72,7 @@
 	<ul class="plant-list">
 		{% for plant in plant_list %}
 		{% if plant.icon %}
-		<li data-category="{% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %}"><a data-tag="{{ plant.hashtag }}"
+		<li class="{% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %}"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
@@ -331,7 +331,7 @@
        alert(category);
        
        $('.plant-list li').addClass('is-hidden');
-       $('.plant-list li[data-category="' + category + '"]').removeClass('is-hidden');
+       $('.plant-list li.' + category).removeClass('is-hidden');
 
 	});
 </script>
