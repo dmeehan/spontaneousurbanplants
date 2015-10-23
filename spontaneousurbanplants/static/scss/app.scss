@@ -315,24 +315,30 @@ body.profiles {
     @include span-columns(13);
     padding-right: $gutter;
 
+    .slides {
+      ul {
+        position: relative;
+      }
+    }
+
     .flex-caption {
       @include clearfix;
       position: absolute;
       width: 100%;
       bottom: 0;
       left: 0;
-      background: rgba(0,0,0,0.6);
+      background: transparentize(black, 0.5);
       color: white;
       padding:0 $small-spacing;
       margin: 0;
     }
 
     .caption-location {
-      float: left;
+      //float: left;
     }
 
     .caption-date {
-      float: right;
+      //float: right;
     }
   }
 
