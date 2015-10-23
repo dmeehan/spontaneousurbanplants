@@ -62,6 +62,12 @@
 		href="#">{{ category.name }}</a></li>
 		{% endif %}
     {% endfor %}
+    	<li><a data-tag="all"
+		data-name="All"
+		data-description="(All Plants)"
+		title="All" 
+		class="layer-link tooltip"
+		href="#">All Plants</a></li>
 	</ul>
 	<ul class="plant-list">
 		{% for plant in plant_list %}
