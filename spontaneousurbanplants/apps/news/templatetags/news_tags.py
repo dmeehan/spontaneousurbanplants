@@ -7,7 +7,7 @@ from django.conf import settings
 from django.db import models
 
 
-from futuregreen.news.models import NewsItem
+from ..models import NewsItem
 
 register = template.Library()
 
@@ -18,7 +18,7 @@ class LatestNews(template.Node):
         self.var_name = var_name
 
     def render(self, context):
-        news = NewsItem._default_manager.live()[:self.limit]
+        news = NewsItem.objects.filter(status=1)[:self.limit]
         if news and (self.limit == 1):
             context[self.var_name] = news[0]
         else:
