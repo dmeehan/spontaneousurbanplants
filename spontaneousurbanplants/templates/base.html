@@ -17,8 +17,8 @@
         {% block style_base %}
           {% compress css %}
             <link href="{% static 'scss/app.scss' %}" media="screen, projection" rel="stylesheet" type="text/x-scss" />
-          {% endcompress %}
           {% block extra_style %}{% endblock %}
+          {% endcompress %}
         {% endblock style_base %}
 
         {% block script_head %}

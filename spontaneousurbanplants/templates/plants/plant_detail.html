@@ -1,21 +1,24 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block extra_style %}
+<link href="{% static 'js/flexsider/flexslider.scss' %}" media="screen, projection" rel="stylesheet" type="text/x-scss" />{% endblock %}
 {% block body_class %}profiles{% endblock %}
 {% block content %}
-
 <section class="slideshow">
 {% if plant.get_images %}
-    <div class="slidwshow-carousel">
-{% for image in plant.get_images %}
-        <figure class="slideshow-slide">
-          <img src="{{ image.image_file.url }}" alt="{{ image.caption }}" />
+    <div class="flexslider">
+        <ul class="slides">
+        {% for image in plant.get_images %}
+            <li>
+                <img src="{{ image.image_file.url }}" alt="{{ image.caption }}" />
           
-          <figcaption>
-                {% if image.caption %}<span class="caption-date">{{ image.created|date:"M d, Y - f A"}}</span>{% endif %}
-                <span class="caption-location">{{ image.coordinates.y }} {{ image.coordinates.x }}</span>
-          </figcaption>
-        </figure>
-{% endfor %}
+                <p class="flex-caption">
+                    {% if image.caption %}<span class="caption-date">{{ image.created|date:"M d, Y - f A"}}</span>{% endif %}
+                    <span class="caption-location">{{ image.coordinates.y }} {{ image.coordinates.x }}</span>
+                </p>
+            </li>
+        {% endfor %}
+        </ul>
     <div>
 {% endif %}
 </section>
@@ -37,3 +40,15 @@
     </div>
 </section>
 {% endblock content %}
+
+{% block extra_script %}
+<script src="{% static 'js/flexslider/jquery.flexslider.min.js' %}"
+                  type="text/javascript"></script>
+<script>
+$(document).ready() {
+  $('.flexslider').flexslider({
+    animation: "slide"
+  });
+});
+</script>
+{% endblock %}
