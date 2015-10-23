@@ -157,10 +157,10 @@ section.image-grid {
 
 body.map {
   .content {
-    @include display(flex);
-    @include align-content(stretch);
-    @include justify-content(stretch);
-    @include align-items(stretch);
+    //@include display(flex);
+    //@include align-content(stretch);
+    //@include justify-content(stretch);
+    //@include align-items(stretch);
   }
 }
 
@@ -191,7 +191,7 @@ nav.map-nav {
 }
 
 nav.attributes {
-  background: orange;
+  
 	@include span-columns(1);
 	ul {
 		li {
@@ -204,7 +204,7 @@ nav.attributes {
 }
 
 section.info {
-  background: pink;
+  
 	@include span-columns(18);
 	div.map {
 		height: 0px;
@@ -225,7 +225,6 @@ section.info {
 }
 
 nav.plants {
-  background: blue;
 	@include span-columns(5);
 	@include omega();
 	position: relative;
