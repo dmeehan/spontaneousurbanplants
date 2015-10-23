@@ -270,6 +270,9 @@ body.about {
     @include flex(none);
     @include display(flex);
     @include flex-direction(column);
+    @include align-content(stretch);
+    @include justify-content(stretch);
+    @include align-items(stretch);
 		@include span-columns(6);
 		@include omega(4n);
 
