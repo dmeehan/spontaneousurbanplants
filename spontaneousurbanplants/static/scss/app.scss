@@ -323,14 +323,9 @@ body.profiles {
 
     .flex-caption {
       @include clearfix;
-      position: absolute;
-      width: 100%;
-      bottom: 0;
-      left: 0;
-      //background-color: transparentize(black, 0.5);
-      //color: white;
-      //padding:0 $small-spacing;
-      //margin: 0;
+      margin-top: $base-font-size + $small-spacing;
+      background: transparentize(black, 0.5);
+      padding: $small-spacing $small-spacing/2;
     }
 
     .caption-location {
