@@ -431,12 +431,12 @@ body.profiles {
         background-position: top left;
         //@include span-columns(1 of 3);
         //@include omega(3n);
-        padding-bottom: 31%;
+        padding-bottom: 30%;
         float: left;
         //margin-bottom: 9.09091%;
-        width: 31%;
-        margin-right: 2%;
-        margin-bottom: 2%;
+        width: 30%;
+        margin-right: 5%;
+        margin-bottom: 5%;
 
         &:nth-child(3) {
           margin-right: 0;
