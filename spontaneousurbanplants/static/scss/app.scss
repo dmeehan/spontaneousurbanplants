@@ -275,6 +275,7 @@ body.about {
   }
 
   section.about-sources{
+    font-size: $small-font-size;
     clear: both;
     margin-top: $base-spacing;
     border: 1px solid $green;
@@ -308,11 +309,11 @@ body.about {
 
 		&:first-child {
 			h1 {
-				padding-left: 0;
+				//padding-left: 0;
 			}
 
 			div.about-body {
-				padding-left: 0;
+				//padding-left: 0;
 				border-left: none;
 			}
 		}
