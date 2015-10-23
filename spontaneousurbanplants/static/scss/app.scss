@@ -438,8 +438,12 @@ body.profiles {
         margin-right: 2%;
         margin-bottom: 2%;
 
-        &:nth-child(2) {
+        &:nth-child(3) {
           margin-right: 0;
+          
+        }
+
+        &:nth:child(4) {
           clear: left;
         }
 
