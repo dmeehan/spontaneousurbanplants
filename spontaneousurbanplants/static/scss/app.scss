@@ -231,16 +231,10 @@ section.info {
 nav.plants {
 	@include span-columns(5);
 	@include omega();
-  @include display(flex);
-  @include flex-direction(column);
-  @include align-content(stretch);
-  @include justify-content(stretch);
-  @include align-items(stretch);
   overflow-y: auto;
 	//position: relative;
 
 	ul.category-list {
-    @include flex(none);
     @include clearfix;
     margin: 0;
     padding: 0;
@@ -253,7 +247,7 @@ nav.plants {
 	}
 
   ul.plant-list {
-    @include flex(1);
+    max-height: 60%;
     overflow-y: auto;
     clear: both;
     @include clearfix;
