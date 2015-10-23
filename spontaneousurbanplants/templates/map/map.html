@@ -62,11 +62,11 @@
 		href="javascript:void(0);">{{ category.name }}</a></li>
 		{% endif %}
     {% endfor %}
-    	<li style="background-image:url({% static 'images/all.png' %})"><a data-tag="all"
+    	<li class="all active" style="background-image:url({% static 'images/all.png' %})"><a data-tag="all"
 		data-name="All"
 		data-description="(All Plants)"
 		title="All" 
-		class="all active layer-link tooltip js-layer-trigger js-category-trigger"
+		class="layer-link tooltip js-layer-trigger js-category-trigger"
 		href="javascript:void(0);">All Plants</a></li>
 	</ul>
 	<ul class="plant-list">
