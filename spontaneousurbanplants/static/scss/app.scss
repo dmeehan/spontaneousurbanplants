@@ -21,7 +21,7 @@ body {
                margin-bottom: 2.70892%;
                margin-top: 2.70892%;
                height: 0;
-               padding-bottom: 9.25%;
+               padding-bottom: $base-spacing;
 
                 h1 {
 	                @include span-columns(16); 
