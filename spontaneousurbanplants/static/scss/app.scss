@@ -291,8 +291,11 @@ body.about {
 	}
 }
 
+.services-info {
+  margin-bottom: $small-spacing;
+}
 
-section.service-group {
+.service-group {
   @include display(flex);
   @include flex-wrap(wrap);
   @include align-content(stretch);
@@ -300,7 +303,7 @@ section.service-group {
   @include align-items(stretch);
 }
 
-article.service-block {
+.service-block {
   @include flex(none);
   @include span-columns(6);
   @include omega(4n);
