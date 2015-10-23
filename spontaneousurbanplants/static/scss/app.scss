@@ -235,8 +235,11 @@ nav.plants {
 
 	ul.category-list {
     @include clearfix;
+    margin: 0;
+    padding: 0;
 		li {
 			@include span-columns(2.5 of 5);
+      @include omega(2n);
 			padding-bottom: 47.36842%;
 			margin-bottom: 5.26316%;
 		}
