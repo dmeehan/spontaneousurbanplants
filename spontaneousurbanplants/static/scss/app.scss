@@ -322,23 +322,23 @@ body.profiles {
     }
 
     .flex-caption {
-      @include clearfix;
-      position: absolute;
-      width: 100%;
-      bottom: 0;
-      left: 0;
+      //@include clearfix;
+      //position: absolute;
+      //width: 100%;
+      //bottom: 0;
+      //left: 0;
       background: transparentize(black, 0.5);
-      color: white;
-      padding:0 $small-spacing;
-      margin: 0;
+      //color: white;
+      //padding:0 $small-spacing;
+      //margin: 0;
     }
 
     .caption-location {
-      //float: left;
+      float: left;
     }
 
     .caption-date {
-      //float: right;
+      float: right;
     }
   }
 
