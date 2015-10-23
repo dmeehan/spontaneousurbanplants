@@ -294,6 +294,7 @@ body.about {
 
 section.service-group {
   @include display(flex);
+  @include flex-wrap(wrap);
   @include align-content(stretch);
   @include justify-content(stretch);
   @include align-items(stretch);
