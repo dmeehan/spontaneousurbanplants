@@ -291,11 +291,10 @@ body.about {
 	}
 }
 
-.services-intro {
-  margin-bottom: $small-spacing;
-}
 
 .service-group {
+  padding-top: $small-spacing;
+  
   @include display(flex);
   @include flex-wrap(wrap);
   @include align-content(stretch);
