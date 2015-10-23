@@ -38,7 +38,7 @@
 		data-name="{{ attribute.name }}: "
 		data-description="{{ attribute.description }}"
 		title="{{ attribute.name }}" 
-		class="layer-link tooltip" href="#">{{ attribute.name }}</a></li>
+		class="layer-link tooltip js-layer-trigger" href="#">{{ attribute.name }}</a></li>
 		{% endif %}
 	    {% endfor %}
 	</ul>
@@ -58,26 +58,26 @@
 		data-name="{{ category.name }} "
 		data-description="({{ category.description }})"
 		title="{{ category.name }}" 
-		class="layer-link tooltip"
-		href="#">{{ category.name }}</a></li>
+		class="tooltip layer-link js-layer-trigger js-category-trigger"
+		href="javascript:void(0);">{{ category.name }}</a></li>
 		{% endif %}
     {% endfor %}
     	<li><a data-tag="all"
 		data-name="All"
 		data-description="(All Plants)"
 		title="All" 
-		class="layer-link tooltip"
-		href="#">All Plants</a></li>
+		class="layer-link tooltip js-layer-trigger js-category-trigger"
+		href="javascript:void(0);">All Plants</a></li>
 	</ul>
 	<ul class="plant-list">
 		{% for plant in plant_list %}
 		{% if plant.icon %}
-		<li><a data-tag="{{ plant.hashtag }}"
+		<li data-category="category_{{ plant.category.id }}"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
-		class="layer-link tooltip"
-		href="#">{{ plant.common_name }}</a></li>
+		class="layer-link tooltip js-layer-trigger"
+		href="javascript:void(0);">{{ plant.common_name }}</a></li>
 		{% endif %}
 		{% endfor %}
     </ul>
@@ -297,7 +297,7 @@
 
 
     // click function to change between layers
-	$('a.layer-link').click(function (e) {
+	$('.js-layer-trigger').click(function (e) {
 		//Get the id of the element clicked
        var tagName = $(this).data('tag');
        // look up layer object by id 
@@ -320,7 +320,16 @@
 	   $('.map-nav ul li').removeClass("active");
 	   $(this).parent().toggleClass("active");
 
-	})
+	});
+
+	$('.js-category-trigger').click(function (e) {
+		//Get the id of the element clicked
+       var category = $(this).data('tag');
+       
+       $('.plant-list li').addClass('is-hidden');
+       $('[data-category="' + category + '"]').removeClass('is-hidden');
+
+	});
 </script>
 
 

@@ -3,6 +3,14 @@
 @import "neat/neat";
 
 
+.is-visible {
+  display: block;
+}
+
+.is-hidden {
+  display: none;
+}
+
 div.leaflet-control-attribution {
 	a {
 		color: $dark-gray;
@@ -275,8 +283,8 @@ nav.plants {
         background: $green;
         display: block;
         color: white;
-        margin-bottom: $small-spacing/2;
-        padding: $small-spacing/4 $small-spacing/2;
+        margin-bottom: $small-spacing/3;
+        padding: 0 $small-spacing/2;
         font-weight: bold;
       }
       
