@@ -31,7 +31,7 @@
 
 {% block content %}
 <nav class="map-nav attributes">
-	<ul>
+	<ul class="attribute-list icon-list">
 	    {% for attribute in attribute_list %}
 	        {% if attribute.icon %}
 		<li style="background-image:url({{ attribute.icon.url }})"><a data-tag="{{ attribute.hashtag }}"
@@ -51,18 +51,18 @@
 	</aside>
 </section>
 <nav class="plants">
-	<ul class="category-list">
+	<ul class="category-list icon-list">
 	{% for category in category_list %}
 		{% if category.icon %}
-		<li><a data-tag="category_{{ category.id }}"
-		data-name="{{ category.name }} "
+		<li style="background-image:url({{ category.icon.url }})"><a data-tag="category_{{ category.id }}"
+		data-name="{{ category.name }}"
 		data-description="({{ category.description }})"
 		title="{{ category.name }}" 
 		class="tooltip layer-link js-layer-trigger js-category-trigger"
 		href="javascript:void(0);">{{ category.name }}</a></li>
 		{% endif %}
     {% endfor %}
-    	<li><a data-tag="all"
+    	<li style="background-image:url({% static 'images/all.png' %})"><a data-tag="all"
 		data-name="All"
 		data-description="(All Plants)"
 		title="All" 

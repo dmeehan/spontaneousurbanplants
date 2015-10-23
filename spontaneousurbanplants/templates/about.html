@@ -15,4 +15,10 @@
 	</article>
 {% endfor %}
 </section>
+<section class="about-credits">
+<h2>{{ credits.title }}</h2>
+{{ credits.text_html|safe }}
+<h3>{{ sources.title }}</h3>
+{{ sources.text_html|safe }}
+</section>
 {% endblock content %}
