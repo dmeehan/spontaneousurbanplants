@@ -450,13 +450,13 @@ body.profiles {
           padding-top: 100%;
         }
 
-        //&:hover {
+        &:hover {
           //background-position: 100% 100%;
-        //}
-      //}
-      //li.active {
-      //    background-position: 100% 100%;
-      //}
+        }
+      }
+      li.active {
+         // background-position: 100% 100%;
+      }
     }
   }
 }
