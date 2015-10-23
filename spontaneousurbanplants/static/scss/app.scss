@@ -319,6 +319,50 @@ article.service-block {
     text-align: justify;
     font-size: $small-font-size;
   }
+
+  &.service-block--SUPDisturbanceadapted {
+      background: $SUPDisturbanceadapted;
+  }
+
+  &.service-block--SUPwildlife {
+      background: $SUPwildlife;
+  }
+
+  &.service-block--SUPphytoremediation {
+      background: $SUPphytoremediation;
+  }
+
+  &.service-block--SUPmedicinal {
+      background: $SUPmedicinal;
+  }
+
+  &.service-block--SUPmitigatingurbanheat {
+      background: $SUPmitigatingurbanheat;
+  }
+
+  &.service-block--SUPretainstormh2o {
+      background: $SUPretainstormh2o;
+  }
+
+  &.service-block--SUPnoiseregulation {
+      background: $SUPnoiseregulation;
+  }
+
+  &.service-block--SUPpreventerosion {
+      background: $SUPpreventerosion;
+  }
+
+  &.service-block--SUPinvasive {
+      background: $SUPinvasive;
+  }
+
+  &.service-block--SUPEdible {
+      background: $SUPEdible;
+  }
+
+  &.service-block--SUPSequesterCO2 {
+      background: $SUPSequesterCO2;
+  }
 }
 
 body.profiles {

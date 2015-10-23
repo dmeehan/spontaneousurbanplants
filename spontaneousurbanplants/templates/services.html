@@ -7,7 +7,7 @@
 </section>
 <section class="service-group">
 {% for service in service_list %}
-	<article class="service-block">
+	<article class="service-block service-block--{{ service.attribute.hashtag}}">
 		<h2 class="service-title">{{ service.attribute.name }}</h2>
 		{% if service.image %}
 		<img src="{{ service.image.url }}" />
