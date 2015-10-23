@@ -324,8 +324,11 @@ body.profiles {
     .flex-caption {
       @include clearfix;
       margin-top: -1.75rem;
+      font-size: $small-font-size;
+      line-height: 1.75rem;
       background: transparentize(black, 0.5);
-      padding: $small-spacing/2 $small-spacing;
+      padding: $small-spacing/2 0;
+      text-transform: uppercase;
     }
 
     .caption-location {
