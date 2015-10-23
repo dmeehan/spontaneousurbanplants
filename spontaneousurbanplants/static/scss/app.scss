@@ -429,7 +429,7 @@ body.profiles {
         background-size: 100% auto;
         background-repeat: no-repeat;
         background-position: top left;
-        @include span-columns(1.5 of 3);
+        @include span-columns(1 of 3);
         @include omega(2n);
         padding-bottom: 45.45455%;
         margin-bottom: 9.09091%;
