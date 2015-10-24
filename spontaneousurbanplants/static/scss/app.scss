@@ -411,7 +411,7 @@ body.about {
 
 body.news {
   > .content > header {
-    @include span-colums(16);
+    @include span-columns(16);
   }
   .news-item {
     @include span-columns(16);
