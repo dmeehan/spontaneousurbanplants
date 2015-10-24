@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body_class%}news{% endblock body_class %}
+{% block content %}
+{% load news_tags %}
+{% get_latest_news 10 as news_list %}
+{% with news_list|first as news %}
+<header>
+    <aside>{{ news.date_published|date:"M d, Y" }}</aside>
+    <h1>{{ news.title }}</h1>
+</header>
+<section class="news-item">
+    <figure>
+    {% for image in news.newsitemimage_set.all %}
+        <div>
+            <img src="{{ image.image_file.url }}" title="{{ image.name }}" alt="{{ image.caption }}" />
+        </div>
+    {%  endfor %}
+    </figure>
+    {{ news.body_html|safe }}
+</section>
+{% endwith %}
+<aside class="news-archive">
+    <h2>Archive</h2>
+    <ul class="linked-list">
+    {%  for news in news_list|slice:"1:" %}
+        <li><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></li>
+    {% endfor %}
+    </ul>
+</aside>
+{% endblock content %}

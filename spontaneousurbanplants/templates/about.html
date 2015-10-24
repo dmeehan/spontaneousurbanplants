@@ -10,7 +10,7 @@
 			{% if about.image %}
 			<div class="about-image"><img src="{{ about.image.url }}" /></div>
 			{% endif %}
-			<div class="about-text">{{ about.text }}</div>
+			<div class="about-text">{{ about.text_html|safe }}</div>
 		</div>
 	</article>
 {% endfor %}
