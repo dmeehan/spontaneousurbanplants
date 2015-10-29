@@ -19,15 +19,39 @@ div.leaflet-control-attribution {
 
 body {
 	header {
-		@include outer-container;
-    nav { 
-      position: relative;
+
+    //mobile
+    @include outer-container(100%);
+
+    //desktop
+    @include media($medium-screen) {
       @include outer-container;
+    }
+		
+    nav { 
+      
+      @include outer-container(100%);
+
+      //desktop
+      @include media($medium-screen) {
+        @include outer-container;
+      }
+
+      position: relative;
       background: url('../../images/banner.png') no-repeat;
       background-position: 0;
       background-size: 100% auto;
-      margin-top: 1.70892%;
-      padding: 4.00% 0 5.50% 0;
+
+      // mobile
+      padding: 0;
+      margin: 0;
+
+      //desktop
+      @include media($medium-screen) {
+         margin-top: 1.70892%;
+         padding: 4.00% 0 5.50% 0;
+      }
+     
 
       h1 {
         @include span-columns(15.5); 
@@ -71,13 +95,27 @@ body {
 
   section {
    div.content {
-     @include outer-container;
+     //mobile
+     @include outer-container(100%);
+
+      //desktop
+      @include media($medium-screen) {
+        @include outer-container;
+      }
    }
  }
 
  footer {
-  margin-bottom: 1.35446%;
-  margin-top: 1.35446%;
+    //mobile
+    @include outer-container(100%);
+
+    //desktop
+      @include media($medium-screen) {
+        @include outer-container;
+    }
+
+    margin-bottom: 1.35446%;
+    margin-top: 1.35446%;
 
   @include outer-container;
   p {
@@ -104,13 +142,37 @@ body {
 }
 
 section.image-grid { 
-	@include outer-container;
+	//mobile
+  @include outer-container(100%);
+
+  //desktop
+  @include media($medium-screen) {
+    @include outer-container;
+  }
+
 	div {
-		@include span-columns(6); 
-		@include omega(4n);
+    //mobile
+    @include span-columns(12);
+    padding: 0;
+
+    // tablet
+
+    @include media($large-screen) {
+        @include span-columns(8); 
+        @include omega(3n);
+        padding-right: 0.67267%;
+    }
+
+    //desktop
+    @include media($large-screen) {
+        @include span-columns(6); 
+        @include omega(4n);
+        padding-right: 0.67267%;
+    }
+		
 		margin-bottom: 0.67267%;
 		padding-bottom: 0.67267%;
-		padding-right: 0.67267%;
+		
 		position:relative;
 		a {
 			display:block;
