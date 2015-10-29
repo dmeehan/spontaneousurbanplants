@@ -108,10 +108,9 @@ body {
   footer {
     //mobile
     @include outer-container(100%);
-    margin-top: $small-spacing;
     font-size: 0.75em;
     background: $dark-gray;
-
+    padding: $small-spacing;
 
     //desktop
     @include media($medium-screen) {
@@ -120,12 +119,11 @@ body {
       margin-top: 1.35446%;
       font-size: $small-font-size;
       background: transparent;
+      padding: 0;
     }
 
     p, ul {
       @include span-columns(24);
-      
-      padding: 0 $small-spacing $small-spacing $small-spacing;
       text-align: left;
       margin: 0;
 
