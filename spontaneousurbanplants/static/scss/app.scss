@@ -35,16 +35,18 @@ body {
     nav { 
       
       @include outer-container(100%);
-
+      background-size: cover;
+      
       //desktop
       @include media($medium-screen) {
         @include outer-container;
+        background-size: 100% auto;
       }
 
       position: relative;
       background: url('../../images/banner.png') no-repeat;
       background-position: 0;
-      background-size: 100% auto;
+      
 
 
       // mobile
