@@ -168,7 +168,7 @@ section.image-grid {
     }
     
     //desktop
-    @include media(min-width: $large-screen) {
+    @media screen and (min-width: $large-screen) {
         @include span-columns(6); 
         @include omega(4n);
         padding-right: 0.67267%;
