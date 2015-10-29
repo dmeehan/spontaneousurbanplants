@@ -154,7 +154,8 @@ section.image-grid {
     //mobile
     @media screen and (max-width: $medium-screen) {
       @include span-columns(24);
-      margin: 0 $small-spacing $small-spacing $small-spacing;
+      padding: 0 $small-spacing $small-spacing $small-spacing;
+      margin: 0;
     }
     
     // tablet
