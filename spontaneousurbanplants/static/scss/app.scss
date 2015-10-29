@@ -118,25 +118,27 @@ body {
   }
 
   p, ul {
-   font-size: $small-font-size;
-   @include span-columns(24);
-   padding: 0 $small-spacing $small-spacing $small-spacing;
-   text-align: left;
+    @include span-columns(24);
+    font-size: $small-font-size;
+    padding: 0 $small-spacing $small-spacing $small-spacing;
+    text-align: left;
 
-   @include media($medium-screen) {
-    @include span-columns(12);
-   }
+    @include media($medium-screen) {
+      @include span-columns(12);
+    }
   }
 
   ul {
-      li { 
-        display: inline;
-        &:after {
-          content: "|";
-          padding: 0 8px;
-        }
-        &:last-child:after {
-          content: "";
+    li { 
+      display: inline;
+
+      &:after {
+        content: "|";
+        padding: 0 8px;
+      }
+
+      &:last-child:after {
+        content: "";
       }
     }
 
@@ -144,6 +146,7 @@ body {
       text-align: right;
     }
   }
+}
 }
 
 section.image-grid { 
