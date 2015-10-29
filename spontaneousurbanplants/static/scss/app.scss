@@ -120,26 +120,28 @@ body {
   p, ul {
    font-size: $small-font-size;
    @include span-columns(24);
-   padding: $small-spacing;
+   padding: 0 $small-spacing $small-spacing $small-spacing;
+   text-align: left;
+
    @include media($medium-screen) {
     @include span-columns(12);
    }
-
   }
 
   ul {
-    text-align: right;
-    li { 
-      
-      display: inline;
-      &:after {
-        content: "|";
-      padding: 0 8px;
-    }
+      li { 
+        display: inline;
+        &:after {
+          content: "|";
+          padding: 0 8px;
+        }
         &:last-child:after {
           content: "";
-        }
       }
+    }
+
+    @include media($medium-screen) {
+      text-align: right;
     }
   }
 }
