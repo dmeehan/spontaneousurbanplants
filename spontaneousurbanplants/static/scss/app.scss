@@ -106,33 +106,36 @@ body {
  }
 
  footer {
-    //mobile
-    @include outer-container(100%);
+  //mobile
+  @include outer-container(100%);
+  margin-top: $small-spacing;
 
-    //desktop
-      @include media($medium-screen) {
-        @include outer-container;
-    }
+  //desktop
+    @include media($medium-screen) {
+      @include outer-container;
+      margin-bottom: 1.35446%;
+      margin-top: 1.35446%;
+  }
 
-    margin-bottom: 1.35446%;
-    margin-top: 1.35446%;
-
-  @include outer-container;
-  p {
+  p, ul {
    font-size: $small-font-size;
-   @include span-columns(12);
+   @include span-columns(24);
+   padding: $small-spacing;
+   @include media($medium-screen) {
+    @include span-columns(12;
+   }
+
+  }
+
+  ul {
+    text-align: right;
+    li { 
+      
+      display: inline;
+      &:after {
+        content: "|";
+      padding: 0 8px;
     }
-    ul {
-      @include span-columns(12);
-      @include omega();
-      text-align: right;
-      li { 
-        font-size: $small-font-size;
-        display: inline;
-        &:after {
-          content: "|";
-        padding: 0 8px;
-      }
         &:last-child:after {
           content: "";
         }
