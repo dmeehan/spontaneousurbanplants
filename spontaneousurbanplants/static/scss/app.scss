@@ -93,19 +93,19 @@ body {
     }
   }
 
-    section {
-     div.content {
-       //mobile
-       @include outer-container(100%);
+  section {
+    div.content {
+      //mobile
+      @include outer-container(100%);
 
-        //desktop
-        @include media($medium-screen) {
-          @include outer-container;
-        }
+      //desktop
+      @include media($medium-screen) {
+        @include outer-container;
       }
     }
+  }
 
-   footer {
+  footer {
     //mobile
     @include outer-container(100%);
     margin-top: $small-spacing;
