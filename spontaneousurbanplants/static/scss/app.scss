@@ -122,7 +122,7 @@ body {
    @include span-columns(24);
    padding: $small-spacing;
    @include media($medium-screen) {
-    @include span-columns(12;
+    @include span-columns(12);
    }
 
   }
