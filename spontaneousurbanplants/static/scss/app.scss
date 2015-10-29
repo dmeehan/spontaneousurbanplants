@@ -152,12 +152,12 @@ section.image-grid {
 
 	div {
     //mobile
-    @include span-columns(12);
+    @include span-columns(24);
     padding: 0;
 
     // tablet
 
-    @include media($large-screen) {
+    @include media($medium-screen) {
         @include span-columns(8); 
         @include omega(3n);
         padding-right: 0.67267%;
