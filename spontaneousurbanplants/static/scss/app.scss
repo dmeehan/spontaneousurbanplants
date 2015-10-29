@@ -35,30 +35,23 @@ body {
     nav { 
       
       @include outer-container(100%);
-      background-size: cover;
-      
+      //background-size: cover;
+      background-size: 200% auto;
+      margin-bottom: $base-spacing;
+
       //desktop
       @include media($medium-screen) {
         @include outer-container;
         background-size: 100% auto;
+        margin-top: 1.70892%;
+        padding: 4.00% 0 5.50% 0;
       }
+
 
       position: relative;
       background: url('../../images/banner.png') no-repeat;
       background-position: 0;
       
-
-
-      // mobile
-      padding: 0 0 5.50% 0;
-
-      //desktop
-      @include media($medium-screen) {
-         margin-top: 1.70892%;
-         padding: 4.00% 0 5.50% 0;
-      }
-     
-
       h1 {
         @include span-columns(15.5); 
         overflow: hidden;
@@ -160,6 +153,7 @@ section.image-grid {
     //mobile
     @media screen and (max-width: $medium-screen) {
       @include span-columns(24);
+      padding-bottom: $base-spacing;
     }
     
     // tablet
@@ -167,6 +161,9 @@ section.image-grid {
       @include span-columns(8); 
       @include omega(3n);
       padding-right: 0.67267%;
+      padding-right: 0.67267%;
+      margin-bottom: 0.67267%;
+      padding-bottom: 0.67267%;
     }
     
     //desktop
@@ -174,10 +171,11 @@ section.image-grid {
         @include span-columns(6); 
         @include omega(4n);
         padding-right: 0.67267%;
+        margin-bottom: 0.67267%;
+        padding-bottom: 0.67267%;
     }
 		
-		margin-bottom: 0.67267%;
-		padding-bottom: 0.67267%;
+		
 		
 		position:relative;
 		a {
