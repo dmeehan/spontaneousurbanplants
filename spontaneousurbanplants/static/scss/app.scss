@@ -22,6 +22,7 @@ body {
 
     //mobile
     @include outer-container(100%);
+    min-height: 80px;
 
     //desktop
     @include media($medium-screen) {
@@ -42,9 +43,9 @@ body {
       background-position: 0;
       background-size: 100% auto;
 
+
       // mobile
-      padding: 0;
-      margin: 0;
+      padding: 0 0 5.50% 0;
 
       //desktop
       @include media($medium-screen) {
@@ -153,7 +154,6 @@ section.image-grid {
 	div {
     //mobile
     @include span-columns(24);
-    padding: 0;
 
     // tablet
 
