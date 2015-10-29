@@ -6,7 +6,7 @@ body {
   font-family: $base-font-family;
   font-size: $base-font-size;
   line-height: $base-line-height;
-  font-weight: 300;
+  font-weight: lighter;
 }
 
 h1,
@@ -20,7 +20,7 @@ h6 {
   line-height: $heading-line-height;
   margin: 0 0 $small-spacing;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 p {
