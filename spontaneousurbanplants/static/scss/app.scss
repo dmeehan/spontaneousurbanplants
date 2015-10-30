@@ -285,7 +285,6 @@ section.image-grid {
 
 body.map {
   nav.attributes {
-  background: pink;
 
     //mobile portrait & landscape
     @media screen and (max-width: $medium-screen) {
@@ -296,7 +295,7 @@ body.map {
         li {
           @include span-columns(2 of 24);
           @include omega(12n);
-          padding-bottom: 0.083333%;
+          padding-bottom: 8.3333%;
         }
       }
     }
