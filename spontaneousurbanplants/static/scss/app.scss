@@ -204,28 +204,27 @@ section.image-grid {
     //mobile portrait
     @media screen and (max-width: $small-screen) {
       @include span-columns(24);
-      //margin: 0 $small-spacing $small-spacing $small-spacing;
-      //padding: 0;
+      margin-bottom: $gutter;
+      
+      
     }
     
     //mobile landscape
     @media screen and (min-width: $small-screen) and (max-width: $medium-screen) {
       @include span-columns(12);
       @include omega(2n);
-      //margin: 0 0 $small-spacing $small-spacing;
-      //padding: 0;
-      //&:nth-child(2n) {
-      //  margin-right: $small-spacing;
-      //}
+      margin-bottom: $gutter;
+      
+      
     }
 
     // tablet
     @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
       @include span-columns(8); 
       @include omega(3n);
-      //padding-right: 0.67267%;
-      margin-bottom: 0.67267%;
-      padding-bottom: 0.67267%;
+      //margin-bottom: 0.67267%;
+      //padding-bottom: 0.67267%;
+      margin-bottom: $gutter;
 
     }
     
@@ -234,8 +233,9 @@ section.image-grid {
         @include span-columns(6); 
         @include omega(4n);
         //padding-right: 0.67267%;
-        margin-bottom: 0.67267%;
-        padding-bottom: 0.67267%;
+        //margin-bottom: 0.67267%;
+        //padding-bottom: 0.67267%;
+        margin-bottom: $gutter;
     }
 		
 		
