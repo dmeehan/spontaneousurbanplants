@@ -212,8 +212,7 @@ section.image-grid {
     @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
       @include span-columns(8); 
       @include omega(3n);
-      padding-right: 0.67267%;
-      padding-right: 0.67267%;
+      //padding-right: 0.67267%;
       margin-bottom: 0.67267%;
       padding-bottom: 0.67267%;
     }
@@ -222,7 +221,7 @@ section.image-grid {
     @media screen and (min-width: $large-screen) {
         @include span-columns(6); 
         @include omega(4n);
-        padding-right: 0.67267%;
+        //padding-right: 0.67267%;
         margin-bottom: 0.67267%;
         padding-bottom: 0.67267%;
     }
