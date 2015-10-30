@@ -152,6 +152,7 @@ body {
     //desktop
     @include media($large-screen) {
       @include outer-container;
+      @include clearfix;
       font-size: $base-font-size;
       background: transparent;
       color: $base-font-color;
@@ -163,18 +164,23 @@ body {
     }
 
     p, ul {
-      @include span-columns(24);
       text-align: left;
       margin: 0;
 
       @include media($large-screen) {
-        @include span-columns(12);
         padding: 0 0 0 0;
+      }
+    }
+
+    p {
+      @include media($large-screen) {
+        float: left;
       }
     }
 
     ul {
       @include media($large-screen) {
+        float: right;
         text-align: right;
         li { 
           display: inline;
