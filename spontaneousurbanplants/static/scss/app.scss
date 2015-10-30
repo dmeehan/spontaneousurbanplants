@@ -146,17 +146,19 @@ body {
     @include outer-container(100%);
     font-size: 0.75rem;
     background: $dark-gray;
-    padding: $small-spacing;
+    padding: $gutter;
     color: white;
 
     //desktop
     @include media($large-screen) {
       @include outer-container;
-      margin-bottom: 1.35446%;
-      margin-top: 1.35446%;
       font-size: $base-font-size;
       background: transparent;
       color: $base-font-color;
+      padding: 0 $gutter;
+    }
+
+    @include media($xlarge-screen) {
       padding: 0;
     }
 
