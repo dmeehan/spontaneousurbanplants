@@ -316,28 +316,52 @@ ul.icon-list {
 }
 
 nav.attributes {
-	@include span-columns(1);
-	ul.attribute-list {
-		li {
-			@include span-columns(1 of 1);
-			@include omega(1n);
-			padding-bottom: 100%;
-			margin-bottom: 19.0991%;
-		}
-	}
-}
+  @include span-columns(24);
 
+  @include media($large-screen) {
+    @include span-columns(1);
+  }
+
+  ul.attribute-list {
+    li {
+      @include media($large-screen) {
+        @include span-columns(1 of 1);
+        @include omega(1n);
+        padding-bottom: 100%;
+        margin-bottom: 19.0991%;
+      } 
+    }
+  }
+}
+	
 section.info {
-	@include span-columns(18);
+  @include span-columns(24);
+
+  @include media($large-screen) {
+    @include span-columns(18);
+  }
+	
 	div.map {
 		height: 0px;
-		padding-bottom: 61%;
-		@include span-columns(16 of 18);
-		@include shift(1);
+    padding-bottom: 100%;
+    @include span-columns(24);
+
+    @include media($large-screen) {
+      @include span-columns(16 of 18);
+      @include shift(1);
+      padding-bottom: 61%;
+    }
 	}
+
+
 	aside.details {
-		@include span-columns(16 of 18);
-		@include shift(1);
+    @include span-columns(24);
+
+    @include media($large-screen) {
+		  @include span-columns(16 of 18);
+		  @include shift(1);
+    }
+
 		border:2px solid $green;
 		font-size: .75em;
 		line-height: 1.2em;
@@ -348,10 +372,13 @@ section.info {
 }
 
 nav.plants {
-  //@include display(flex);
-  //@include flex-direction(column);
-  @include span-columns(5);
-  @include omega();
+  @include span-columns(24);
+
+  @include media($large-screen) {
+    @include span-columns(5);
+    @include omega();
+  }
+  
 
   ul.category-list {
     @include flex(none);
