@@ -295,7 +295,8 @@ body.map {
         li {
           @include span-columns(4 of 24);
           @include omega(6n);
-          padding-bottom: $column;
+          padding-bottom: 15.78947%;
+          @include pad(0 0 default 0);
         }
       }
     }
