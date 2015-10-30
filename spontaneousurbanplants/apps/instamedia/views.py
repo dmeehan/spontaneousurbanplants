@@ -18,7 +18,7 @@ api = get_api()
 reactor = subscriptions.SubscriptionsReactor()
 
 class LatestImagesView(ListView):
-    queryset = InstagramImage.objects.filter(verified=True).order_by('?')[:8]
+    queryset = InstagramImage.objects.filter(verified=True).order_by('?')[:12]
     template_name = 'index.html'
 
 class ImageDetailView(DetailView):
