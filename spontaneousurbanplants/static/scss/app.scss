@@ -204,19 +204,19 @@ section.image-grid {
     //mobile portrait
     @media screen and (max-width: $small-screen) {
       @include span-columns(24);
-      margin: 0 $small-spacing $small-spacing $small-spacing;
-      padding: 0;
+      //margin: 0 $small-spacing $small-spacing $small-spacing;
+      //padding: 0;
     }
     
     //mobile landscape
     @media screen and (min-width: $small-screen) and (max-width: $medium-screen) {
       @include span-columns(12);
       @include omega(2n);
-      margin: 0 0 $small-spacing $small-spacing;
-      padding: 0;
-      &:nth-child(2n) {
-        margin-right: $small-spacing;
-      }
+      //margin: 0 0 $small-spacing $small-spacing;
+      //padding: 0;
+      //&:nth-child(2n) {
+      //  margin-right: $small-spacing;
+      //}
     }
 
     // tablet
