@@ -285,17 +285,17 @@ section.image-grid {
 
 body.map {
   nav.attributes {
-
     //mobile portrait & landscape
     @media screen and (max-width: $medium-screen) {
       @include outer-container;
       @include span-columns(24);
+      @include pad(0 default default default);
 
       ul.attribute-list {
         li {
           @include span-columns(2 of 24);
           @include omega(12n);
-          padding-bottom: 8.3333%;
+          padding-bottom: 7.36842%;
         }
       }
     }
@@ -319,7 +319,6 @@ body.map {
     @media screen and (max-width: $medium-screen) {
       @include outer-container;
       @include span-columns(24);
-      background: pink;
 
       div.map {
         height: 0px;
@@ -330,6 +329,12 @@ body.map {
       aside.details {
         @include outer-container;
         @include span-columns(24);
+        @include pad(default);
+        border:2px solid $green;
+        font-size: .75em;
+        line-height: 1.2em;
+        //margin-top: $flex-gutter();
+        clear: both;
       }
     }
 
