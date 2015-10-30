@@ -144,7 +144,7 @@ body {
   footer {
     //mobile
     @include outer-container(100%);
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     background: $dark-gray;
     padding: $gutter;
     color: white;
