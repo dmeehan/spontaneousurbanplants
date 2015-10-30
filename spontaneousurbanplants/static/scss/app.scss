@@ -211,8 +211,12 @@ section.image-grid {
     //mobile landscape
     @media screen and (min-width: $small-screen) and (max-width: $medium-screen) {
       @include span-columns(12);
+      @include omega(2n);
       padding: 0 0 $small-spacing $small-spacing;
       margin: 0;
+      &:nth-child(2n) {
+        padding-right: $small-spacing;
+      }
     }
 
     // tablet
@@ -222,6 +226,7 @@ section.image-grid {
       //padding-right: 0.67267%;
       margin-bottom: 0.67267%;
       padding-bottom: 0.67267%;
+
     }
     
     //desktop
