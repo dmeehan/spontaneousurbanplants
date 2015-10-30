@@ -194,7 +194,7 @@ body {
 section.image-grid { 
 	//mobile
   @include outer-container(100%);
-  padding: 0 $gutter;
+  padding: 0 $gutter/2;
 
   //desktop
   @include media($medium-screen) {
@@ -223,7 +223,7 @@ section.image-grid {
     @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
       @include span-columns(8); 
       @include omega(3n);
-      margin-bottom: $gutter;
+      margin-bottom: $gutter/2;
     }
     
     //desktop
