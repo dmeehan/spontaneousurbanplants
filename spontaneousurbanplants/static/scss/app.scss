@@ -293,9 +293,9 @@ body.map {
 
       ul.attribute-list {
         li {
-          @include span-columns(2 of 24);
-          @include omega(12n);
-          padding-bottom: 7.36842%;
+          @include span-columns(3 of 24);
+          @include omega(8n);
+          @include pad(0 0 default 0);
         }
       }
     }
