@@ -296,6 +296,7 @@ body.map {
         li {
           @include span-columns(2 of 24);
           @include omega(12n);
+          padding-bottom: 0.083333%;
         }
       }
     }
@@ -356,7 +357,7 @@ body.map {
     }
   }
 
-  ul.attribute-list {
+  ul.icon-list {
     li {
       height: 0;
       overflow: hidden;
