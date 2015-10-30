@@ -194,47 +194,42 @@ body {
 section.image-grid { 
 	//mobile
   @include outer-container(100%);
+  padding: 0 $gutter;
 
   //desktop
   @include media($medium-screen) {
     @include outer-container;
   }
 
+  @include media($xlarge-screen) {
+    padding: 0;
+  }
+
 	div {
     //mobile portrait
     @media screen and (max-width: $small-screen) {
       @include span-columns(24);
-      margin-bottom: $gutter;
-      
-      
+      margin-bottom: $gutter/2;
     }
     
     //mobile landscape
     @media screen and (min-width: $small-screen) and (max-width: $medium-screen) {
       @include span-columns(12);
       @include omega(2n);
-      margin-bottom: $gutter;
-      
-      
+      margin-bottom: $gutter/2;
     }
 
     // tablet
     @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
       @include span-columns(8); 
       @include omega(3n);
-      //margin-bottom: 0.67267%;
-      //padding-bottom: 0.67267%;
       margin-bottom: $gutter;
-
     }
     
     //desktop
     @media screen and (min-width: $large-screen) {
         @include span-columns(6); 
         @include omega(4n);
-        //padding-right: 0.67267%;
-        //margin-bottom: 0.67267%;
-        //padding-bottom: 0.67267%;
         margin-bottom: $gutter;
     }
 		
