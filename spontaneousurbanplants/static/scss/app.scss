@@ -21,6 +21,8 @@ body {
   margin: 0;
   padding: 0;
 
+  //overflow: hidden;
+
 	header {
 
     //mobile
@@ -33,26 +35,34 @@ body {
     }
 		
     nav { 
-      
+      max-height: 100px;
       @include outer-container(100%);
-      background-size: cover;
-      //background-size: 200% auto;
       margin-bottom: $small-spacing;
+      margin-top: 0;
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      background-position: 0;
+      background-image: url('../../images/banner_mobile.png'); 
+      padding: 4.00% 0 5.50% 0;
 
       //desktop
       @include media($medium-screen) {
-        @include outer-container;
-        background-size: 100% auto;
-        margin-top: 1.70892%;
-        padding: 4.00% 0 5.50% 0;
         margin-bottom: 0;
+        background-size: cover;
+        margin-top: 0;
+        background-image: url('../../images/banner.png'); 
       }
 
+      @include media ($large-screen) {
+        @include outer-container;
+      }
 
-      position: relative;
-      background: url('../../images/banner.png') no-repeat;
-      background-position: 0;
-      
+      @include media ($xlarge-screen) {
+        max-height: initial;
+        margin-top: 1.70892%;
+        background-size: 100% auto;
+      }
+
       h1 {
         @include span-columns(15.5); 
         overflow: hidden;
@@ -65,27 +75,53 @@ body {
           text-indent: -999999px;
         }
       }
+
+
       ul {
-        @include span-columns(8);
-        @include clearfix;
-        @include display(flex);
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 280px;
+        background-color: $dark-gray;
+        padding-bottom: $small-spacing;
 
         li {
-          @include flex(auto); 
-          margin: 0 $small-spacing*1.25;
-          padding-bottom: $small-spacing/4;
+          padding: $small-spacing $small-spacing 0 $small-spacing;
+        }
+
+        a {
           
-          a {
-            display: block;
+          span {
+            display: none;
+          }
+        } 
 
-            img {
-              width: auto;
-              height: auto;
+        @include media($xlarge-screen) {
+          padding-bottom: 0;
+          background-color: transparent;
+          position: static;
+          @include span-columns(8);
+          @include clearfix;
+          @include display(flex);
+
+          li {
+            @include flex(auto); 
+            margin: 0 $small-spacing*1.25;
+            padding: 0 0 $small-spacing/4 0;
+            
+            a {
               display: block;
-            }
 
-            span {
-              display: none;
+              img {
+                width: auto;
+                height: auto;
+                display: block;
+              }
+
+              span {
+                display: none;
+              }
             }
           }
         }
