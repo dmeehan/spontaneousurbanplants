@@ -285,10 +285,10 @@ section.image-grid {
 
 body.map {
   .content {
-    @include display(flex);
-    @include align-content(stretch);
-    @include justify-content(stretch);
-    @include align-items(stretch);
+    //@include display(flex);
+    //@include align-content(stretch);
+    //@include justify-content(stretch);
+    //@include align-items(stretch);
   }
 }
 
@@ -316,6 +316,9 @@ ul.icon-list {
 }
 
 nav.attributes {
+
+  background: pink;
+
   @include span-columns(24);
 
   @include media($large-screen) {
@@ -324,6 +327,7 @@ nav.attributes {
 
   ul.attribute-list {
     li {
+      @include span-columns(1);
       @include media($large-screen) {
         @include span-columns(1 of 1);
         @include omega(1n);
@@ -335,6 +339,8 @@ nav.attributes {
 }
 	
 section.info {
+  background: orange;
+
   @include span-columns(24);
 
   @include media($large-screen) {
@@ -357,6 +363,8 @@ section.info {
 	aside.details {
     @include span-columns(24);
 
+    background: purple;
+
     @include media($large-screen) {
 		  @include span-columns(16 of 18);
 		  @include shift(1);
@@ -373,6 +381,8 @@ section.info {
 
 nav.plants {
   @include span-columns(24);
+
+  background: blue;
 
   @include media($large-screen) {
     @include span-columns(5);
