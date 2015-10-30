@@ -201,13 +201,20 @@ section.image-grid {
   }
 
 	div {
-    //mobile
-    @media screen and (max-width: $medium-screen) {
+    //mobile portrait
+    @media screen and (max-width: $small-screen) {
       @include span-columns(24);
       padding: 0 $small-spacing $small-spacing $small-spacing;
       margin: 0;
     }
     
+    //mobile landscape
+    @media screen and (min-width: $small-screen) and (max-width: $medium-screen) {
+      @include span-columns(12);
+      padding: 0 $small-spacing $small-spacing $small-spacing;
+      margin: 0;
+    }
+
     // tablet
     @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
       @include span-columns(8); 
