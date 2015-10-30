@@ -211,7 +211,7 @@ section.image-grid {
     //mobile landscape
     @media screen and (min-width: $small-screen) and (max-width: $medium-screen) {
       @include span-columns(12);
-      padding: 0 $small-spacing/2 $small-spacing $small-spacing;
+      padding: 0 0 $small-spacing $small-spacing;
       margin: 0;
     }
 
