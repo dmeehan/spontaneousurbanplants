@@ -157,6 +157,7 @@ body {
       background: transparent;
       color: $base-font-color;
       padding: 0 $gutter;
+      margin-bottom: $gutter;
     }
 
     @include media($xlarge-screen) {
