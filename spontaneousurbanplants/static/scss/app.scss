@@ -546,8 +546,7 @@ body.about {
     }
 
     .about-sources {
-      width: 100%;
-      @include flex(none);
+      @include flex(1 1 100%);
       padding: $base-spacing;
       @include media($xlarge-screen) {
         width: auto;
@@ -557,9 +556,8 @@ body.about {
     }
 
     .about-credits {
+      @include flex(1 1 100%);
       padding: $base-spacing;
-      width: 100%;
-      @include flex(none);
       @include media($xlarge-screen) {
         width: auto;
         @include flex(1 1 auto);
