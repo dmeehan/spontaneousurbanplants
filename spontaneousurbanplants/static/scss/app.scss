@@ -494,6 +494,7 @@ body.about {
       padding-bottom: $gutter;
 
       div.about-body {
+        @include span-columns(24 of 24);
         img {
           float: none;
           width: 100%;
