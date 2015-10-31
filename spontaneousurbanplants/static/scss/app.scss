@@ -526,15 +526,12 @@ body.about {
   section.about-colophone {
     font-size: $small-font-size;
     clear: both;
-    margin: $base-spacing;
+    margin: $gutter;
+    border: 1px solid $green;
     @include media($xlarge-screen) {
       @include display(flex);
       @include flex-wrap(wrap);
       margin: $base-spacing 0 0 0;
-    }
-
-    @include media($xlarge-screen) {
-      border: 1px solid $green;
     }
 
     h2 {
