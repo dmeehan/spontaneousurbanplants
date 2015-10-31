@@ -451,8 +451,9 @@ body.map {
 body.about {
   section.about-group {
     @include clearfix;
+    margin: 0 $gutter;
     @media screen and (min-width: $large-screen) {
-      margin-left: -$gutter;
+      margin: 0 0 0 -$gutter;
     }
 
   section.about-colophone {
@@ -491,13 +492,12 @@ body.about {
       @include span-columns(24);
       border-bottom: 1px solid $green;
       padding-bottom: $gutter;
-      header {
-        img {
-          width: 100%;
-        }
-      }
 
       div.about-body {
+        img {
+          float: none;
+          width: 100%;
+        }
         font-size: $small-font-size;
       }
 
