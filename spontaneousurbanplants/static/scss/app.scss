@@ -459,13 +459,16 @@ body.about {
 
     article.about-block {
       @include flex(1 1 25%);
-      padding: 0 $gutter;
+      
 
       &:first-child {
-        padding-left: 0;
+        .about-body {
+          padding-left: 0;
+        } 
       }
       
       .about-body {
+        padding: 0 $gutter;
         border-left: 1px solid $green;
       }
     }
