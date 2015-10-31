@@ -296,7 +296,7 @@ body.map {
           @include span-columns(2 of 24);
           @include omega(12n);
           padding-bottom: 7.36842%;
-          //margin-bottom: $flex-gutter();
+          margin-bottom: $gutter;
         }
       }
     }
