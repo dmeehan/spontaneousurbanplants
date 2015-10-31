@@ -568,6 +568,12 @@ body.about {
 
 .services-text {
   font-size: $small-font-size;
+
+  margin: 0 $gutter;
+
+  @media screen and (min-width: $xlarge-screen) {
+    margin: 0;
+  }
 }
 
 .service-group {
