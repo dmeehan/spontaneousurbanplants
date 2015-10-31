@@ -710,7 +710,7 @@ body.news {
 
 body.profiles {
   .content {
-    margin: 0 $gutter;
+    margin: 0 $gutter $gutter $gutter;
 
     @include media($xlarge-screen) {
       margin: 0;
@@ -789,6 +789,15 @@ body.profiles {
     .chart {
       display: block;
       margin: $base-spacing 0 $base-spacing*1.5 0;
+
+      @include media($large-screen) {
+        margin: $small-spacing 0 $small-spacing 0;
+      }
+
+      @include media($xlarge-screen) {
+        margin: $base-spacing 0 $base-spacing*1.5 0;
+      }
+      
     }
 
     .description {
