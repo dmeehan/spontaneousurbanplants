@@ -450,11 +450,21 @@ body.map {
 
 body.about {
   section.about-group {
-    @include clearfix;
-    margin: 0 $gutter;
-    @media screen and (min-width: $large-screen) {
-      margin: 0 0 0 -$gutter;
+    //@include clearfix;
+    //margin: 0 $gutter;
+    //@media screen and (min-width: $large-screen) {
+      //margin: 0 0 0 -$gutter;
+    @include display(flex);
+    @include flex-wrap(wrap);
+
+    article.about-block {
+      @include flex(1 1 25%);
+      padding: $gutter;
+      border-left: border-left: 1px solid $green;
     }
+  }
+
+
 
   section.about-colophone {
     font-size: $small-font-size;
@@ -483,79 +493,6 @@ body.about {
       @include flex(1);
       @include align-self(flex-end);
       padding: $base-spacing;
-    }
-  }
-
-  article.about-block {
-    //mobile
-    @media screen and (max-width: $medium-screen) {
-      @include span-columns(24);
-      border-bottom: 1px solid $green;
-      padding-bottom: $gutter;
-
-      div.about-body {
-        @include span-columns(24 of 24);
-        img {
-          float: none;
-          width: 100%;
-        }
-        font-size: $small-font-size;
-      }
-
-      &:last-child {
-        div.about-body {
-          border-bottom: none;
-        }
-      }
-    }
-
-    //tablet
-    @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
-      @include span-columns(24);
-      border-bottom: 1px solid $green;
-      padding-bottom: $gutter;
-    }
-
-      div.about-body {
-        @include span-columns(18 of 24);
-        img {
-          float: left;
-          margin: 0 $gutter $gutter 0;
-          width: 50%;
-        }
-        font-size: $small-font-size;
-      }
-
-      &:last-child {
-        div.about-body {
-          border-bottom: none;
-        }
-      }
-    }
-
-    //desktop
-    @media screen and (min-width: $large-screen) {
-      @include span-columns(6);
-      @include omega(4n);
-
-      header {
-        padding-left: $gutter;
-        img {
-          width: 100%;
-        }
-      }
-
-      div.about-body {
-        border-left: 1px solid $green;
-        padding-left: $gutter;
-        font-size: $small-font-size;
-      }
-
-      &:first-child {
-        div.about-body {
-          border-left: none;
-        }
-      }
     }
   }
 }
