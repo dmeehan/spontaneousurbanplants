@@ -296,7 +296,7 @@ body.map {
           @include span-columns(2 of 24);
           @include omega(12n);
           padding-bottom: 7.36842%;
-          margin-bottom: $small-spacing/2;
+          margin-bottom: flex-gutter();
         }
       }
     }
@@ -309,7 +309,7 @@ body.map {
           @include span-columns(1 of 1);
           @include omega(1n);
           padding-bottom: 100%;
-          margin-bottom: 19.0991%;
+          margin-bottom: flex-gutter();
         }
       }
     }
@@ -334,7 +334,7 @@ body.map {
         border:2px solid $green;
         font-size: .75em;
         line-height: 1.2em;
-        margin: $small-spacing/2 0;
+        margin: flex-gutter() 0;
         clear: both;
       }
     }
@@ -392,13 +392,13 @@ body.map {
       @include span-columns(24);
       ul.category-list {
         @include clearfix;
-        margin: 0 1.05263%;
+        margin: 0 flex-gutter();
         padding: 0;
         li {
           @include span-columns(6 of 24);
           @include omega(4n);
           padding-bottom: 24.25013%;
-          margin-bottom: $small-spacing;
+          margin-bottom: flex-gutter();
         }
       }  
     }
@@ -416,7 +416,7 @@ body.map {
           @include span-columns(2.5 of 5);
           @include omega(2n);
           padding-bottom: 47.36842%;
-          margin-bottom: 5.26316%;
+          margin-bottom: flex-gutter();
         }
       }
     }
@@ -463,7 +463,9 @@ body.about {
       &:first-child {
         > header, .about-body {
           padding-left: 0;
+          border: 0;
         } 
+
       }
 
       > header {
@@ -526,8 +528,8 @@ body.about {
   @include omega(4n);
   background-color: #333;
   color: white;
-  padding: $gutter;
-  margin-bottom: $gutter;
+  padding: flex-gutter();
+  margin-bottom: flex-gutter();
 
   h2 {
     text-transform: uppercase;
@@ -616,7 +618,7 @@ body.news {
 body.profiles {
   .slideshow {
     @include span-columns(13);
-    padding-right: $gutter;
+    padding-right: flex-gutter();
 
     .slides {
       ul {
