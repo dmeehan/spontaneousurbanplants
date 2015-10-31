@@ -313,7 +313,7 @@ body.map {
         }
       }
     }
-  }
+  } // end nav.attributes
 
   section.info {
     //mobile portrait & landscape
@@ -334,7 +334,7 @@ body.map {
         border:2px solid $green;
         font-size: .75em;
         line-height: 1.2em;
-        margin: $gutter 0;
+        margin: $small-spacing/2 0;
         clear: both;
       }
     }
@@ -360,7 +360,7 @@ body.map {
         clear: both;
       }
     }
-  }
+  } // end section.info
 
   ul.icon-list {
     li {
@@ -397,8 +397,8 @@ body.map {
         li {
           @include span-columns(6 of 24);
           @include omega(4n);
-          padding-bottom: 47.36842%;
-          margin-bottom: 5.26316%;
+          padding-bottom: 24.25013%;
+          margin-bottom: $small-spacing;
         }
       }  
     }
@@ -420,54 +420,33 @@ body.map {
         }
       }
     }
-  } 
 
+    ul.plant-list {
+      clear: both;
+      @include clearfix;
+      li {
+        a {
+          font-size: $small-font-size;
+          background: $green;
+          display: block;
+          color: white;
+          margin-bottom: $small-spacing/3;
+          padding: 0 $small-spacing/2;
+          font-weight: 600;
+        }
 
-
-
-} // end body.map
-
-/*
-
-*/
-/*
-aside.details {
-  
-}
-*/
-
-  
-
-
-
-ul.plant-list {
-  clear: both;
-  @include clearfix;
-  li {
-    a {
-      font-size: $small-font-size;
-      background: $green;
-      display: block;
-      color: white;
-      margin-bottom: $small-spacing/3;
-      padding: 0 $small-spacing/2;
-      font-weight: 600;
-    }
-
-    &.active {
-      a {
-        color: $green;
-        border: 1px solid $green;
-        background: white;
+        &.active {
+          a {
+            color: $green;
+            border: 1px solid $green;
+            background: white;
+          }
+        }
       }
     }
-  }
-}
+  } // end nav.plants
+} // end body.map
 
-
-
-
- 
 
 body.about {
   section.about-group {
