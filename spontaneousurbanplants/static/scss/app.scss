@@ -478,12 +478,16 @@ body.about {
       }
 
       > header {
-        padding: 0 flex-gutter();
+        padding: 0 $gutter;
       }
       
       .about-body {
         padding: 0 $gutter;
         border-left: 1px solid $green;
+
+        img {
+          width: 100%;
+        }
       }
     }
   }
