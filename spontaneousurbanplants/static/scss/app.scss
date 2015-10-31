@@ -459,12 +459,15 @@ body.about {
 
     article.about-block {
       @include flex(1 1 25%);
-      
 
       &:first-child {
-        .about-body {
+        > header, .about-body {
           padding-left: 0;
         } 
+      }
+
+      > header {
+        padding: 0 flex-gutter();
       }
       
       .about-body {
