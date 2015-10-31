@@ -201,10 +201,20 @@ body {
   }
 }
 
+body.home {
+  .content {
+    margin: 0 $gutter/2 $gutter $gutter/2;
+
+    @include media($xlarge-screen) {
+      @include outer-container;
+    }
+  }
+}
+
 section.image-grid { 
 	//mobile
-  @include outer-container(100%);
-  padding: 0 $gutter/2;
+  //@include outer-container(100%);
+  //padding: 0 $gutter/2;
 
   //desktop
   @include media($medium-screen) {
@@ -711,7 +721,7 @@ body.news {
 
 body.profiles {
   .content {
-    margin: 0 $gutter $gutter $gutter;
+    margin: 0 $gutter/2 $gutter $gutter/2;
 
     @include media($xlarge-screen) {
       @include outer-container;
