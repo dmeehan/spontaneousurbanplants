@@ -149,7 +149,7 @@ body {
     color: white;
 
     //desktop
-    @include media($large-screen) {
+    @include media($xlarge-screen) {
       @include outer-container;
       @include clearfix;
       font-size: $base-font-size;
