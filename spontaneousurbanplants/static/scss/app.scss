@@ -550,6 +550,7 @@ body.about {
       @include flex(none);
       padding: $base-spacing;
       @include media($xlarge-screen) {
+        width: auto;
         @include flex(1 1 auto);
         @include align-self(flex-start);
       }
@@ -560,6 +561,7 @@ body.about {
       width: 100%;
       @include flex(none);
       @include media($xlarge-screen) {
+        width: auto;
         @include flex(1 1 auto);
         @include align-self(flex-end);
       }
