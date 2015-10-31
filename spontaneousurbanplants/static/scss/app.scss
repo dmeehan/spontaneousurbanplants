@@ -285,8 +285,8 @@ section.image-grid {
 
 body.map {
   nav.attributes {
-    //mobile portrait & landscape
-    @media screen and (max-width: $medium-screen) {
+    //mobile & tablet
+    @media screen and (max-width: $large-screen) {
       @include outer-container;
       @include span-columns(24);
       @include pad(0 default default default);
@@ -302,7 +302,7 @@ body.map {
     }
 
     // desktop
-    @include media($large-screen) {
+    @media screen and (min-width: $large-screen) {
       @include span-columns(1);
       ul.attribute-list {
         li {
@@ -316,8 +316,8 @@ body.map {
   } // end nav.attributes
 
   section.info {
-    //mobile portrait & landscape
-    @media screen and (max-width: $medium-screen) {
+    //mobile & tablet
+    @media screen and (max-width: $large-screen) {
       @include outer-container;
       @include span-columns(24);
 
@@ -340,7 +340,7 @@ body.map {
     }
 
     // desktop
-    @include media($large-screen) {
+    @media screen and (min-width: $large-screen) {
       @include span-columns(18);
       div.map {
         @include span-columns(16 of 18);
@@ -369,8 +369,7 @@ body.map {
       text-indent: -999999px;
       background-size: 100% auto;
       background-repeat: no-repeat;
-      background-position: 100% 100%;
-      
+      background-position: top left;
       a {
         display: block;
         height:0;
@@ -378,17 +377,17 @@ body.map {
       }
 
       &:hover {
-        background-position: top left;
+        background-position: 100% 100%;
       }
     }
     li.active {
-      background-position: top left;
+      background-position: 100% 100%;
     }
   }
 
   nav.plants {
-    //mobile portrait & landscape
-    @media screen and (max-width: $medium-screen) {
+    //mobile & tablet
+    @media screen and (max-width: $large-screen) {
       @include outer-container;
       @include span-columns(24);
       ul.category-list {
@@ -405,7 +404,7 @@ body.map {
     }
 
     // desktop
-    @include media($large-screen) {
+    @media screen and (min-width: $large-screen) {
       @include span-columns(5);
       @include omega();
 
