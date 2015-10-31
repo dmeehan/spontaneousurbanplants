@@ -458,7 +458,16 @@ body.about {
     @include flex-wrap(wrap);
 
     article.about-block {
-      @include flex(1 1 25%);
+      @include flex(1 1 100%);
+
+      @include media($medium-screen) {
+        @include flex-basis(50%);
+      }
+
+      @include media($large-screen) {
+        //@include flex(1 1 25%);
+        @include flex-basis(25%);
+      }
 
       &:first-child {
         > header, .about-body {
