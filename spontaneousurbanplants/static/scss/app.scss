@@ -739,12 +739,16 @@ body.profiles {
       z-index: 999999999;
       @include clearfix;
       margin-top: -1.75rem;
-      font-size: $small-font-size;
+      font-size: $xsmall-font-size;
       line-height: 1.75rem;
       background: transparentize(black, 0.5);
       padding: 0 $small-spacing/2;
       text-transform: uppercase;
       font-weight: bold;
+
+      @include media($medium-screen) {
+        font-size: $small-font-size;
+      }
     }
 
     .caption-location {
