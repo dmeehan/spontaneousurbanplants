@@ -329,12 +329,12 @@ body.map {
 
       aside.details {
         @include outer-container;
-        //@include span-columns(24);
+        @include span-columns(24);
         @include pad(default);
         border:2px solid $green;
         font-size: .75em;
         line-height: 1.2em;
-        margin: $gutter;
+        margin: $gutter 0;
         clear: both;
       }
     }
