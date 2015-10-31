@@ -459,8 +459,15 @@ body.about {
 
     article.about-block {
       @include flex(1 1 25%);
-      padding: $gutter;
-      border-left: 1px solid $green;
+      padding: 0 $gutter;
+
+      &:first-child {
+        padding-left: 0;
+      }
+      
+      .about-body {
+        border-left: 1px solid $green;
+      }
     }
   }
 
