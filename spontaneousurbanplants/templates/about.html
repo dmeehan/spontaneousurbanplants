@@ -6,7 +6,7 @@
 {% for about in object_list %}
 	<article class="about-block">
 		<header>
-			<h1 class="{{ about.title }}">{{ about.title }}</h1>
+			<h1 class="{{ about.title|slugify }}">{{ about.title }}</h1>
 		</header>
 		<div class="about-body">
 			{% if about.image %}
