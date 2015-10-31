@@ -546,17 +546,21 @@ body.about {
     }
 
     .about-sources {
+      width: 100%;
+      @include flex(none);
       padding: $base-spacing;
       @include media($xlarge-screen) {
-        @include flex(1);
+        @include flex(1 1 auto);
         @include align-self(flex-start);
       }
     }
 
     .about-credits {
       padding: $base-spacing;
+      width: 100%;
+      @include flex(none);
       @include media($xlarge-screen) {
-        @include flex(1);
+        @include flex(1 1 auto);
         @include align-self(flex-end);
       }
     }
