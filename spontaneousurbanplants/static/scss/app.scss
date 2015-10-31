@@ -369,7 +369,8 @@ body.map {
       text-indent: -999999px;
       background-size: 100% auto;
       background-repeat: no-repeat;
-      background-position: top left;
+      background-position: 100% 100%;
+      
       a {
         display: block;
         height:0;
@@ -377,11 +378,11 @@ body.map {
       }
 
       &:hover {
-        background-position: 100% 100%;
+        background-position: top left;
       }
     }
     li.active {
-      background-position: 100% 100%;
+      background-position: top left;
     }
   }
 
@@ -392,7 +393,7 @@ body.map {
       @include span-columns(24);
       ul.category-list {
         @include clearfix;
-        margin: 0;
+        margin: 0 1.05263%;
         padding: 0;
         li {
           @include span-columns(6 of 24);
