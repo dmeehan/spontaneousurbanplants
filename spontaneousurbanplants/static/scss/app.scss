@@ -293,8 +293,8 @@ body.map {
 
       ul.attribute-list {
         li {
-          @include span-columns(4 of 24);
-          @include omega(6n);
+          @include span-columns(2 of 24);
+          @include omega(12n);
           padding-bottom: 15.78947%;
           //margin-bottom: $flex-gutter();
         }
