@@ -719,7 +719,7 @@ body.profiles {
 
   .slideshow {
     padding: 0 $gutter;
-    @include media($medium-screen) {
+    @include media($large-screen) {
       @include span-columns(13);
       padding: 0 $gutter 0 0;
     }
@@ -761,7 +761,7 @@ body.profiles {
 
   .details {
     padding: 0 $gutter;
-    @include media($medium-screen) {
+    @include media($large-screen) {
       @include span-columns(11);
       @include omega;
       padding: 0;
