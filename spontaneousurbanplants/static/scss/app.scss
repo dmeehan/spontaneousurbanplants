@@ -604,6 +604,11 @@ body.about {
 
   @media screen and (max-width: $medium-screen) {
     @include span-columns(24);
+    img {
+      width: auto;
+      float: left;
+      padding-right: $gutter;
+    }
   }
 
   @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
