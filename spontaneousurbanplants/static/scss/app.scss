@@ -544,6 +544,7 @@ body.about {
     }
 
     .about-sources {
+      overflow: hidden;
       padding: $base-spacing;
       @include media($xlarge-screen) {
         width: auto;
