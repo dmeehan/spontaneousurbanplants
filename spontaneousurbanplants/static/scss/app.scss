@@ -710,9 +710,11 @@ body.news {
 
 body.profiles {
   .slideshow {
-    @include span-columns(13);
-    padding-right: $gutter;
-
+    @include media($medium-screen) {
+      @include span-columns(13);
+      padding-right: $gutter;
+    }
+    
     .slides {
       ul {
         position: relative;
@@ -744,8 +746,10 @@ body.profiles {
   }
 
   .details {
-    @include span-columns(11);
-    @include omega;
+    @include media($medium-screen) {
+      @include span-columns(11);
+      @include omega;
+    }
 
     h1 {
       font-size: 1.1em;
