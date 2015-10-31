@@ -804,7 +804,7 @@ body.profiles {
     }
 
     .metrics {
-      @include media($large-screen) {
+      @include media($medium-screen) {
         @include span-columns(3 of 11);
       }
     }
