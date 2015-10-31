@@ -511,7 +511,7 @@ body.about {
     @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
       @include span-columns(24);
       border-bottom: 1px solid $green;
-      padding-bottom: padding-left: $gutter;
+      padding-bottom: $gutter;
       header {
         @include span-columns(6 of 24);
         img {
