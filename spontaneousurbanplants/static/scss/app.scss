@@ -510,7 +510,7 @@ body.about {
       
       .about-body {
         padding: 0 $gutter;
-        font-size: $small-font-size;
+        //font-size: $small-font-size;
         text-align: justify;
         @include media($medium-screen) {
           border-left: 1px solid $green;
@@ -526,7 +526,7 @@ body.about {
 
 
   section.about-colophone {
-    font-size: $small-font-size;
+    //font-size: $small-font-size;
     clear: both;
     margin: $base-spacing 0;
     @include media($xlarge-screen) {
@@ -594,7 +594,7 @@ body.about {
 
   div.service-text {
     text-align: justify;
-    font-size: $small-font-size;
+    //font-size: $small-font-size;
   }
 
   &.service-block--SUPDisturbanceadapted {
@@ -686,7 +686,7 @@ body.profiles {
       z-index: 999999999;
       @include clearfix;
       margin-top: -1.75rem;
-      font-size: $small-font-size;
+      //font-size: $small-font-size;
       line-height: 1.75rem;
       background: transparentize(black, 0.5);
       padding: 0 $small-spacing/2;
