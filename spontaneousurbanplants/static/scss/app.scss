@@ -710,9 +710,15 @@ body.news {
 
 body.profiles {
   .slideshow {
+    padding: 0 $gutter;
     @include media($medium-screen) {
       @include span-columns(13);
-      padding-right: $gutter;
+      padding: 0 $gutter 0 0;
+    }
+
+    .flexslider {
+      margin-bottom: $base-spacing;
+      border: 0
     }
     
     .slides {
@@ -746,9 +752,11 @@ body.profiles {
   }
 
   .details {
+    padding: 0 $gutter;
     @include media($medium-screen) {
       @include span-columns(11);
       @include omega;
+      padding: 0;
     }
 
     h1 {
@@ -779,7 +787,9 @@ body.profiles {
       font-size: 0.75rem;
       text-align: justify;
       @include span-columns(8 of 11);
-      padding-right: $base-spacing * 1.5;
+      @include media($medium-screen) {
+        padding-right: $base-spacing * 1.5;
+      }
     }
 
     .metrics {
