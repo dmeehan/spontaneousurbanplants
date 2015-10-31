@@ -604,6 +604,7 @@ body.about {
 
   @media screen and (max-width: $medium-screen) {
     @include span-columns(24);
+    @include omega();
     img {
       width: auto;
       float: left;
