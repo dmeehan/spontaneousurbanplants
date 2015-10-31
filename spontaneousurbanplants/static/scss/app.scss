@@ -483,8 +483,11 @@ body.about {
       
       .about-body {
         padding: 0 $gutter;
-        border-left: 1px solid $green;
 
+        @include media($medium-screen) {
+          border-left: 1px solid $green;
+        }
+        
         img {
           width: 100%;
         }
