@@ -486,7 +486,8 @@ body.about {
 
           height: 0;
           padding-bottom: 36px;
-          background-size: 100% auto;
+          //background-size: 100% auto;
+          background-repeat: no-repeat;
 
 
           &.overview {
