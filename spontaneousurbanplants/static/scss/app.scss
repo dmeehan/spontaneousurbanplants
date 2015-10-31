@@ -334,7 +334,7 @@ body.map {
         border:2px solid $green;
         font-size: .75em;
         line-height: 1.2em;
-        //margin-top: $flex-gutter();
+        margin: $gutter;
         clear: both;
       }
     }
