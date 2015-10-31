@@ -528,10 +528,13 @@ body.about {
   section.about-colophone {
     font-size: $small-font-size;
     clear: both;
-    margin-top: $base-spacing;
-    border: 1px solid $green;
+    margin: $base-spacing 0;
     @include display(flex);
     @include flex-wrap(wrap);
+
+    @include media($xlarge-screen) {
+      border: 1px solid $green;
+    }
 
     h2 {
       background: $green;
@@ -543,15 +546,19 @@ body.about {
     }
 
     .about-sources {
-      @include flex(1);
-      @include align-self(flex-start);
       padding: $base-spacing;
+      @include media($xlarge-screen) {
+        @include flex(1);
+        @include align-self(flex-start);
+      }
     }
 
     .about-credits {
-      @include flex(1);
-      @include align-self(flex-end);
       padding: $base-spacing;
+      @include media($xlarge-screen) {
+        @include flex(1);
+        @include align-self(flex-end);
+      }
     }
   }
 }
