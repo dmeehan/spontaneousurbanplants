@@ -489,7 +489,7 @@ body.about {
     @media screen and (max-width: $medium-screen) {
       @include span-columns(24);
       border-bottom: 1px solid $green;
-      padding-bottom: padding-left: $gutter;
+      padding-bottom: $gutter;
       header {
         img {
           width: 100%;
