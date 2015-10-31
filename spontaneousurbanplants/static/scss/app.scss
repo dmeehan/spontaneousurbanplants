@@ -144,7 +144,6 @@ body {
   footer {
     //mobile
     @include outer-container(100%);
-    font-size: 0.875rem;
     background: $dark-gray;
     padding: $gutter;
     color: white;
@@ -156,8 +155,9 @@ body {
       font-size: $base-font-size;
       background: transparent;
       color: $base-font-color;
-      padding: 0 $gutter;
-      margin-bottom: $gutter;
+      padding: 0;
+      margin-top: $gutter;
+      margin-bottom: $gutter; 
     }
 
     @include media($xlarge-screen) {
@@ -165,6 +165,7 @@ body {
     }
 
     p, ul {
+      font-size: $small-font-size;
       text-align: left;
       margin: 0;
 
@@ -423,11 +424,12 @@ body.map {
     }
 
     ul.plant-list {
+
       clear: both;
       @include clearfix;
       li {
         a {
-          font-size: $small-font-size;
+          font-size: $xsmall-font-size;
           background: $green;
           display: block;
           color: white;
@@ -451,10 +453,6 @@ body.map {
 
 body.about {
   section.about-group {
-    //@include clearfix;
-    //margin: 0 $gutter;
-    //@media screen and (min-width: $large-screen) {
-      //margin: 0 0 0 -$gutter;
     @include display(flex);
     @include flex-wrap(wrap);
 
@@ -510,7 +508,7 @@ body.about {
       
       .about-body {
         padding: 0 $gutter;
-        //font-size: $small-font-size;
+        font-size: $small-font-size;
         text-align: justify;
         @include media($medium-screen) {
           border-left: 1px solid $green;
@@ -526,12 +524,13 @@ body.about {
 
 
   section.about-colophone {
-    //font-size: $small-font-size;
+    font-size: $small-font-size;
     clear: both;
     margin: $base-spacing 0;
     @include media($xlarge-screen) {
       @include display(flex);
       @include flex-wrap(wrap);
+      margin-bottom: 0;
     }
 
     @include media($xlarge-screen) {
@@ -567,6 +566,9 @@ body.about {
   }
 }
 
+.services-text {
+  font-size: $small-font-size;
+}
 
 .service-group {
   padding-top: $small-spacing;
@@ -594,7 +596,7 @@ body.about {
 
   div.service-text {
     text-align: justify;
-    //font-size: $small-font-size;
+    font-size: $small-font-size;
   }
 
   &.service-block--SUPDisturbanceadapted {
@@ -648,6 +650,9 @@ body.news {
   }
   .news-item {
     @include span-columns(16);
+    
+    font-size: $small-font-size;
+
     figure {
       margin: 0 0 $small-spacing 0;
       padding: 0;
@@ -667,6 +672,7 @@ body.news {
     @include span-columns(7);
     @include shift(1);
     @include omega();
+    font-size: $small-font-size;
   }
 }
 
@@ -686,7 +692,7 @@ body.profiles {
       z-index: 999999999;
       @include clearfix;
       margin-top: -1.75rem;
-      //font-size: $small-font-size;
+      font-size: $small-font-size;
       line-height: 1.75rem;
       background: transparentize(black, 0.5);
       padding: 0 $small-spacing/2;
