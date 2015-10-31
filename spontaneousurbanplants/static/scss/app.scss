@@ -471,10 +471,8 @@ body.about {
 
       &:first-child {
         > header, .about-body {
-          padding-left: 0;
           border: 0;
         } 
-
       }
 
       > header {
@@ -487,7 +485,7 @@ body.about {
         @include media($medium-screen) {
           border-left: 1px solid $green;
         }
-        
+
         img {
           width: 100%;
         }
