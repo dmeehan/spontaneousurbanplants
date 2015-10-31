@@ -295,12 +295,20 @@ section.image-grid {
 
 
 body.map {
+  .content {
+    margin: 0 $gutter/2 $gutter $gutter/2;
+
+    @include media($xlarge-screen) {
+      @include outer-container;
+    }
+  }
+
   nav.attributes {
     //mobile & tablet
     @media screen and (max-width: $large-screen) {
       @include outer-container;
       @include span-columns(24);
-      @include pad(0 default default default);
+      @include pad(0 0 default 0);
 
       ul.attribute-list {
         li {
