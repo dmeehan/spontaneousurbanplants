@@ -580,13 +580,25 @@ body.about {
 }
 
 .service-block {
-  @include flex(none);
-  @include span-columns(6);
-  @include omega(4n);
+  
   background-color: #333;
   color: white;
   padding: $gutter;
   margin-bottom: $gutter;
+
+  @media screen and (max-width: $medium-screen) {
+    @include span-columns(24);
+  }
+
+  @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
+    @include span-columns(12);
+    @include omega(2n);
+  }
+
+  @media screen and (min-width: $large-screen) {
+    @include span-columns(6);
+    @include omega(4n);
+  }
 
   h2 {
     text-transform: uppercase;
