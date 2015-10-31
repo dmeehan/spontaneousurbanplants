@@ -30,17 +30,18 @@ $blue: rgb(13, 118, 152);
 $orange: rgb(220, 77, 22);
 $purple: rgb(116, 74, 142);
 
-$SUPDisturbanceadapted: rgb(116, 74, 142);
-$SUPwildlife: rgb(236, 29, 138);
-$SUPphytoremediation: #FFD847;
-$SUPmedicinal: #01a4a0;
+$SUPdisturbanceadapted: rgb(116, 76, 143);
+$SUPwildlife: rgb(235, 34, 137);
+$SUPphytoremediation: rgb(235, 183, 31);
+$SUPmedicinal: rgb(0, 166, 163);
 $SUPmitigatingurbanheat: #455657;
-$SUPretainstormh2o: #0e7599;
+$SUPretainstormh2o: rgb(13, 117, 154);
 $SUPnoiseregulation: #0a4874;
 $SUPpreventerosion: #dd4d15;
-$SUPinvasive: #f55100;
-$SUPEdible: #006838;
-$SUPSequesterCO2: #1bda9f;
+$SUPecologicaldisservice: rgb(241, 88, 34);
+$SUPinvasive: $SUPecologicaldisservice
+$SUPedible: rgb(190, 199, 50);
+$SUPsequesterCO2: rgb(101, 193, 155);
 
 
 // Font Colors
