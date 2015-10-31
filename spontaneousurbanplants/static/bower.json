@@ -15,13 +15,10 @@
     "tests"
   ],
   "dependencies": {
-    "bourbon": "~4.0.1",
-    "neat": "~1.6.0",
-    "bitters": "https://github.com/thoughtbot/bitters.git#0.9.3",
     "leaflet": "~0.7.0",
     "leaflet.markercluster": "~0.4.0",
     "leaflet-ajax": "~1.1.0",
-    "lightbox2": "~2.7.1",
+    "lightbox2": "~2.8.0",
     "tooltipster": "~3.2.4",
     "spin.js": "~2.0.1"
   }
