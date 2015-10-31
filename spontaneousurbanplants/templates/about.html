@@ -7,11 +7,11 @@
 	<article class="about-block">
 		<header>
 			<h1>{{ about.title }}</h1>
+		</header>
+		<div class="about-body">
 			{% if about.image %}
 			<div class="about-image"><img src="{{ about.image.url }}" /></div>
 			{% endif %}
-		</header>
-		<div class="about-body">
 			<div class="about-text">{{ about.text_html|safe }}</div>
 		</div>
 	</article>
