@@ -577,6 +577,12 @@ body.about {
   @include align-content(stretch);
   @include justify-content(stretch);
   @include align-items(stretch);
+
+  margin: 0 $gutter;
+
+  @media screen and (min-width: $large-screen) {
+    margin: 0;
+  }
 }
 
 .service-block {
