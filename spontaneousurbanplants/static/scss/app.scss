@@ -713,7 +713,7 @@ body.profiles {
     margin: 0 $gutter $gutter $gutter;
 
     @include media($xlarge-screen) {
-      margin: 0;
+      @include outer-container;
     }
   }
 
