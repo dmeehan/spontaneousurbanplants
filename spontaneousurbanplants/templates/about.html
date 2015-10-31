@@ -5,11 +5,13 @@
 <section class="about-group">
 {% for about in object_list %}
 	<article class="about-block">
-		<h1>{{ about.title }}</h1>
-		<div class="about-body">
+		<header>
+			<h1>{{ about.title }}</h1>
 			{% if about.image %}
 			<div class="about-image"><img src="{{ about.image.url }}" /></div>
 			{% endif %}
+		</header>
+		<div class="about-body">
 			<div class="about-text">{{ about.text_html|safe }}</div>
 		</div>
 	</article>
