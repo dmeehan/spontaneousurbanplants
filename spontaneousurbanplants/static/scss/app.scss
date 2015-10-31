@@ -529,8 +529,10 @@ body.about {
     font-size: $small-font-size;
     clear: both;
     margin: $base-spacing 0;
-    @include display(flex);
-    @include flex-wrap(wrap);
+    @include media($xlarge-screen) {
+      @include display(flex);
+      @include flex-wrap(wrap);
+    }
 
     @include media($xlarge-screen) {
       border: 1px solid $green;
@@ -546,21 +548,19 @@ body.about {
     }
 
     .about-sources {
-      @include flex(1 1 100%);
       padding: $base-spacing;
       @include media($xlarge-screen) {
         width: auto;
-        @include flex(1 1 auto);
+        @include flex(1);
         @include align-self(flex-start);
       }
     }
 
     .about-credits {
-      @include flex(1 1 100%);
       padding: $base-spacing;
       @include media($xlarge-screen) {
         width: auto;
-        @include flex(1 1 auto);
+        @include flex(1);
         @include align-self(flex-end);
       }
     }
