@@ -709,6 +709,14 @@ body.news {
 }
 
 body.profiles {
+  .content {
+    margin: 0 $gutter;
+
+    @include media($xlarge-screen) {
+      margin: 0;
+    }
+  }
+
   .slideshow {
     padding: 0 $gutter;
     @include media($medium-screen) {
