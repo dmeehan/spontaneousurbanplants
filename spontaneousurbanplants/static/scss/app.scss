@@ -628,7 +628,10 @@ body.about {
   }
 
   div.service-text {
-    text-align: justify;
+    @include media($medium-screen) {
+      text-align: justify;
+    }
+    
     font-size: $small-font-size;
   }
 
