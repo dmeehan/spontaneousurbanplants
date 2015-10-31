@@ -598,11 +598,12 @@ body.about {
   padding: $gutter;
   margin-bottom: $gutter;
 
+  img {
+      width: 100%;
+  }
+
   @media screen and (max-width: $medium-screen) {
     @include span-columns(24);
-    img {
-      float: left;
-    }
   }
 
   @media screen and (min-width: $medium-screen) and (max-width: $large-screen) {
