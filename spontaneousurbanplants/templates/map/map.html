@@ -38,19 +38,19 @@
 		data-name="{{ attribute.name }}: "
 		data-description="{{ attribute.description }}"
 		title="{{ attribute.name }}" 
-		class="layer-link tooltip js-layer-trigger" href="#">{{ attribute.name }}</a></li>
+		class="layer-link tooltip js-layer-trigger" href="#map">{{ attribute.name }}</a></li>
 		{% endif %}
 	    {% endfor %}
 	</ul>
 </nav>
-<section class="info box">
+<section class="info">
 	<div class="map" id="map"></div>
 	<aside class="details">
 		<strong class="name"></strong>
 		<span class="description">Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons.</span>
 	</aside>
 </section>
-<nav class="map-nav plants box">
+<nav class="map-nav plants">
 	<ul class="category-list icon-list">
 	{% for category in category_list %}
 		{% if category.icon %}
@@ -59,7 +59,7 @@
 		data-description="({{ category.description }})"
 		title="{{ category.name }}" 
 		class="tooltip layer-link js-layer-trigger js-category-trigger"
-		href="javascript:void(0);">{{ category.name }}</a></li>
+		href="#map">{{ category.name }}</a></li>
 		{% endif %}
     {% endfor %}
     	<li class="all active" style="background-image:url({% static 'images/all.png' %})"><a data-tag="all"
@@ -67,9 +67,18 @@
 		data-description="(All Plants)"
 		title="All" 
 		class="layer-link tooltip js-layer-trigger js-category-trigger"
-		href="javascript:void(0);">All Plants</a></li>
+		href="#map">All Plants</a></li>
 	</ul>
 	<ul class="plant-list">
+		{% for category in category_list %}
+		<li class="category category_{{ category.id }}">
+			<a data-tag="category_{{ category.id }}"
+			data-name="{{ category.name }}"
+			title="{{ category.name }}" 
+			class="layer-link tooltip js-layer-trigger"
+			href="#map">{{ category.name }}</a>
+		</li>
+		{% endfor %}
 		{% for plant in plant_list %}
 		{% if plant.icon %}
 		<li class="{% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %} all"><a data-tag="{{ plant.hashtag }}"
@@ -77,7 +86,7 @@
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
 		class="layer-link tooltip js-layer-trigger"
-		href="javascript:void(0);">{{ plant.common_name }}</a></li>
+		href="#map">{{ plant.common_name }}</a></li>
 		{% endif %}
 		{% endfor %}
     </ul>
@@ -350,51 +359,5 @@
    			position: 'right'
      	});
      });
-</script>
-
-<script>
-/* Thanks to CSS Tricks for pointing out this bit of jQuery
-http://css-tricks.com/equal-height-blocks-in-rows/
-It's been modified into a function called at page load and then each time the page is resized. One large modification was to remove the set height before each new calculation. */
-
-equalheight = function(container){
-
-var currentTallest = 0,
-     currentRowStart = 0,
-     rowDivs = new Array(),
-     $el,
-     topPosition = 0;
- $(container).each(function() {
-
-   $el = $(this);
-   $($el).height('auto')
-   topPostion = $el.position().top;
-
-   if (currentRowStart != topPostion) {
-     for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-       rowDivs[currentDiv].height(currentTallest);
-     }
-     rowDivs.length = 0; // empty the array
-     currentRowStart = topPostion;
-     currentTallest = $el.height();
-     rowDivs.push($el);
-   } else {
-     rowDivs.push($el);
-     currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
-  }
-   for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-     rowDivs[currentDiv].height(currentTallest);
-   }
- });
-}
-
-$(window).load(function() {
-  equalheight('.box');
-});
-
-
-$(window).resize(function(){
-  equalheight('.box');
-});
 </script>
 {% endblock extra_body %}
