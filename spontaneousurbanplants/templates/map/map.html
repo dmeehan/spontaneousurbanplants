@@ -156,19 +156,19 @@
 				var captionName;
 				var captionDate;
 				var captionCaption;
-				if (feature.properties.plant_url != "undefined") {
+				if (typeof feature.properties.plant_url != "undefined") {
 					captionLink = "<a href='" + feature.properties.plant_url + "'>Go to Profile</a>";
 				}
 
-				if (feature.properties.common_name != "undefined") {
+				if (typeof feature.properties.common_name != "undefined") {
 					captionName = "<span class='name'>" + feature.properties.latin_name + " - " + feature.properties.common_name + "</span>";
 				}
 
-				if (feature.properties.date != "undefined") {
+				if (typeof feature.properties.date != "undefined") {
 					captionDate = "<span class='date'>" + feature.properties.date + "</span>";
 				}
 
-				if (feature.properties.caption != "undefined") {
+				if (typeof feature.properties.caption != "undefined") {
 					captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
 				}
 				
