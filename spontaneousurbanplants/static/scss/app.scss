@@ -501,7 +501,7 @@ body.map {
 
     // desktop
     @media screen and (min-width: $large-screen) {
-      height: 813px;
+      height: 547px;
       overflow-y: auto;
       @include span-columns(5);
       @include omega();
