@@ -502,11 +502,11 @@ body.map {
     // desktop
     @media screen and (min-width: $large-screen) {
       height: 813px;
-      @include display(flex);
-      @include flex-direction(column);
       overflow-y: auto;
       @include span-columns(5);
       @include omega();
+      @include display(flex);
+      @include flex-direction(column);
 
       ul.category-list {
         @include flex(none);
