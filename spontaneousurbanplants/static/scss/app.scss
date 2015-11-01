@@ -151,7 +151,7 @@ body {
           padding: $small-spacing $base-spacing;
 
           &:hover {
-            background-color: transparentize(white, 0.9);
+            background-color: transparentize(white, 0.95);
           }
 
           span {
@@ -189,9 +189,10 @@ body {
               margin: 0;
 
               img {
-                width: auto;
-                height: auto;
+                //width: auto;
+                //height: auto;
                 display: block;
+                height: .75em;
               }
 
               span {
