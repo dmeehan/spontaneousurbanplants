@@ -37,15 +37,15 @@ class ImageSerializer(gis_serializers.GeoFeatureModelSerializer):
 	def get_plant_common_name(self, obj):
 		for tag in obj.tags.all():
 			try:
-				return Plant.objects.filter(hashtag__iexact=tag.name).values_list('common_name', flat=True)[0]
-			except Plant.DoesNotExist:
+				return Plant.objects.filter(hashtag__iexact=tag.name).values_list('common_name', flat=True).distinct()
+			except DoesNotExist:
 				return ""
 
 	def get_plant_latin_name(self, obj):
 		for tag in obj.tags.all():
 			try:
-				return Plant.objects.filter(hashtag__iexact=tag.name).values_list('latin_name', flat=True)[0]
-			except Plant.DoesNotExist:
+				return Plant.objects.filter(hashtag__iexact=tag.name).values_list('latin_name', flat=True).distinct()
+			except DoesNotExist:
 				return ""
 
 	def get_plant_url(self, obj):
