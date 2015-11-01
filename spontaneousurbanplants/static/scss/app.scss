@@ -501,7 +501,7 @@ body.map {
 
     // desktop
     @media screen and (min-width: $large-screen) {
-      height: 547px;
+      height: 496px;
       overflow-y: auto;
       @include span-columns(5);
       @include omega();
@@ -550,6 +550,9 @@ body.map {
           a {
             font-size: $small-font-size;
             text-transform: uppercase;
+            color: $green;
+            border: 1px solid $green;
+            background: white;
           }
         }
       }
