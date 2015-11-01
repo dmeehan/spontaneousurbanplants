@@ -152,7 +152,8 @@
         		return L.circleMarker(latlng, emptyMarkerStyle);
     		},
 			onEachFeature: function(feature, layer) {
-				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+				var captionContent = "<span class='caption-wrapper'><span class='name'>" + feature.properties.latin_name + " - " + feature.properties.common_name + "</span><a href='" + feature.properties.plant_url + "'>Go to Profile</a><span class='caption'>" + feature.properties.caption + "</span><span class='date'>" + feature.properties.date + "</span></span>";
+				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 				marker = layer;
         		marker.bindPopup(popupContent);
 			}
@@ -264,8 +265,6 @@
 	var category_{{ category.id }}_data = L.geoJson.ajax('{% url "api-image-list" %}?category={{ category.id }}&format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
 			category_{{ category.id }}_layer.addLayer(layer);
-
-
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
 
     		layer.bindPopup(popupContent);

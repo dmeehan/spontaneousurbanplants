@@ -118,6 +118,7 @@ body {
             opacity: 1;
             z-index: 9998;
             max-height: 400px;
+            min-width: $menu-width;
           }
         }
 
@@ -130,15 +131,15 @@ body {
 
       ul {
         @include transition(all 0.5s ease-in-out);
-        position: absolute;
+        position: fixed;
         top: 0;
         right: 0;
         z-index: -1;
         visibility: hidden;
         opacity: 0;
-        width: $menu-width;
+        min-width: 0;
         max-height: 0;
-        background-color: $dark-gray;
+        background-color: transparentize($dark-gray, 0.05);
         padding: $small-spacing 0;
 
         li {
@@ -176,6 +177,7 @@ body {
           opacity: 1;
           z-index: 9999;
           max-height: initial;
+          min-width: initial;
 
           li {
             @include flex(auto); 
@@ -347,7 +349,7 @@ section.image-grid {
 				color: white;
 				@include transition(all 0.5s ease-in-out);
 				padding: $small-spacing;
-        text-transform: normal;
+        text-transform: none;
 			}
 
 			&:hover {
@@ -559,6 +561,59 @@ body.map {
       }
     }
   } // end nav.plants
+
+  //lightbox caption
+
+  .lb-dataContainer {
+    z-index: 99999;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+  }
+
+  .lb-data {
+    width: 100%;
+    margin-left: -50%;
+  }
+
+  .lb-closeContainer {
+    display: none;
+  }
+
+  .lb-details {
+    width: 100%;
+  }
+
+  .caption-wrapper {
+    background: transparentize(black, 0.5);
+    //width: 100%;
+    margin-bottom: 4px;
+    padding: $gutter/2;
+    @include display(flex);
+    @include flex-wrap(wrap);
+
+    > a, > span {
+      @include flex(1 1 50%);
+      line-height: $base-line-height;
+    }
+
+    span.date, a {
+      text-align: right;
+    }
+
+    span.date {
+      @include flex(none);
+    }
+
+    > a {
+      color: white;
+      &:hover {
+        color: $green;
+      }
+    }
+
+  }
 } // end body.map
 
 
