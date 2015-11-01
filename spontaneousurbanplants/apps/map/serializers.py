@@ -18,7 +18,7 @@ class ImageSerializer(gis_serializers.GeoFeatureModelSerializer):
 		model = InstagramImage
 		geo_field = 'coordinates'
 		id_field = None
-		fields = ('id', 'caption', 'image_url', 'hashtag')
+		fields = ('id', 'caption', 'image_url')
 
 	def get_plant(self, obj):
 		for tag in obj.tags.all():
