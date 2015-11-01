@@ -20,8 +20,11 @@ div.leaflet-control-attribution {
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 
-  //overflow: hidden;
+  @include media($xlarge-screen) {
+   overflow-x: visible;
+  }
 
 	header {
 
@@ -35,6 +38,7 @@ body {
     }
 		
     nav { 
+      $menu-width: 20rem;
       max-height: 100px;
       @include outer-container(100%);
       margin-bottom: $small-spacing;
@@ -74,36 +78,104 @@ body {
           height: 100%;
           text-indent: -999999px;
         }
+      } 
+
+      label {
+        z-index: 9999;
+        position: fixed;
+        top: $small-spacing;
+        right: $small-spacing;
+        background: transparentize($green, 0.3);
+        display: block;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 1px solid $green;
+        //color: darken($green, 20%);
+        color: white;
+        font-weight: 700;
+        line-height: 45px;
+        font-size: 1.25em;
+        text-align: center;
+
+        @include media($xlarge-screen) {
+          display: none;
+        }
       }
 
+      input[type=checkbox] {
+        z-index: 9999;
+        position: fixed;
+        top: $small-spacing/2;
+        right: $small-spacing;
+        opacity: 0;
+
+        &:checked {
+          + ul {
+            @include transition(all 0.5s ease-in-out);
+            //margin-right: 0;
+            visibility: visible;
+            opacity: 1;
+            z-index: 9998;
+            max-height: 400px;
+          }
+        }
+
+        @include media($large-screen) {
+          display: none;
+        }
+      }
+        
+     
 
       ul {
-        display: none;
+        @include transition(all 0.5s ease-in-out);
         position: absolute;
         top: 0;
         right: 0;
-        width: 280px;
+        z-index: -1;
+        visibility: hidden;
+        opacity: 0;
+        width: $menu-width;
+        max-height: 0;
         background-color: $dark-gray;
-        padding-bottom: $small-spacing;
+        padding: $small-spacing 0;
 
         li {
-          padding: $small-spacing $small-spacing 0 $small-spacing;
+          //padding: $small-spacing $small-spacing 0 $small-spacing;
         }
 
         a {
-          
+          height: 50px;
+          display: block;
+          padding: $small-spacing $base-spacing;
+
+          &:hover {
+            background-color: transparentize(white, 0.9);
+          }
+
           span {
             display: none;
+          }
+
+          img {
+            width: auto;
+            height: 100%;
+            display: block;
           }
         } 
 
         @include media($xlarge-screen) {
-          padding-bottom: 0;
+          padding: 0;
           background-color: transparent;
           position: static;
           @include span-columns(8);
           @include clearfix;
           @include display(flex);
+          visibility: visible;
+          opacity: 1;
+          z-index: 9999;
+          max-height: initial;
 
           li {
             @include flex(auto); 
@@ -111,7 +183,10 @@ body {
             padding: 0 0 $small-spacing/4 0;
             
             a {
+              height: auto;
               display: block;
+              padding: 0;
+              margin: 0;
 
               img {
                 width: auto;
@@ -253,9 +328,9 @@ section.image-grid {
         margin-bottom: $gutter;
     }
 		
-		
-		
 		position:relative;
+
+
 		a {
 			display:block;
 			width:100%;
@@ -271,6 +346,7 @@ section.image-grid {
 				color: white;
 				@include transition(all 0.5s ease-in-out);
 				padding: $small-spacing;
+        text-transform: normal;
 			}
 
 			&:hover {
@@ -425,10 +501,15 @@ body.map {
 
     // desktop
     @media screen and (min-width: $large-screen) {
+      height: 813px;
+      @include display(flex);
+      @include flex-direction(column);
+      overflow-y: auto;
       @include span-columns(5);
       @include omega();
 
       ul.category-list {
+        @include flex(none);
         @include clearfix;
         margin: 0;
         padding: 0;
@@ -442,7 +523,8 @@ body.map {
     }
 
     ul.plant-list {
-
+      @include flex(1);
+      overflow-y: auto;
       clear: both;
       @include clearfix;
       li {
@@ -696,11 +778,28 @@ body.about {
 }
 
 body.news {
-  .content > header {
-    @include span-columns(16);
+  .content {
+    margin: 0 $gutter/2 $gutter $gutter/2;
+
+    @include media($xlarge-screen) {
+      @include outer-container;
+    }
+
+    > header {
+      @include media($medium-screen) {
+        @include span-columns(16);
+      }
+
+      aside {
+        font-size: $small-font-size;
+      }
+    }
   }
+
   .news-item {
-    @include span-columns(16);
+    @include media($medium-screen) {
+      @include span-columns(16);
+    }
     
     font-size: $small-font-size;
 
@@ -710,20 +809,40 @@ body.news {
       @include display(flex);
       @include flex-wrap(wrap);
       div {
-        padding-right: $small-spacing;
+        padding-left: $small-spacing;
         @include flex(1);
         img {
           width: 100%;
+        }
+
+        &:first-child {
+          padding-left: 0;
         }
       }
     }
   }
 
   .news-archive {
-    @include span-columns(7);
-    @include shift(1);
-    @include omega();
+    @include media($medium-screen) {
+      @include span-columns(7);
+      @include shift(1);
+      @include omega();
+    }
+
     font-size: $small-font-size;
+
+    h2 {
+      text-indent: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+
+      height: 0;
+      padding-bottom: 15px;
+      background-size: auto 100% ;
+      background-repeat: no-repeat;
+
+      background-image: url('../../images/archive.png'); 
+    }
   }
 }
 
@@ -923,31 +1042,51 @@ body.profiles {
 
  body.about {
   #about-nav {
-    border-bottom: 2px solid white;
+    background: transparentize(white, 0.8);
+    @include media($xlarge-screen) {
+      background: none;
+      border-bottom: 2px solid white;
+    }
   }                   
 }
 
 body.map {
   #map-nav {
-    border-bottom: 2px solid white;
+    background: transparentize(white, 0.8);
+    @include media($xlarge-screen) {
+      background: none;
+      border-bottom: 2px solid white;
+    }
   }                   
 }
 
 body.news {
   #news-nav {
-    border-bottom: 2px solid white;
+    background: transparentize(white, 0.8);
+    @include media($xlarge-screen) {
+      background: none;
+      border-bottom: 2px solid white;
+    }
   }                   
 }
 
 body.profiles {
   #profiles-nav {
-    border-bottom: 2px solid white;
+    background: transparentize(white, 0.8);
+    @include media($xlarge-screen) {
+      background: none;
+      border-bottom: 2px solid white;
+    }
   }                   
 }
 
 body.services {
   #services-nav {
-    border-bottom: 2px solid white;
+    background: transparentize(white, 0.8);
+    @include media($xlarge-screen) {
+      background: none;
+      border-bottom: 2px solid white;
+    }
   }                   
 }
 

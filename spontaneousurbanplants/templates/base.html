@@ -18,6 +18,7 @@
           {% compress css %}
             <link href="{% static 'scss/app.scss' %}" media="screen, projection" rel="stylesheet" type="text/x-scss" />
           {% endcompress %}
+          <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
           {% block extra_style %}{% endblock %}
         {% endblock style_base %}
 
@@ -36,6 +37,8 @@
       {% block navbar %}
         <nav class="site-nav">
           <h1><a href="{% url 'home' %}">Spontaneous Urban Plants</a></h1>
+          <label for="js-menu-trigger"><i class="fa fa-bars"></i></label>
+          <input type="checkbox" id="js-menu-trigger">
           <ul>
             <li id="about-nav"><a href="{% url 'about' %}"><span>About</span><img src="{% static 'images/about.png' %}" /></a></li>
             <li id="map-nav"><a href="{% url 'map' %}"><span>Map</span><img src="{% static 'images/map.png' %}" /></a></li>
