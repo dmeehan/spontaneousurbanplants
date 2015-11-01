@@ -56,6 +56,7 @@
 		{% if category.icon %}
 		<li style="background-image:url({{ category.icon.url }})"><a data-tag="category_{{ category.id }}"
 		data-name="{{ category.name }}"
+		data-description=""
 		title="{{ category.name }}" 
 		class="tooltip layer-link js-layer-trigger js-category-trigger"
 		href="#map">{{ category.name }}</a></li>
@@ -64,6 +65,7 @@
     	<li class="all active" style="background-image:url({% static 'images/all.png' %})"><a data-tag="all"
 		data-name="All Plants"
 		title="All Plants" 
+		data-description=""
 		class="layer-link tooltip js-layer-trigger js-category-trigger"
 		href="#map">All Plants</a></li>
 	</ul>
@@ -72,13 +74,15 @@
 			<a data-tag="all"
 			data-name="All Plants"
 			title="All Plants" 
+			data-description=""
 			class="layer-link tooltip js-layer-trigger"
-			href="#map">{{ category.name }}</a>
+			href="#map">All Plants</a>
 		</li>
 		{% for category in category_list %}
 		<li class="active is-hidden category category_{{ category.id }}">
 			<a data-tag="category_{{ category.id }}"
 			data-name="{{ category.name }}"
+			data-description=""
 			title="{{ category.name }}" 
 			class="layer-link tooltip js-layer-trigger"
 			href="#map">{{ category.name }}</a>
