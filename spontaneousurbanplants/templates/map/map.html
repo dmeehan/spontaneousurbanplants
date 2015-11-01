@@ -152,7 +152,27 @@
         		return L.circleMarker(latlng, emptyMarkerStyle);
     		},
 			onEachFeature: function(feature, layer) {
-				var captionContent = "<span class='caption-wrapper'><span class='name'>" + feature.properties.latin_name + " - " + feature.properties.common_name + "</span><a href='" + feature.properties.plant_url + "'>Go to Profile</a><span class='caption'>" + feature.properties.caption + "</span><span class='date'>" + feature.properties.date + "</span></span>";
+				var captionLink;
+				var captionName;
+				var captionDate;
+				var captionCaption;
+				if (feature.properties.plant_url) {
+					captionLink = "<a href='" + feature.properties.plant_url + "'>Go to Profile</a>";
+				}
+
+				if (feature.properties.common_name) {
+					captionName = "<span class='name'>" + feature.properties.latin_name + " - " + feature.properties.common_name + "</span>";
+				}
+
+				if (feature.properties.date) {
+					captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+				}
+
+				if (feature.properties.caption) {
+					captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+				}
+				
+				var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
 				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 				marker = layer;
         		marker.bindPopup(popupContent);
