@@ -545,6 +545,13 @@ body.map {
             background: white;
           }
         }
+
+        &.category {
+          a {
+            font-size: $small-font-size;
+            text-transform: uppercase;
+          }
+        }
       }
     }
   } // end nav.plants

@@ -71,7 +71,7 @@
 	</ul>
 	<ul class="plant-list">
 		{% for category in category_list %}
-		<li class="category category_{{ category.id }}">
+		<li class="active is-hidden category category_{{ category.id }}">
 			<a data-tag="category_{{ category.id }}"
 			data-name="{{ category.name }}"
 			title="{{ category.name }}" 
