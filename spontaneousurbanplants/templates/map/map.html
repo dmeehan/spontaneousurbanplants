@@ -43,14 +43,14 @@
 	    {% endfor %}
 	</ul>
 </nav>
-<section class="info">
+<section class="info box">
 	<div class="map" id="map"></div>
 	<aside class="details">
 		<strong class="name"></strong>
 		<span class="description">Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons.</span>
 	</aside>
 </section>
-<nav class="map-nav plants">
+<nav class="map-nav plants box">
 	<ul class="category-list icon-list">
 	{% for category in category_list %}
 		{% if category.icon %}
@@ -98,17 +98,18 @@
 
 	var markerColors = {
 		defaultColor: "#d2df3b",
-	    SUPDisturbanceadapted: "#eb1f89",
-	    SUPwildlife: "#74498e",
-	    SUPphytoremediation: "#FFD847",
-	    SUPmedicinal: "#01a4a0",
+	    SUPDisturbanceadapted: "rgb(116, 76, 143)",
+	    SUPwildlife: "rgb(235, 34, 137)",
+	    SUPphytoremediation: "rgb(235, 183, 31)",
+	    SUPmedicinal: "rgb(0, 166, 163)",
 	    SUPmitigatingurbanheat: "#455657",
-	    SUPretainstormh2o: "#0e7599",
+	    SUPretainstormh2o: "rgb(13, 117, 154)",
 	    SUPnoiseregulation: "#0a4874",
 	    SUPpreventerosion: "#dd4d15",
-	    SUPinvasive: "#f55100",
-	    SUPEdible: "#006838",
-	    SUPSequesterCO2: "#1bda9f",
+	    SUPinvasive: "rgb(241, 88, 34)",
+	    SUPEcologicalDisservice: "rgb(241, 88, 34)",
+	    SUPEdible: "rgb(190, 199, 50)",
+	    SUPSequesterCO2: "rgb(101, 193, 155)",
 	}
 
 	var emptyMarkerStyle = {
@@ -349,4 +350,49 @@
      	});
      });
 </script>
+
+<script>
+/* Thanks to CSS Tricks for pointing out this bit of jQuery
+http://css-tricks.com/equal-height-blocks-in-rows/
+It's been modified into a function called at page load and then each time the page is resized. One large modification was to remove the set height before each new calculation. */
+
+equalheight = function(container){
+
+var currentTallest = 0,
+     currentRowStart = 0,
+     rowDivs = new Array(),
+     $el,
+     topPosition = 0;
+ $(container).each(function() {
+
+   $el = $(this);
+   $($el).height('auto')
+   topPostion = $el.position().top;
+
+   if (currentRowStart != topPostion) {
+     for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
+       rowDivs[currentDiv].height(currentTallest);
+     }
+     rowDivs.length = 0; // empty the array
+     currentRowStart = topPostion;
+     currentTallest = $el.height();
+     rowDivs.push($el);
+   } else {
+     rowDivs.push($el);
+     currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
+  }
+   for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
+     rowDivs[currentDiv].height(currentTallest);
+   }
+ });
+}
+
+$(window).load(function() {
+  equalheight('.box');
+});
+
+
+$(window).resize(function(){
+  equalheight('.box');
+});
 {% endblock extra_body %}
