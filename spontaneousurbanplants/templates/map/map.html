@@ -152,10 +152,10 @@
         		return L.circleMarker(latlng, emptyMarkerStyle);
     		},
 			onEachFeature: function(feature, layer) {
-				var captionLink;
-				var captionName;
-				var captionDate;
-				var captionCaption;
+				var captionLink = "";
+				var captionName = "";
+				var captionDate = "";
+				var captionCaption = "";
 				if (feature.properties.plant_url) {
 					captionLink = "<a href='" + feature.properties.plant_url + "'>Go to Profile</a>";
 				}
