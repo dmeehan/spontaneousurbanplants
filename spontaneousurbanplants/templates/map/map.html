@@ -224,7 +224,6 @@
 
 	all_data.on('data:loaded',function(){
     	map.spin(false);
-    	//map.removeLayer(bounded_layer)
 	});
 
 
@@ -243,12 +242,12 @@
 			var area = (Math.PI * (radius * radius)) * childCount;
 		    var size = Math.sqrt(area / Math.PI) * 0.5;
 		    if (size < 10) { size = 10 }
-		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ attribute.hashtag }}', iconSize: new L.Point(size, size) });
-		    }
+		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		    return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ attribute.hashtag }}', iconSize: new L.Point(size, size) });
+		}
 	});
 
-	markerClusterGroups['{{ attribute.hashtag}}'] = {{ attribute.hashtag}}_layer 
+	markerClusterGroups['{{ attribute.hashtag}}'] = {{ attribute.hashtag}}_layer;
 
 	var {{ attribute.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ attribute.hashtag }}&format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
@@ -275,12 +274,12 @@
 			var area = (Math.PI * (radius * radius)) * childCount;
 		    var size = Math.sqrt(area / Math.PI) * 0.5;
 		    if (size < 10) { size = 10 }
-		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-category-{{ category.id }}', iconSize: new L.Point(size, size) });
-		    }
+		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		    return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-category-{{ category.id }}', iconSize: new L.Point(size, size) });
+		}
 	});
 
-	markerClusterGroups['category_{{ category.id }}'] = category_{{ category.id }}_layer 
+	markerClusterGroups['category_{{ category.id }}'] = category_{{ category.id }}_layer;
 
 	var category_{{ category.id }}_data = L.geoJson.ajax('{% url "api-image-list" %}?category={{ category.id }}&format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
@@ -306,12 +305,12 @@
 			var area = (Math.PI * (radius * radius)) * childCount;
 		    var size = Math.sqrt(area / Math.PI) * 0.5;
 		    if (size < 10) { size = 10 }
-		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      	return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
-		    }
+		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		    return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
+		}
 	});
 
-	markerClusterGroups['{{ plant.hashtag}}'] = {{ plant.hashtag}}_layer 
+	markerClusterGroups['{{ plant.hashtag}}'] = {{ plant.hashtag}}_layer;
 
 	var {{ plant.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ plant.hashtag }}&format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
@@ -352,7 +351,7 @@
 	   map.addLayer(markerClusterGroups[tagName]);
 	   map.fitBounds(markerClusterGroups[tagName]);
 
-	   $(".leaflet-popup-close-button").click()
+	   $(".leaflet-popup-close-button").click();
 	   $('.name').text($(this).data('name'));
 	   $('.description').text($(this).data('description'));
 	   $('aside.details').css( 'border-color', color );
@@ -385,10 +384,10 @@
 
 
 <script>
-     //$(document).ready(function() {
-     //	$('.tooltip').tooltipster({
-   	//		position: 'right'
-     //	});
-     //});
+     $(document).ready(function() {
+     	$('.tooltip').tooltipster({
+   			position: 'right'
+     	});
+     });
 </script>
 {% endblock extra_body %}
