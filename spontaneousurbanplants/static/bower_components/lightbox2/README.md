@@ -6,26 +6,41 @@ Lightbox is small javascript library used to overlay images on top of the curren
 
 For demos and usage instructions, visit [lokeshdhakar.com/projects/lightbox2/](http://lokeshdhakar.com/projects/lightbox2/).
 
-by [Lokesh Dhakar](http://www.lokeshdhakar.com)  
+by [Lokesh Dhakar](http://www.lokeshdhakar.com)
 
 
 ## Roadmap
 
-- **Maintenance.** No substantial features are being worked on till all open Pull Requests and Issues have been reviewed.
-- **Documentation.** Main features and options need to be documented.
+- **Maintenance.** Get open Issues and PRs number down.
+- **Mobile experience.** Redo animations and interactions from scratch and include gesture support.
 
+### v3.0 - IN PLANNING PHASE
+
+- Add touch gesture support.
+- Optimize layout for mobile.
+- Optimize layout for screens of varying densities.
+- Use inline SVG for UI elements.
+- Do not initialize automatically and allow multiple instances.
+- Add event handlers.
+- Evaluate start, end, and transition animations.
+- Evaluate preloading and caching.
+- Evaluate droppping jQuery requirement.
 
 ## Changelog
 
-### v2.8.0 - UNRELEASED
+### v2.8.1 - 2015-07-09
 
-- [ ] Document options.
-- [ ] Add build steps to readme.
-- [ ] Add module compatibility (AMD, etc).
+- [Fix] Change AMD jQuery require statement to use all lowercase. [#464](https://github.com/lokesh/lightbox2/pull/464) Thanks [@vtforester](https://github.com/vtforester)
+
+### v2.8.0 - 2015-06-29
+
+- [Add] UMD support (AMD, CommonJS, fallback to global export).[#461](https://github.com/lokesh/lightbox2/pull/461)
+- [Add] CONTRIBUTING.md
 
 ### v2.7.4 - 2015-06-23
 
 - [Change] Revert jquery dep version to 2.x from 1.x. Added note to Lightbox page about using jQuery 1.x to get IE6, 7, and 8 support.
+- [Fix] Preserve author and license comments from lightbox.js in minified files.
 
 ### v2.7.3 - 2015-06-22
 
@@ -51,12 +66,12 @@ by [Lokesh Dhakar](http://www.lokeshdhakar.com)
 
 ### v2.7.0 - 2014-03-29
 
-- [Add] Support for data-title attribute for the caption - Thanks https://github.com/copycut
+- [Add] Support for data-title attribute for the caption.  - Thanks [@copycut](https://github.com/copycut)
 - [Add] New option to enable always visible prev and next arrows
 - [Change] Rewrite Coffeescript code into plain ole Javascript
 - [Change] Updated jQuery to v1.10.2
-- [Fix] prev/next arrows not appearing in IE9 and IE 10 - Thanks https://github.com/rebizu
-- [Fix]  Support wrap around option w/keyboard actions. Thanks https://github.com/vovayatsyuk
+- [Fix] prev/next arrows not appearing in IE9 and IE 10 - Thanks [@rebizu](https://github.com/rebizu)
+- [Fix]  Support wrap around option w/keyboard actions. Thanks [@vovayatsyuk](https://github.com/vovayatsyuk)
 
 ### v2.6.0 - 2013-07-06
 
@@ -76,3 +91,12 @@ by [Lokesh Dhakar](http://www.lokeshdhakar.com)
 - [Change] Switch from Javacript to Coffeescript
 - [Change] Switch from CSS to SASS
 - [Add] Repo created on Github
+
+
+## How to deploy
+
+- Update version number in ```src/lightbox.js```
+- Update README.md Changelog with release date
+- grunt build
+- Push to Github repo
+- Create a new Github release along with tag. Naming convention for both ```v2.8.1```
