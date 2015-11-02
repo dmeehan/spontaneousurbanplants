@@ -221,7 +221,7 @@
 
 	var bounded_data = L.geoJson.ajax('{% url "api-image-list" %}?bbox=' + bbox + '&format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
-			all_layer.addLayer(layer);
+			bounded_layer.addLayer(layer);
 
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
 
