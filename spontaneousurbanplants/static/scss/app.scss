@@ -593,19 +593,31 @@ body.map {
 
   .caption-wrapper {
     background: transparentize(black, 0.5);
-    //width: 100%;
     margin-bottom: 4px;
     padding: $gutter/2;
     @include display(flex);
     @include flex-wrap(wrap);
 
     > a, > span {
-      @include flex(1 1 50%);
       line-height: $base-line-height;
+      @include media($medium-screen) {
+        @include flex(1 1 auto);
+      }
+      
+    }
+
+    span.caption {
+      display: none;
+
+      @include media($medium-screen) {
+        @include flex(1 1 50%);
+      }
     }
 
     span.date, a {
-      text-align: right;
+      @include media($medium-screen) {
+        text-align: right;
+      }
     }
 
     span.date {
