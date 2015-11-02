@@ -19,7 +19,7 @@ class ImageSerializer(gis_serializers.GeoFeatureModelSerializer):
 	common_name = serializers.SerializerMethodField('get_plant_common_name')
 	latin_name = serializers.SerializerMethodField('get_plant_latin_name')
 	date = serializers.SerializerMethodField('format_date')
-	image_url = serializers.Field(source='image_url')
+	image_url = serializers.SerializerMethodField('get_image_url')
 
 	class Meta:
 		model = InstagramImage
@@ -61,3 +61,9 @@ class ImageSerializer(gis_serializers.GeoFeatureModelSerializer):
 			return formats.date_format(obj.created, "DATETIME_FORMAT")
 		except:
 			return ""
+
+	def get_image_url(self, obj):
+		try:
+			return obj.image_file.url
+		except:
+			return obj.remote_standard_resolution_url
