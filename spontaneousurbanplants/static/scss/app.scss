@@ -338,11 +338,10 @@ section.image-grid {
 			display:block;
 			width:100%;
 			@include transition(all 0.5s ease-in-out);
+      box-shadow: inset 0px 0px 200px rgba(0,0,0,0.9);
 
 
 			h1 {
-				visibility: hidden;
-				opacity: 0;
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -350,16 +349,22 @@ section.image-grid {
 				@include transition(all 0.5s ease-in-out);
 				padding: $small-spacing;
         text-transform: none;
+
+        @include media($xlarge-screen) {
+          visibility: hidden;
+          opacity: 0;
+        }
 			}
 
-			&:hover {
-				-moz-box-shadow: inset 0px 0px 200px rgba(0,0,0,0.9);
-				-webkit-box-shadow: inset 0px 0px 200px rgba(0,0,0,0.9);
-				box-shadow: inset 0px 0px 200px rgba(0,0,0,0.9);
-				h1 {
-					visibility: visible;
-					opacity: 1.0;
-				}
+      @include media($xlarge-screen) {
+        box-shadow: none;
+  			&:hover {
+  				box-shadow: inset 0px 0px 200px rgba(0,0,0,0.9);
+  				h1 {
+  					visibility: visible;
+  					opacity: 1.0;
+  				}
+        }
       }
     }
 
