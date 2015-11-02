@@ -216,7 +216,28 @@
 		onEachFeature: function onEachFeature(feature, layer) {
 			all_layer.addLayer(layer);
 
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+			var captionLink = "";
+			var captionName = "";
+			var captionDate = "";
+			var captionCaption = "";
+			if (feature.properties.plant_url) {
+				captionLink = "<a href='" + feature.properties.plant_url + "'>Go to Profile</a>";
+			}
+
+			if (feature.properties.common_name) {
+				captionName = "<span class='name'>" + feature.properties.latin_name + " - " + feature.properties.common_name + "</span>";
+			}
+
+			if (feature.properties.date) {
+				captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+			}
+
+			if (feature.properties.caption) {
+				captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+			}
+			
+			var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
 		}
@@ -253,8 +274,28 @@
 		onEachFeature: function onEachFeature(feature, layer) {
 			{{ attribute.hashtag }}_layer.addLayer(layer);
 
+			var captionLink = "";
+			var captionName = "";
+			var captionDate = "";
+			var captionCaption = "";
+			if (feature.properties.plant_url) {
+				captionLink = "<a href='" + feature.properties.plant_url + "'>Go to Profile</a>";
+			}
 
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+			if (feature.properties.common_name) {
+				captionName = "<span class='name'>" + feature.properties.latin_name + " - " + feature.properties.common_name + "</span>";
+			}
+
+			if (feature.properties.date) {
+				captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+			}
+
+			if (feature.properties.caption) {
+				captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+			}
+			
+			var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
 		}
@@ -284,7 +325,28 @@
 	var category_{{ category.id }}_data = L.geoJson.ajax('{% url "api-image-list" %}?category={{ category.id }}&format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
 			category_{{ category.id }}_layer.addLayer(layer);
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+			var captionLink = "";
+			var captionName = "";
+			var captionDate = "";
+			var captionCaption = "";
+			if (feature.properties.plant_url) {
+				captionLink = "<a href='" + feature.properties.plant_url + "'>Go to Profile</a>";
+			}
+
+			if (feature.properties.common_name) {
+				captionName = "<span class='name'>" + feature.properties.latin_name + " - " + feature.properties.common_name + "</span>";
+			}
+
+			if (feature.properties.date) {
+				captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+			}
+
+			if (feature.properties.caption) {
+				captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+			}
+			
+			var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
 		}
@@ -316,7 +378,28 @@
 		onEachFeature: function onEachFeature(feature, layer) {
 			{{ plant.hashtag }}_layer.addLayer(layer);
 
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+			var captionLink = "";
+			var captionName = "";
+			var captionDate = "";
+			var captionCaption = "";
+			if (feature.properties.plant_url) {
+				captionLink = "<a href='" + feature.properties.plant_url + "'>Go to Profile</a>";
+			}
+
+			if (feature.properties.common_name) {
+				captionName = "<span class='name'>" + feature.properties.latin_name + " - " + feature.properties.common_name + "</span>";
+			}
+
+			if (feature.properties.date) {
+				captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+			}
+
+			if (feature.properties.caption) {
+				captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+			}
+			
+			var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
 		}
