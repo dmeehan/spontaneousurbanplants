@@ -214,8 +214,10 @@
 	map.spin(true);
 
 	var bounds = map.getBounds();
+	console.log(bounds);
 
 	var bbox = bounds.getWest() + "," + bounds.getSouth() + "," + bounds.getEast() + "," + bounds.getNorth();
+	console.log(bbox);
 
 	var bounded_data = L.geoJson.ajax('{% url "api-image-list" %}?bbox=' + bbox + '&format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {

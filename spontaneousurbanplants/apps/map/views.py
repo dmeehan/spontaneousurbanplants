@@ -3,6 +3,7 @@ from django.contrib.gis.geos import Polygon
 from django.views.generic import TemplateView
 
 from rest_framework import viewsets
+from rest_framework.exceptions import APIException
 
 from apps.plants.models import Plant, Attribute, Category
 from apps.instamedia.models import InstagramImage
@@ -47,7 +48,7 @@ class MapView(TemplateView):
 
         return context
     
-class ImageApiViewSet(BBoxMixin, viewsets.ReadOnlyModelViewSet):
+class ImageApiViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows Images to be consumed as geojson
     """
@@ -55,6 +56,16 @@ class ImageApiViewSet(BBoxMixin, viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = InstagramImage.objects.filter(verified=True)
         tag = self.request.QUERY_PARAMS.get('tag', None)
+        bbox = self.request.QUERY_PARAMS.get('bbox', None)
+        if bbox:
+            try:
+                p1x, p1y, p2x, p2y = (float(n) for n in bbox.split(','))
+            except ValueError:
+                raise APIException('Invalid bbox string supplied for parameter bbox')
+
+            poly = Polygon.from_bbox((p1x, p1y, p2x, p2y))
+            queryset = queryset.filter(coordinates__contained=poly)
+
         if tag:
             queryset = queryset.filter(tags__name__iexact=tag)
         return queryset
