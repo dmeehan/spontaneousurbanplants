@@ -18,8 +18,8 @@
     "leaflet": "~0.7.0",
     "leaflet.markercluster": "~0.4.0",
     "leaflet-ajax": "~1.1.0",
-    "lightbox2": "~2.8.0",
-    "tooltipster": "~3.2.4",
+    "lightbox2": "~2.8.1",
+    "tooltipster": "~3.2.6",
     "spin.js": "~2.0.1"
   }
 }

@@ -38,6 +38,6 @@
     "commit": "147de527eb9dc155c99a1aa32a77dba30c47cfdb"
   },
   "_source": "git://github.com/lokesh/lightbox2.git",
-  "_target": "~2.8.0",
+  "_target": "~2.8.1",
   "_originalSource": "lightbox2"
 }
