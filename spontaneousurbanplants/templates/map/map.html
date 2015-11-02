@@ -234,7 +234,7 @@
 	});
 
 
-	map.addLayer(bounded_layer);
+	//map.addLayer(bounded_layer);
 
 
 	var all_layer = L.markerClusterGroup({ 
@@ -268,11 +268,11 @@
 
 	all_data.on('data:loaded',function(){
     	//map.spin(false);
-    	map.removeLayer(bounded_layer)
+    	//map.removeLayer(bounded_layer)
 	});
 
 
-	//map.addLayer(all_layer);
+	map.addLayer(all_layer);
 	
 
 {% for attribute in attribute_list %}
