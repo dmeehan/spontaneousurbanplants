@@ -951,6 +951,13 @@ body.profiles {
       text-transform: uppercase;
       font-weight: bold;
 
+      a {
+        color: white;
+        &:hover {
+          color: $green;
+        }
+      }
+
       @include media($medium-screen) {
         font-size: $small-font-size;
       }

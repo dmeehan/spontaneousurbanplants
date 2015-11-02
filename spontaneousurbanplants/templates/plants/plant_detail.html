@@ -14,7 +14,7 @@
           
                 <p class="flex-caption">
                     {% if image.caption %}<span class="caption-date">{{ image.created|date:"M d, Y - f A"}}</span>{% endif %}
-                    <span class="caption-location"><a title="View on Map" href="{% url 'map' %}?image_id={{ image.id }}"><i class="fa fa-marker"></i>&#160;{{ image.coordinates.y }}, {{ image.coordinates.x }}</a></span>
+                    <span class="caption-location"><a title="View on Map" href="{% url 'map' %}?image_id={{ image.id }}"><i class="fa fa-map-marker"></i>&#160;{{ image.coordinates.y }}, {{ image.coordinates.x }}</a></span>
                 </p>
             </li>
         {% endfor %}
