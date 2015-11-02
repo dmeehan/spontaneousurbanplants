@@ -70,7 +70,7 @@
 		href="#map">All Plants</a></li>
 	</ul>
 	<ul class="plant-list">
-		<li class="category active all">
+		<li class="category all">
 			<a data-tag="all"
 			data-name="All Plants"
 			title="All Plants" 
@@ -79,7 +79,7 @@
 			href="#map">All Plants</a>
 		</li>
 		{% for category in category_list %}
-		<li class="active is-hidden category category_{{ category.id }}">
+		<li class="is-hidden category category_{{ category.id }}">
 			<a data-tag="category_{{ category.id }}"
 			data-name="{{ category.name }}"
 			data-description=""
