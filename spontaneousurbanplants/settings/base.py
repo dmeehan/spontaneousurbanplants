@@ -241,7 +241,6 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'compressor', # static file management
     'djsupervisor', # process mgmt
-    'endless_pagination', # AJAX pagination
     'leaflet', # maps
     'notification', # event notifications
     'rest_framework', # api
