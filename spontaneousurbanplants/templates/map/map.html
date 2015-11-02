@@ -360,7 +360,9 @@
 
 	   var list = $(this).closest('ul');
 	   if ($(list).hasClass('attribute-list')) {
-	   		$('.plant-list li.plant').removeClass('is-hidden');
+	   		$('.plant-list li').removeClass('active');
+	   		$('.plant-list li').removeClass('is-hidden');
+	   		$('.plant-list li.category').addClass('is-hidden');
 	   		$('.plant-list li.category.all').removeClass('is-hidden');
 	   		$('.category-list li.all').addClass('active');
 	   }
