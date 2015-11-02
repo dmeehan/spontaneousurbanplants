@@ -193,6 +193,47 @@
 	// object that hold marker clusters
 	var markerClusterGroups = {}
 
+	// preload layer. Load in a bounded layer for fast ui
+	var bounded_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.5;
+		    if (size < 10) { size = 10 }
+		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		      	return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
+		    }
+	});
+
+	markerClusterGroups['bounded'] = bounded
+
+	map.spin(true);
+
+	var bounds = map.getBounds();
+
+	var bbox = bounds.getWest() + "," + bounds.getSouth() + "," + bounds.getEast() + "," + bounds.getNorth();
+
+	var bounded_data = L.geoJson.ajax('{% url "api-image-list" %}?bbox=' + bbox + '&format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			all_layer.addLayer(layer);
+
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.remote_standard_resolution_url + '"><img width="150" height="150" src="' + feature.properties.remote_thumbnail_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
+	});
+
+	bounded_data.on('data:loaded',function(){
+    	map.spin(false);
+	});
+
+
+	map.addLayer(bounded_layer);
+
 
 	var all_layer = L.markerClusterGroup({ 
 		singleMarkerMode: true,
@@ -211,7 +252,7 @@
 
 	markerClusterGroups['all'] = all_layer 
 
-	map.spin(true);
+	//map.spin(true);
 
 	var all_data = L.geoJson.ajax('{% url "api-image-list" %}?format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
@@ -224,7 +265,8 @@
 	});
 
 	all_data.on('data:loaded',function(){
-    	map.spin(false);
+    	//map.spin(false);
+    	map.removeLayer(bounded_layer)
 	});
 
 
