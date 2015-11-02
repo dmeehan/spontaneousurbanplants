@@ -401,7 +401,7 @@
 	   $(".leaflet-popup-close-button").click()
 	   $('.name').text($(this).data('name'));
 	   $('.description').text($(this).data('description'));
-	   $('aside.details').css( 'border-color', color )
+	   $('aside.details').css( 'border-color', color );
 	   $('.map-nav ul li').removeClass("active");
 
 	   var list = $(this).closest('ul');
@@ -431,10 +431,10 @@
 
 
 <script>
-     //$(document).ready(function() {
-     	//$('.tooltip').tooltipster({
-   		//	position: 'right'
-     	//});
-     //});
+     $(document).ready(function() {
+     	$('.tooltip').tooltipster({
+   			position: 'right'
+     	});
+     });
 </script>
 {% endblock extra_body %}
