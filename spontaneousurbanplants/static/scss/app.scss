@@ -861,6 +861,10 @@ body.about {
   &.service-block--SUPSequesterCO2 {
     background: $SUPsequesterCO2;
   }
+
+   &.service-block--SUPFloodPrevention {
+    background: $SUPfloodprevention;
+  }
 }
 
 body.news {
