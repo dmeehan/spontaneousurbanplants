@@ -11,27 +11,21 @@ by [Lokesh Dhakar](http://www.lokeshdhakar.com)
 
 ## Roadmap
 
+- **Maintenance.** No substantial features are being worked on till all open Pull Requests and Issues have been reviewed.
+- **Documentation.** Main features and options need to be documented.
 
-- [ ] Allow users to set unique options with an html attribute per image and image set.
-- [ ] Add ability to initialize with vanilla Javascript.
-- [ ] Add ability to initialize as a jQuery plugin.
-- [ ] Add tests
 
 ## Changelog
 
-### v2.8.1 - UNRELEASED
+### v2.8.0 - UNRELEASED
 
-- [ ]
-
-### v2.8.0 - 2015-06-29
-
-- [Add] UMD support (AMD, CommonJS, fallback to global export).[#461](https://github.com/lokesh/lightbox2/pull/461)
-- [Add] CONTRIBUTING.md
+- [ ] Document options.
+- [ ] Add build steps to readme.
+- [ ] Add module compatibility (AMD, etc).
 
 ### v2.7.4 - 2015-06-23
 
 - [Change] Revert jquery dep version to 2.x from 1.x. Added note to Lightbox page about using jQuery 1.x to get IE6, 7, and 8 support.
-- [Fix] Preserve author and license comments from lightbox.js in minified files.
 
 ### v2.7.3 - 2015-06-22
 
