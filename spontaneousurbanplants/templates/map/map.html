@@ -193,6 +193,7 @@
 	// object that hold marker clusters
 	var markerClusterGroups = {}
 
+	/*
 	// preload layer. Load in a bounded layer for fast ui
 	var bounded_layer = L.markerClusterGroup({ 
 		singleMarkerMode: true,
@@ -235,6 +236,7 @@
 
 
 	//map.addLayer(bounded_layer);
+	*/
 
 
 	var all_layer = L.markerClusterGroup({ 
@@ -254,7 +256,7 @@
 
 	markerClusterGroups['all'] = all_layer 
 
-	//map.spin(true);
+	map.spin(true);
 
 	var all_data = L.geoJson.ajax('{% url "api-image-list" %}?format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
@@ -267,7 +269,7 @@
 	});
 
 	all_data.on('data:loaded',function(){
-    	//map.spin(false);
+    	map.spin(false);
     	//map.removeLayer(bounded_layer)
 	});
 
