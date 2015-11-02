@@ -21,5 +21,8 @@
     "lightbox2": "~2.8.1",
     "tooltipster": "~3.2.6",
     "spin.js": "~2.0.1"
+  },
+  "resolutions": {
+    "lightbox2": "2.8.0"
   }
 }

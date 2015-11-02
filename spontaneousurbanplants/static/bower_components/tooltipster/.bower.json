@@ -16,6 +16,6 @@
     "commit": "e1d3db16f81600789f3760cfbcfb76c9374e0dea"
   },
   "_source": "git://github.com/iamceege/tooltipster.git",
-  "_target": "~3.2.4",
+  "_target": "~3.2.6",
   "_originalSource": "tooltipster"
 }

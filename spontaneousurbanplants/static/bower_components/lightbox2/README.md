@@ -6,31 +6,22 @@ Lightbox is small javascript library used to overlay images on top of the curren
 
 For demos and usage instructions, visit [lokeshdhakar.com/projects/lightbox2/](http://lokeshdhakar.com/projects/lightbox2/).
 
-by [Lokesh Dhakar](http://www.lokeshdhakar.com)
+by [Lokesh Dhakar](http://www.lokeshdhakar.com)  
 
 
 ## Roadmap
 
-- **Maintenance.** Get open Issues and PRs number down.
-- **Mobile experience.** Redo animations and interactions from scratch and include gesture support.
 
-### v3.0 - IN PLANNING PHASE
-
-- Add touch gesture support.
-- Optimize layout for mobile.
-- Optimize layout for screens of varying densities.
-- Use inline SVG for UI elements.
-- Do not initialize automatically and allow multiple instances.
-- Add event handlers.
-- Evaluate start, end, and transition animations.
-- Evaluate preloading and caching.
-- Evaluate droppping jQuery requirement.
+- [ ] Allow users to set unique options with an html attribute per image and image set.
+- [ ] Add ability to initialize with vanilla Javascript.
+- [ ] Add ability to initialize as a jQuery plugin.
+- [ ] Add tests
 
 ## Changelog
 
-### v2.8.1 - 2015-07-09
+### v2.8.1 - UNRELEASED
 
-- [Fix] Change AMD jQuery require statement to use all lowercase. [#464](https://github.com/lokesh/lightbox2/pull/464) Thanks [@vtforester](https://github.com/vtforester)
+- [ ]
 
 ### v2.8.0 - 2015-06-29
 
@@ -66,12 +57,12 @@ by [Lokesh Dhakar](http://www.lokeshdhakar.com)
 
 ### v2.7.0 - 2014-03-29
 
-- [Add] Support for data-title attribute for the caption.  - Thanks [@copycut](https://github.com/copycut)
+- [Add] Support for data-title attribute for the caption - Thanks https://github.com/copycut
 - [Add] New option to enable always visible prev and next arrows
 - [Change] Rewrite Coffeescript code into plain ole Javascript
 - [Change] Updated jQuery to v1.10.2
-- [Fix] prev/next arrows not appearing in IE9 and IE 10 - Thanks [@rebizu](https://github.com/rebizu)
-- [Fix]  Support wrap around option w/keyboard actions. Thanks [@vovayatsyuk](https://github.com/vovayatsyuk)
+- [Fix] prev/next arrows not appearing in IE9 and IE 10 - Thanks https://github.com/rebizu
+- [Fix]  Support wrap around option w/keyboard actions. Thanks https://github.com/vovayatsyuk
 
 ### v2.6.0 - 2013-07-06
 
@@ -91,12 +82,3 @@ by [Lokesh Dhakar](http://www.lokeshdhakar.com)
 - [Change] Switch from Javacript to Coffeescript
 - [Change] Switch from CSS to SASS
 - [Add] Repo created on Github
-
-
-## How to deploy
-
-- Update version number in ```src/lightbox.js```
-- Update README.md Changelog with release date
-- grunt build
-- Push to Github repo
-- Create a new Github release along with tag. Naming convention for both ```v2.8.1```
