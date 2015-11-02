@@ -90,7 +90,7 @@
 		{% endfor %}
 		{% for plant in plant_list %}
 		{% if plant.icon %}
-		<li class="{% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %} all"><a data-tag="{{ plant.hashtag }}"
+		<li class="plant {% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %} all"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
@@ -360,7 +360,8 @@
 
 	   var list = $(this).closest('ul');
 	   if ($(list).hasClass('attribute-list')) {
-	   		$('.plant-list li').removeClass('is-hidden');
+	   		$('.plant-list li.plant').removeClass('is-hidden');
+	   		$('.plant-list li.category.all').removeClass('is-hidden');
 	   		$('.category-list li.all').addClass('active');
 	   }
 	   $(this).parent().toggleClass("active");
