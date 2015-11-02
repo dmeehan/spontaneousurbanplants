@@ -599,6 +599,7 @@ body.map {
     @include flex-wrap(wrap);
 
     > a, > span {
+      padding-right: small-spacing;
       line-height: $base-line-height;
       @include media($medium-screen) {
         @include flex(1 1 auto);
@@ -610,13 +611,13 @@ body.map {
       display: none;
 
       @include media($medium-screen) {
-        @include flex(1 1 50%);
+        @include flex(1 1 auto);
       }
     }
 
     span.date, a {
       @include media($medium-screen) {
-        text-align: right;
+        //text-align: right;
       }
     }
 
@@ -848,7 +849,8 @@ body.about {
     background: $SUPpreventerosion;
   }
 
-  &.service-block--SUPEcologicalDisservice {
+  &.service-block--SUPEcologicalDisservice,
+  &.service-block--SUPInvasive {
     background: $SUPecologicaldisservice;
   }
 
