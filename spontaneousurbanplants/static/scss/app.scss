@@ -600,33 +600,30 @@ body.map {
 
     > a, > span {
       padding-right: small-spacing;
-      line-height: $base-line-height;
-      @include media($medium-screen) {
-        @include flex(1 1 auto);
-      }
-      
+      line-height: $base-line-height;    
+    }
+
+    span.name {
+      @include flex(1);
     }
 
     span.caption {
-      display: none;
+      //display: none;
+      @include flex(1);
 
       @include media($medium-screen) {
         display: block;
-        @include flex(1 1 auto);
-      }
-    }
-
-    span.date, a {
-      @include media($medium-screen) {
-        //text-align: right;
       }
     }
 
     span.date {
       @include flex(none);
+      margin-left: auto;
     }
 
     > a {
+      @include flex(none);
+      margin-left: auto;
       color: white;
       &:hover {
         color: $green;
