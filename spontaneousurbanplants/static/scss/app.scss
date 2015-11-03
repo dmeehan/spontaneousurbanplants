@@ -611,6 +611,7 @@ body.map {
       display: none;
 
       @include media($medium-screen) {
+        display: block;
         @include flex(1 1 auto);
       }
     }
