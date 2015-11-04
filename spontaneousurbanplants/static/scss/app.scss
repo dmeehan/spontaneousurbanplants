@@ -601,8 +601,8 @@ body.map {
     @include clearfix;
 
     > a, > span {
-      //padding-right: small-spacing;
-      line-height: $base-line-height;    
+      line-height: $base-line-height; 
+      font-size: $xsmall-font-size;   
     }
 
     span.name {
