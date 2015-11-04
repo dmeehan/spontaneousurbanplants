@@ -595,21 +595,33 @@ body.map {
     background: transparentize(black, 0.5);
     margin-bottom: 4px;
     padding: $gutter/2;
-    @include display(flex);
-    @include flex-wrap(wrap);
+    //@include display(flex);
+    @include display(block);
+    //@include flex-wrap(wrap);
+    @include clearfix;
 
     > a, > span {
-      padding-right: small-spacing;
+      //padding-right: small-spacing;
       line-height: $base-line-height;    
     }
 
     span.name {
-      @include flex(1);
+      float: left;
+    }
+
+    > a {
+      float: right;
+      color: white;
+      &:hover {
+        color: $green;
+      }
     }
 
     span.caption {
-      //display: none;
-      @include flex(1);
+      display: none;
+      //@include flex(1);
+      clear: both;
+      float: left;
 
       @include media($medium-screen) {
         display: block;
@@ -617,17 +629,9 @@ body.map {
     }
 
     span.date {
-      @include flex(none);
-      margin-left: auto;
-    }
-
-    > a {
-      @include flex(none);
-      margin-left: auto;
-      color: white;
-      &:hover {
-        color: $green;
-      }
+      //@include flex(none);
+      //margin-left: auto;
+      float: right;
     }
 
   }
