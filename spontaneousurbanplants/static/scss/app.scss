@@ -381,6 +381,12 @@ section.image-grid {
 body.map {
   .content {
     margin: 0 $gutter/2 $gutter $gutter/2;
+    @include display(flex);
+    @include flex-direction(column);
+
+    @include media($large-screen) {
+      @include display(block);
+    }
 
     @include media($xlarge-screen) {
       @include outer-container;
@@ -393,6 +399,7 @@ body.map {
       @include outer-container;
       @include span-columns(24);
       @include pad(0 0 default 0);
+      order: 1;
 
       ul.attribute-list {
         li {
@@ -407,6 +414,7 @@ body.map {
     // desktop
     @media screen and (min-width: $large-screen) {
       @include span-columns(1);
+      order: 0; 
       ul.attribute-list {
         li {
           @include span-columns(1 of 1);
@@ -423,6 +431,7 @@ body.map {
     @media screen and (max-width: $large-screen) {
       @include outer-container;
       @include span-columns(24);
+      order: 0;
 
       div.map {
         height: 0px;
@@ -445,6 +454,7 @@ body.map {
     // desktop
     @media screen and (min-width: $large-screen) {
       @include span-columns(18);
+      order: 1;
       div.map {
         @include span-columns(16 of 18);
         @include shift(1);
@@ -494,6 +504,8 @@ body.map {
     @media screen and (max-width: $large-screen) {
       @include outer-container;
       @include span-columns(24);
+      order: 2;
+
       ul.category-list {
         @include clearfix;
         margin: 0 1.05263%;
@@ -951,6 +963,7 @@ body.profiles {
     @include media($large-screen) {
       @include span-columns(13);
       padding: 0 $gutter 0 0;
+      margin-bottom: 1.75em;
     }
 
     .flexslider {
