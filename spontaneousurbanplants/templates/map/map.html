@@ -114,7 +114,8 @@
 
 	var markerColors = {
 		defaultColor: "#d2df3b",
-	    SUPDisturbanceadapted: "rgb(116, 76, 143)",
+	    //SUPDisturbanceadapted: "rgb(116, 76, 143)",
+	    SUPDisturbanceadapted: "#000",
 	    SUPwildlife: "rgb(235, 34, 137)",
 	    SUPphytoremediation: "rgb(235, 183, 31)",
 	    SUPmedicinal: "rgb(0, 166, 163)",
@@ -186,7 +187,7 @@
 	    map.setView([40.676898, -73.995308], 11);  
 	{% endif %}
 
-
+	map.scrollWheelZoom.disable();
 
 	// object that hold marker clusters
 	var markerClusterGroups = {}

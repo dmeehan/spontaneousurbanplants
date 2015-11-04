@@ -825,7 +825,7 @@ body.about {
 
   div.service-text {
     @include media($medium-screen) {
-      text-align: justify;
+      //text-align: justify;
     }
     
     font-size: $small-font-size;
@@ -947,6 +947,12 @@ body.news {
 
       background-image: url('../../images/archive.png'); 
     }
+
+    ul {
+      li {
+        padding-bottom: $small-spacing;
+      }
+    }
   }
 }
 
@@ -1023,6 +1029,7 @@ body.profiles {
       font-weight: 600;
       margin-bottom: 0;
       text-transform: none;
+      font-style: italic;
     }
 
     h2 {
