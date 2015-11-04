@@ -7,7 +7,7 @@
 {% block extra_style %}
 {% compress css %}
 <link rel="stylesheet" href="{% static 'bower_components/leaflet/dist/leaflet.css' %}" />
-<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.css' %}" />
+<!--<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.css' %}" />-->
 <link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' %}" />
 <link rel="stylesheet" href="{% static 'bower_components/lightbox2/dist/css/lightbox.css' %}" />
 {% endcompress %}
@@ -114,8 +114,7 @@
 
 	var markerColors = {
 		defaultColor: "#d2df3b",
-	    //SUPDisturbanceadapted: "rgb(116, 76, 143)",
-	    SUPDisturbanceadapted: "#000",
+	    SUPDisturbanceadapted: "rgb(116, 76, 143)",
 	    SUPwildlife: "rgb(235, 34, 137)",
 	    SUPphytoremediation: "rgb(235, 183, 31)",
 	    SUPmedicinal: "rgb(0, 166, 163)",
