@@ -968,11 +968,10 @@ body.profiles {
   }
 
   .slideshow {
-    margin-bottom: 6em;
+    margin-bottom: 3em;
     @include media($large-screen) {
       @include span-columns(13);
       padding: 0 $gutter 0 0;
-      margin-bottom: 3em;
     }
 
     .flexslider {
@@ -984,6 +983,10 @@ body.profiles {
       ul {
         position: relative;
       }
+    }
+
+    .flex-control-paging {
+      position: static;
     }
 
     .flex-caption {
