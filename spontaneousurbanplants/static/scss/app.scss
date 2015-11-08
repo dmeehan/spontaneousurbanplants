@@ -989,9 +989,9 @@ body.profiles {
       position: relative;
       z-index: 999999999;
       @include clearfix;
-      margin-top: -3.0rem;
+      margin-top: -3.25rem;
       font-size: $xxsmall-font-size;
-      height: 3.0rem;
+      height: 3.25rem;
       background: transparentize(black, 0.5);
       padding: $small-spacing/2;
       font-weight: bold;
