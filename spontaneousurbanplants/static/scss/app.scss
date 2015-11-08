@@ -971,7 +971,7 @@ body.profiles {
     @include media($large-screen) {
       @include span-columns(13);
       padding: 0 $gutter 0 0;
-      margin-bottom: 3em;
+      margin-bottom: 6em;
     }
 
     .flexslider {
