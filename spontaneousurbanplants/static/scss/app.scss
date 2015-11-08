@@ -993,7 +993,7 @@ body.profiles {
       font-size: $xxsmall-font-size;
       height: 3.0rem;
       background: transparentize(black, 0.5);
-      padding: 0 $small-spacing/2;
+      padding: $small-spacing/2;
       font-weight: bold;
 
       a {
