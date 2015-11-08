@@ -155,7 +155,7 @@
 				var captionDate = "";
 				var captionCaption = "";
 				if (feature.properties.plant) {
-					captionLink = "<a href=\x22{% url 'plants' %} + feature.properties.plant.hashtag + '\x22>Go to Profile</a>";
+					captionLink = "<a href={% url 'plants' %} + feature.properties.plant.hashtag + '>Go to Profile</a>";
 				}
 
 				if (feature.properties.plant) {
