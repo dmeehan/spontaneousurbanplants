@@ -989,9 +989,9 @@ body.profiles {
       position: relative;
       z-index: 999999999;
       @include clearfix;
-      margin-top: -1.75rem;
+      margin-top: -3.5rem;
       font-size: $xxsmall-font-size;
-      line-height: 1.75rem;
+      height: 3.5rem;
       background: transparentize(black, 0.5);
       padding: 0 $small-spacing/2;
       text-transform: uppercase;
@@ -1009,7 +1009,18 @@ body.profiles {
       }
     }
 
+    .caption-caption {
+      float: left;
+      color: white;
+    }
+
+    .caption-map {
+      float: right;
+      color: white;
+    }
+
     .caption-location {
+      clear: both;
       float: left;
       color: white;
     }

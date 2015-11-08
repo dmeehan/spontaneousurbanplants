@@ -154,19 +154,23 @@
 				var captionName = "";
 				var captionDate = "";
 				var captionCaption = "";
-				if (feature.properties.plant_url) {
-					captionLink = "<a href='" + feature.properties.plant_url + "'>Go to Profile</a>";
+				if (feature.properties.plant) {
+					captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to Profile</a>";
 				}
 
-				if (feature.properties.common_name) {
-					captionName = "<span class='name'>" + feature.properties.latin_name + " - " + feature.properties.common_name + "</span>";
+				if (feature.properties.plant) {
+					captionName = "<span class='name'>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
 				}
 
 				if (feature.properties.date) {
 					captionDate = "<span class='date'>" + feature.properties.date + "</span>";
 				}
 
-				if (feature.properties.caption) {
+				if (feature.properties.plant) {
+					captionCaption = "<span class='caption'>" + feature.properties.plant.hashtag + "</span>";
+				}
+				else
+				{
 					captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
 				}
 				
