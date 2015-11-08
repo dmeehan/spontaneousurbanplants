@@ -175,7 +175,7 @@
 				}
 				
 				var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
-				var popupContent = '<a data-lightbox=\x22' + feature.properties.id + '\x22 data-title=\x22' + captionContent + '\x22' + 'href=\x22'+ feature.properties.image_url + '\x22><img width=\x22150\x22 height=\x22150\x22 src=\x22' + feature.properties.image_url + '\x22></a>';
+				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 				marker = layer;
         		marker.bindPopup(popupContent);
 			}
