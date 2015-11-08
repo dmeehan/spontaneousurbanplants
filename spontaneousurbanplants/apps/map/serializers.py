@@ -28,10 +28,10 @@ class ImageSerializer(gis_serializers.GeoFeatureModelSerializer):
 	def get_plant(self, obj):
 		for tag in obj.tags.all():
 			try:
-				return Plant.objects.filter(hashtag__iexact=tag.name).values()[0]
+				plant = Plant.objects.filter(hashtag__iexact=tag.name).values()
+				if plant:
+					return plant[0]
 			except Plant.DoesNotExist:
-				return ""
-			except IndexError:
 				return ""
 
 	def format_date(self, obj):

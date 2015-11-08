@@ -994,7 +994,6 @@ body.profiles {
       height: 3.5rem;
       background: transparentize(black, 0.5);
       padding: 0 $small-spacing/2;
-      text-transform: uppercase;
       font-weight: bold;
 
       a {
@@ -1017,6 +1016,7 @@ body.profiles {
     .caption-map {
       float: right;
       color: white;
+      text-transform: uppercase;
     }
 
     .caption-location {
