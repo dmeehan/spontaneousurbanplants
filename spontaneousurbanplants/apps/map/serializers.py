@@ -31,6 +31,8 @@ class ImageSerializer(gis_serializers.GeoFeatureModelSerializer):
 				return Plant.objects.filter(hashtag__iexact=tag.name).values()[0]
 			except Plant.DoesNotExist:
 				return ""
+			except IndexError:
+				return ""
 
 	def format_date(self, obj):
 		try:
