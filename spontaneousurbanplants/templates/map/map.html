@@ -159,22 +159,22 @@
 				}
 
 				if (feature.properties.plant) {
-					captionName = "<span class=\x22name\x22>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+					captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
 				}
 
 				if (feature.properties.date) {
-					captionDate = "<span class=\x22date\x22>" + feature.properties.date + "</span>";
+					captionDate = "<span class=date>" + feature.properties.date + "</span>";
 				}
 
 				if (feature.properties.plant) {
-					captionCaption = "<span class=\x22caption\x22>" + feature.properties.plant.hashtag + "</span>";
+					captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
 				}
 				else
 				{
-					captionCaption = "<span class=\x22caption\x22>" + feature.properties.caption + "</span>";
+					captionCaption = "<span class=caption>" + feature.properties.caption + "</span>";
 				}
 				
-				var captionContent = "<span class=\x22caption-wrapper\x22>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+				var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
 				var popupContent = '<a data-lightbox=\x22' + feature.properties.id + '\x22 data-title=\x22' + captionContent + '\x22' + 'href=\x22'+ feature.properties.image_url + '\x22><img width=\x22150\x22 height=\x22150\x22 src=\x22' + feature.properties.image_url + '\x22></a>';
 				marker = layer;
         		marker.bindPopup(popupContent);
