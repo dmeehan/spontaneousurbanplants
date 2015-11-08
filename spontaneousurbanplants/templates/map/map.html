@@ -155,27 +155,27 @@
 				var captionDate = "";
 				var captionCaption = "";
 				if (feature.properties.plant) {
-					captionLink = "<a href='{% url 'plants' %}" + feature.properties.plant.hashtag + "'>Go to Profile</a>";
+					captionLink = "<a href=\x22{% url 'plants' %} + feature.properties.plant.hashtag + '\x22>Go to Profile</a>";
 				}
 
 				if (feature.properties.plant) {
-					captionName = "<span class='name'>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+					captionName = "<span class=\x22name\x22>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
 				}
 
 				if (feature.properties.date) {
-					captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+					captionDate = "<span class=\x22date\x22>" + feature.properties.date + "</span>";
 				}
 
 				if (feature.properties.plant) {
-					captionCaption = "<span class='caption'>" + feature.properties.plant.hashtag + "</span>";
+					captionCaption = "<span class=\x22caption\x22>" + feature.properties.plant.hashtag + "</span>";
 				}
 				else
 				{
-					captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+					captionCaption = "<span class=\x22caption\x22>" + feature.properties.caption + "</span>";
 				}
 				
-				var captionContent = '<span class="caption-wrapper">' + captionName + captionLink + captionCaption + captionDate + '</span>';
-				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+				var captionContent = "<span class=\x22caption-wrapper\x22>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+				var popupContent = '<a data-lightbox=\x22' + feature.properties.id + '\x22 data-title=\x22' + captionContent + '\x22' + 'href=\x22'+ feature.properties.image_url + '\x22><img width=\x22150\x22 height=\x22150\x22 src=\x22' + feature.properties.image_url + '\x22></a>';
 				marker = layer;
         		marker.bindPopup(popupContent);
 			}
