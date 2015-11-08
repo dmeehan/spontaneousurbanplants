@@ -13,7 +13,7 @@
                 <img src="{{ image.image_file.url }}" alt="{{ image.caption }}" />
           
                 <p class="flex-caption">
-                    <span class="caption-caption">{{ image.caption|truncatechars:30 }}</span>
+                    <span class="caption-caption">{{ image.caption|truncatechars:50 }}</span>
                     <span class="caption-map"><a title="View on Map" href="{% url 'map' %}?image_id={{ image.id }}">Go to Map</a></span>
                     <span class="caption-location"><a title="View on Map" href="{% url 'map' %}?image_id={{ image.id }}"><i class="fa fa-map-marker"></i>&#160;{{ image.coordinates.y }}, {{ image.coordinates.x }}</a></span>
                     <span class="caption-date">{{ image.created|date:"M d, Y - f A"}}</span>

@@ -171,7 +171,7 @@
 				}
 				else
 				{
-					captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+					captionCaption = "<span class='caption'>" + feature.properties.caption.SubString(0,30) + "</span>";
 				}
 				
 				var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
