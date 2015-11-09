@@ -168,10 +168,14 @@
 
 				if (feature.properties.plant) {
 					captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
-				}
-				else
-				{
-					//captionCaption = "<span class=caption>" + feature.properties.caption + "</span>";
+				} 
+				else {
+					if (feature.properties.caption.length > 60) {
+						var capString = feature.properties.caption.substring(0, 60) + "...";
+					} else {
+						capString = feature.properties.caption;
+					}
+					captionCaption = "<span class=caption>" + capString + "</span>";
 				}
 				
 				var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
@@ -223,26 +227,30 @@
 			var captionDate = "";
 			var captionCaption = "";
 			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to Profile</a>";
+				captionLink = "<a href={% url 'plants' %} + feature.properties.plant.hashtag + '>Go to PROFILE</a>";
 			}
 
 			if (feature.properties.plant) {
-				captionName = "<span class='name'>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
 			}
 
 			if (feature.properties.date) {
-				captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+				captionDate = "<span class=date>" + feature.properties.date + "</span>";
 			}
 
 			if (feature.properties.plant) {
-				captionCaption = "<span class='caption'>" + feature.properties.plant.hashtag + "</span>";
-			}
-			else
-			{
-				captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+			} 
+			else {
+				if (feature.properties.caption.length > 60) {
+					var capString = feature.properties.caption.substring(0, 60) + "...";
+				} else {
+					capString = feature.properties.caption;
+				}
+				captionCaption = "<span class=caption>" + capString + "</span>";
 			}
 			
-			var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
@@ -284,26 +292,30 @@
 			var captionDate = "";
 			var captionCaption = "";
 			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to Profile</a>";
+				captionLink = "<a href={% url 'plants' %} + feature.properties.plant.hashtag + '>Go to PROFILE</a>";
 			}
 
 			if (feature.properties.plant) {
-				captionName = "<span class='name'>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
 			}
 
 			if (feature.properties.date) {
-				captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+				captionDate = "<span class=date>" + feature.properties.date + "</span>";
 			}
 
 			if (feature.properties.plant) {
-				captionCaption = "<span class='caption'>" + feature.properties.plant.hashtag + "</span>";
-			}
-			else
-			{
-				captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+			} 
+			else {
+				if (feature.properties.caption.length > 60) {
+					var capString = feature.properties.caption.substring(0, 60) + "...";
+				} else {
+					capString = feature.properties.caption;
+				}
+				captionCaption = "<span class=caption>" + capString + "</span>";
 			}
 			
-			var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
@@ -339,26 +351,30 @@
 			var captionDate = "";
 			var captionCaption = "";
 			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to Profile</a>";
+				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
 			}
 
 			if (feature.properties.plant) {
-				captionName = "<span class='name'>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
 			}
 
 			if (feature.properties.date) {
-				captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+				captionDate = "<span class=date>" + feature.properties.date + "</span>";
 			}
 
 			if (feature.properties.plant) {
-				captionCaption = "<span class='caption'>" + feature.properties.plant.hashtag + "</span>";
-			}
-			else
-			{
-				captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+			} 
+			else {
+				if (feature.properties.caption.length > 60) {
+					var capString = feature.properties.caption.substring(0, 60) + "...";
+				} else {
+					capString = feature.properties.caption;
+				}
+				captionCaption = "<span class=caption>" + capString + "</span>";
 			}
 			
-			var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
@@ -396,26 +412,30 @@
 			var captionDate = "";
 			var captionCaption = "";
 			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to Profile</a>";
+				captionLink = "<a href={% url 'plants' %} + feature.properties.plant.hashtag + '>Go to PROFILE</a>";
 			}
 
 			if (feature.properties.plant) {
-				captionName = "<span class='name'>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
 			}
 
 			if (feature.properties.date) {
-				captionDate = "<span class='date'>" + feature.properties.date + "</span>";
+				captionDate = "<span class=date>" + feature.properties.date + "</span>";
 			}
 
 			if (feature.properties.plant) {
-				captionCaption = "<span class='caption'>" + feature.properties.plant.hashtag + "</span>";
-			}
-			else
-			{
-				captionCaption = "<span class='caption'>" + feature.properties.caption + "</span>";
+				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+			} 
+			else {
+				if (feature.properties.caption.length > 60) {
+					var capString = feature.properties.caption.substring(0, 60) + "...";
+				} else {
+					capString = feature.properties.caption;
+				}
+				captionCaption = "<span class=caption>" + capString + "</span>";
 			}
 			
-			var captionContent = "<span class='caption-wrapper'>" + captionName + captionLink + captionCaption + captionDate + "</span>";
+			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
     		layer.bindPopup(popupContent);
