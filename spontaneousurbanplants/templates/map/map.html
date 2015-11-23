@@ -237,8 +237,8 @@
 		} else {
 			if (show) {
 				removeAllLayers();
-				map.addLayer(thisLayer);
-    			map.fitBounds(thisLayer);
+				map.addLayer(markerClusterGroups[layerName]);
+	   			map.fitBounds(markerClusterGroups[layerName]);
     			map.spin(false);
 			}	
 		}	
