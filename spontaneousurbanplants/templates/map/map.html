@@ -274,7 +274,7 @@
 	   		url = '{% url "api-image-list" %}?tag=' + tagName + '&format=json';
 	   	}
 
-	    loadMapData(url, tagName, true)
+	    loadMapData(url, tagName, true, false, true)
 	   	
 		$(".leaflet-popup-close-button").click();
 	   	$('.name').text($(this).data('name'));
