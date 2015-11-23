@@ -1,44 +1,42 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block body_class %}map{% endblock %}
 {% load compress %}
 {% block head_title %}Plant Map{% endblock %}
 
 {% block extra_style %}
-
 {% compress css %}
 <link rel="stylesheet" href="{% static 'bower_components/leaflet/dist/leaflet.css' %}" />
 <link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.css' %}" />
-<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' %}" />
-<link rel="stylesheet" href="{% static 'bower_components/lightbox2/css/lightbox.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/tooltipster/css/tooltipster.css' %}" />
+<!--<link rel="stylesheet" href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' %}" />-->
+<link rel="stylesheet" href="{% static 'bower_components/lightbox2/dist/css/lightbox.css' %}" />
 {% endcompress %}
 {% endblock %}
 
 {% block extra_js %}
 {% compress js %}
-<script src="{% static 'bower_components/lightbox2/js/lightbox.min.js' %}"></script>
+
 <script src="{% static 'bower_components/leaflet/dist/leaflet.js' %}"></script>
 <script src="{% static 'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js' %}"></script>
 <script src="{% static 'bower_components/leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
 <script src="{% static 'bower_components/spin.js/spin.js' %}"></script>
 <script src="{% static 'js/leaflet.spin.js' %}"></script>
-<script type="text/javascript" src="{% static 'bower_components/tooltipster/js/jquery.tooltipster.min.js' %}"></script>
 <script src="{% static 'bower_components/spin.js/spin.js' %}"></script>
-<script src="{% static 'js/leaflet.spin.js' %}">
-</script>
+<script src="{% static 'js/leaflet.spin.js' %}"></script>
+<script src="{% static 'bower_components/lightbox2/dist/js/lightbox.min.js' %}"></script>
 {% endcompress %}
 {% endblock %}
 
 {% block content %}
-<nav class="map-nav attributes">
-	<ul>
+<nav class="map-nav attributes" id="attributes">
+	<ul class="attribute-list icon-list">
 	    {% for attribute in attribute_list %}
 	        {% if attribute.icon %}
 		<li style="background-image:url({{ attribute.icon.url }})"><a data-tag="{{ attribute.hashtag }}"
 		data-name="{{ attribute.name }}: "
 		data-description="{{ attribute.description }}"
 		title="{{ attribute.name }}" 
-		class="layer-link tooltip" href="#">{{ attribute.name }}</a></li>
+		class="layer-link tooltip js-layer-trigger" href="#map">{{ attribute.name }}</a></li>
 		{% endif %}
 	    {% endfor %}
 	</ul>
@@ -51,40 +49,54 @@
 	</aside>
 </section>
 <nav class="map-nav plants">
-	<ul>
-	<li class="all active"><a data-tag="all"
-		data-name=""
-		data-description="Click on the interactive map to discover SUP in your neighborhood. Filter by performance or species by using the icons."
-		title="All" 
-		class="layer-link tooltip" 
-		href="#">{{ plant.common_name }}</a></li>
-	</ul>
-	<ul>
-		{% for plant in plant_list|slice:":6" %}
-		{% if plant.icon %}
-		<li class="pre" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
-		data-name="{{ plant.latin_name }} "
-		data-description="({{ plant.common_name }})"
-		title="{{ plant.latin_name }}" 
-		class="layer-link tooltip"
-		href="#">{{ plant.common_name }}</a></li>
+	<ul class="category-list icon-list">
+	{% for category in category_list %}
+		{% if category.icon %}
+		<li style="background-image:url({{ category.icon.url }})"><a data-tag="category_{{ category.id }}"
+		data-name="{{ category.name }}"
+		data-description=""
+		title="{{ category.name }}" 
+		class="tooltip layer-link js-layer-trigger js-category-trigger"
+		href="#map">{{ category.name }}</a></li>
 		{% endif %}
-		{% endfor %}
+    {% endfor %}
+    	<li class="all active" style="background-image:url({% static 'images/all.png' %})"><a data-tag="all"
+		data-name="All Plants"
+		title="All Plants" 
+		data-description=""
+		class="layer-link tooltip js-layer-trigger js-category-trigger"
+		href="#map">All Plants</a></li>
 	</ul>
-	<ul>
-		{% for plant in plant_list|slice:"6:" %}
+	<ul class="plant-list">
+		<li class="category all">
+			<a data-tag="all"
+			data-name="All Plants"
+			title="All Plants" 
+			data-description=""
+			class="layer-link tooltip js-layer-trigger"
+			href="#map">All Plants</a>
+		</li>
+		{% for category in category_list %}
+		<li class="is-hidden category category_{{ category.id }}">
+			<a data-tag="category_{{ category.id }}"
+			data-name="{{ category.name }}"
+			data-description=""
+			title="{{ category.name }}" 
+			class="layer-link tooltip js-layer-trigger"
+			href="#map">{{ category.name }}</a>
+		</li>
+		{% endfor %}
+		{% for plant in plant_list %}
 		{% if plant.icon %}
-		<li class="post" style="background-image:url({{ plant.icon.url }})"><a data-tag="{{ plant.hashtag }}"
+		<li class="plant {% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %} all"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
-		class="layer-link tooltip"
-		href="#">{{ plant.common_name }}</a></li>
+		class="layer-link tooltip js-layer-trigger"
+		href="#map">{{ plant.common_name }}</a></li>
 		{% endif %}
 		{% endfor %}
     </ul>
-
-
 </nav>
 {% endblock content %}
 {% block extra_body %}
@@ -102,17 +114,19 @@
 
 	var markerColors = {
 		defaultColor: "#d2df3b",
-	    SUPDisturbanceadapted: "#eb1f89",
-	    SUPwildlife: "#74498e",
-	    SUPphytoremediation: "#FFD847",
-	    SUPmedicinal: "#01a4a0",
+	    SUPDisturbanceadapted: "rgb(116, 76, 143)",
+	    SUPwildlife: "rgb(235, 34, 137)",
+	    SUPphytoremediation: "rgb(235, 183, 31)",
+	    SUPmedicinal: "rgb(0, 166, 163)",
 	    SUPmitigatingurbanheat: "#455657",
-	    SUPretainstormh2o: "#0e7599",
+	    SUPretainstormh2o: "rgb(13, 117, 154)",
 	    SUPnoiseregulation: "#0a4874",
 	    SUPpreventerosion: "#dd4d15",
-	    SUPinvasive: "#f55100",
-	    SUPEdible: "#006838",
-	    SUPSequesterCO2: "#1bda9f",
+	    SUPinvasive: "rgb(241, 88, 34)",
+	    SUPEcologicalDisservice: "rgb(241, 88, 34)",
+	    SUPEdible: "rgb(190, 199, 50)",
+	    SUPSequesterCO2: "rgb(101, 193, 155)",
+	    SUPFloodPrevention: "rgb(126, 147, 158)",
 	}
 
 	var emptyMarkerStyle = {
@@ -136,7 +150,36 @@
         		return L.circleMarker(latlng, emptyMarkerStyle);
     		},
 			onEachFeature: function(feature, layer) {
-				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+				var captionLink = "";
+				var captionName = "";
+				var captionDate = "";
+				var captionCaption = "";
+				if (feature.properties.plant) {
+					captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
+				}
+
+				if (feature.properties.plant) {
+					captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+				}
+
+				if (feature.properties.date) {
+					captionDate = "<span class=date>" + feature.properties.date + "</span>";
+				}
+
+				if (feature.properties.plant) {
+					captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+				} 
+				else {
+					if (feature.properties.caption.length > 60) {
+						var capString = feature.properties.caption.substring(0, 60) + "...";
+					} else {
+						capString = feature.properties.caption;
+					}
+					captionCaption = "<span class=caption>" + capString + "</span>";
+				}
+				
+				var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
+				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 				marker = layer;
         		marker.bindPopup(popupContent);
 			}
@@ -151,11 +194,10 @@
 	    map.setView([40.676898, -73.995308], 11);  
 	{% endif %}
 
-
+	map.scrollWheelZoom.disable();
 
 	// object that hold marker clusters
 	var markerClusterGroups = {}
-
 
 	var all_layer = L.markerClusterGroup({ 
 		singleMarkerMode: true,
@@ -167,12 +209,12 @@
 			var area = (Math.PI * (radius * radius)) * childCount;
 		    var size = Math.sqrt(area / Math.PI) * 0.5;
 		    if (size < 10) { size = 10 }
-		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      	return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
-		    }
+		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		    return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
+		}
 	});
 
-	markerClusterGroups['all'] = all_layer 
+	markerClusterGroups['all'] = all_layer;
 
 	map.spin(true);
 
@@ -180,7 +222,40 @@
 		onEachFeature: function onEachFeature(feature, layer) {
 			all_layer.addLayer(layer);
 
+<<<<<<< HEAD
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+=======
+			var captionLink = "";
+			var captionName = "";
+			var captionDate = "";
+			var captionCaption = "";
+			if (feature.properties.plant) {
+				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
+			}
+
+			if (feature.properties.plant) {
+				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+			}
+
+			if (feature.properties.date) {
+				captionDate = "<span class=date>" + feature.properties.date + "</span>";
+			}
+
+			if (feature.properties.plant) {
+				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+			} 
+			else {
+				if (feature.properties.caption.length > 60) {
+					var capString = feature.properties.caption.substring(0, 60) + "...";
+				} else {
+					capString = feature.properties.caption;
+				}
+				captionCaption = "<span class=caption>" + capString + "</span>";
+			}
+			
+			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+>>>>>>> develop
 
     		layer.bindPopup(popupContent);
 		}
@@ -195,7 +270,6 @@
 	
 
 {% for attribute in attribute_list %}
-
 	var {{ attribute.hashtag }}_layer = L.markerClusterGroup({ 
 		singleMarkerMode: true,
 		maxClusterRadius: 30,
@@ -206,25 +280,114 @@
 			var area = (Math.PI * (radius * radius)) * childCount;
 		    var size = Math.sqrt(area / Math.PI) * 0.5;
 		    if (size < 10) { size = 10 }
-		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      	return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ attribute.hashtag }}', iconSize: new L.Point(size, size) });
-		    }
+		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		    return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ attribute.hashtag }}', iconSize: new L.Point(size, size) });
+		}
 	});
 
-	markerClusterGroups['{{ attribute.hashtag}}'] = {{ attribute.hashtag}}_layer 
+	markerClusterGroups['{{ attribute.hashtag}}'] = {{ attribute.hashtag}}_layer;
 
 	var {{ attribute.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ attribute.hashtag }}&format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
 			{{ attribute.hashtag }}_layer.addLayer(layer);
 
+			var captionLink = "";
+			var captionName = "";
+			var captionDate = "";
+			var captionCaption = "";
+			if (feature.properties.plant) {
+				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
+			}
 
+<<<<<<< HEAD
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url+ '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+=======
+			if (feature.properties.plant) {
+				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+			}
+
+			if (feature.properties.date) {
+				captionDate = "<span class=date>" + feature.properties.date + "</span>";
+			}
+
+			if (feature.properties.plant) {
+				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+			} 
+			else {
+				if (feature.properties.caption.length > 60) {
+					var capString = feature.properties.caption.substring(0, 60) + "...";
+				} else {
+					capString = feature.properties.caption;
+				}
+				captionCaption = "<span class=caption>" + capString + "</span>";
+			}
+			
+			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+>>>>>>> develop
 
     		layer.bindPopup(popupContent);
 		}
 	});
 
-	//map.addLayer({{ attribute.hashtag}}_layer);
+{% endfor %}
+
+{% for category in category_list %}
+
+	var category_{{ category.id }}_layer = L.markerClusterGroup({ 
+		singleMarkerMode: true,
+		maxClusterRadius: 30,
+		showCoverageOnHover: false,
+		iconCreateFunction: function(cluster) {
+			var childCount = cluster.getChildCount();
+			var radius = 10;
+			var area = (Math.PI * (radius * radius)) * childCount;
+		    var size = Math.sqrt(area / Math.PI) * 0.5;
+		    if (size < 10) { size = 10 }
+		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		    return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-category-{{ category.id }}', iconSize: new L.Point(size, size) });
+		}
+	});
+
+	markerClusterGroups['category_{{ category.id }}'] = category_{{ category.id }}_layer;
+
+	var category_{{ category.id }}_data = L.geoJson.ajax('{% url "api-image-list" %}?category={{ category.id }}&format=json', {
+		onEachFeature: function onEachFeature(feature, layer) {
+			category_{{ category.id }}_layer.addLayer(layer);
+			var captionLink = "";
+			var captionName = "";
+			var captionDate = "";
+			var captionCaption = "";
+			if (feature.properties.plant) {
+				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
+			}
+
+			if (feature.properties.plant) {
+				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+			}
+
+			if (feature.properties.date) {
+				captionDate = "<span class=date>" + feature.properties.date + "</span>";
+			}
+
+			if (feature.properties.plant) {
+				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+			} 
+			else {
+				if (feature.properties.caption.length > 60) {
+					var capString = feature.properties.caption.substring(0, 60) + "...";
+				} else {
+					capString = feature.properties.caption;
+				}
+				captionCaption = "<span class=caption>" + capString + "</span>";
+			}
+			
+			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+
+    		layer.bindPopup(popupContent);
+		}
+	});
 
 {% endfor %}
 
@@ -241,18 +404,51 @@
 			var area = (Math.PI * (radius * radius)) * childCount;
 		    var size = Math.sqrt(area / Math.PI) * 0.5;
 		    if (size < 10) { size = 10 }
-		     	var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		      	return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
-		    }
+		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		    return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
+		}
 	});
 
-	markerClusterGroups['{{ plant.hashtag}}'] = {{ plant.hashtag}}_layer 
+	markerClusterGroups['{{ plant.hashtag}}'] = {{ plant.hashtag}}_layer;
 
 	var {{ plant.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ plant.hashtag }}&format=json', {
 		onEachFeature: function onEachFeature(feature, layer) {
 			{{ plant.hashtag }}_layer.addLayer(layer);
 
+<<<<<<< HEAD
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url+ '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+=======
+			var captionLink = "";
+			var captionName = "";
+			var captionDate = "";
+			var captionCaption = "";
+			if (feature.properties.plant) {
+				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
+			}
+
+			if (feature.properties.plant) {
+				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+			}
+
+			if (feature.properties.date) {
+				captionDate = "<span class=date>" + feature.properties.date + "</span>";
+			}
+
+			if (feature.properties.plant) {
+				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+			} 
+			else {
+				if (feature.properties.caption.length > 60) {
+					var capString = feature.properties.caption.substring(0, 60) + "...";
+				} else {
+					capString = feature.properties.caption;
+				}
+				captionCaption = "<span class=caption>" + capString + "</span>";
+			}
+			
+			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
+			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+>>>>>>> develop
 
     		layer.bindPopup(popupContent);
 		}
@@ -264,14 +460,14 @@
 	function removeAllLayers() {
 		map.eachLayer(function (layer) {
 			if (layer != streets) {
-    			map.removeLayer(layer)
+    			map.removeLayer(layer);
     		}
 		});
 	}
 
 
     // click function to change between layers
-	$('a.layer-link').click(function (e) {
+	$('.js-layer-trigger').click(function (e) {
 		//Get the id of the element clicked
        var tagName = $(this).data('tag');
        // look up layer object by id 
@@ -287,14 +483,35 @@
 	   map.addLayer(markerClusterGroups[tagName]);
 	   map.fitBounds(markerClusterGroups[tagName]);
 
-	   $(".leaflet-popup-close-button").click()
+	   $(".leaflet-popup-close-button").click();
 	   $('.name').text($(this).data('name'));
 	   $('.description').text($(this).data('description'));
-	   $('aside.details').css( 'border-color', color )
+	   $('aside.details').css( 'border-color', color );
 	   $('.map-nav ul li').removeClass("active");
+
+	   var list = $(this).closest('ul');
+	   if ($(list).hasClass('attribute-list')) {
+	   		$('.plant-list li').removeClass('active');
+	   		$('.plant-list li').removeClass('is-hidden');
+	   		$('.plant-list li.category').addClass('is-hidden');
+	   		$('.plant-list li.category.all').removeClass('is-hidden');
+	   		$('.category-list li.all').addClass('active');
+	   }
 	   $(this).parent().toggleClass("active");
 
-	})
+	});
+</script>
+
+<script>
+	// show hide plants per category
+	$('.js-category-trigger').click(function (e) {
+		//Get the id of the element clicked
+       var category = $(this).data('tag');
+       
+       $('.plant-list li').addClass('is-hidden');
+       $('.plant-list li.' + category).removeClass('is-hidden');
+
+	});
 </script>
 
 

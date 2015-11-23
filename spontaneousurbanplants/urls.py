@@ -40,6 +40,8 @@ urlpatterns = patterns('',
 
     url(r'^plants/', include('apps.plants.urls')),
 
+    url(r'^news/', include('apps.news.urls')),
+
     # api
     url(r"^api/", include(router.urls)),
     url(r"^api-auth/", include("rest_framework.urls", namespace="rest_framework")),

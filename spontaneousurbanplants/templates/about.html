@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block body_class %}about{% endblock %}
 {% block content %}
+<<<<<<< HEAD
 <aside>
 <p>Although we tend to think of our cities as concrete jungles, our post-new urban environment is awash in plant life. Wild urban plants have taken root along roadsides and chain-link fences, between cracks of pavement, and within vacant lots, rubble dumps and highway medians. Spontaneously propagating, these resilient plants find distinctive niches to thrive in and inhabit our most derelict landscapes. The environmental benefits of these “weeds” go widely unrecognized when, in fact, reframing this often invisible urban ecology as a beneficial amenity can offer a fresh perspective on how cities perform.</p>
 <p><strong>Spontaneous Urban Plants</strong> (SUP) is a research project that investigates the role of weeds in the urban ecosystem. The intent is to stimulate a discourse between ecologists, designers, artists and the general public that explores societal perceptions of weeds and questions the stigmas that surround them. Leveraging principles of urban ecology and environmental aesthetics, we are encouraging an objective debate of the value of wild urban plants and thereby challenging contemporary cultural perceptions.</p>
@@ -36,3 +37,31 @@ Green Studio</a>.
 	<img src="{% static 'images/about_diagram.png'  %}" />
 </section>
 {% endblock content %}
+=======
+<section class="about-group">
+{% for about in object_list %}
+	<article class="about-block">
+		<header>
+			<h1 class="{{ about.title|slugify }}">{{ about.title }}</h1>
+		</header>
+		<div class="about-body">
+			{% if about.image %}
+			<div class="about-image"><img src="{{ about.image.url }}" /></div>
+			{% endif %}
+			<div class="about-text">{{ about.text_html|safe }}</div>
+		</div>
+	</article>
+{% endfor %}
+</section>
+<section class="about-colophone">
+	<h2>{{ sources.title }}</h2>
+	<div class="about-sources">
+		{{ sources.text_html|safe }}
+	</div>
+	<div class="about-credits">
+		<h3>{{ credits.title }}</h3>
+		{{ credits.text_html|safe }}
+	</div>
+</section>
+{% endblock content %}
+>>>>>>> develop

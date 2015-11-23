@@ -1,0 +1,29 @@
+<article class="news detail">
+    <section>
+        <div class="date">
+            <ul>
+                <li class="month">{{ news.date_published|date:"M" }}</li>
+                <li class="day">{{ news.date_published|date:"d" }}</li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <h2>{{ news.title }}</h2>
+        {% for image in news.newsitemimage_set.all %}
+        {% if image.main %}
+        <figure style="margin-top:10px;">
+            <img class="flex" src="{{ image.detail.url }}" title="{{ image.name }}" alt="{{ image.caption }}" />
+        </figure>
+        {%  endif %}
+        {%  endfor %}
+        {{ news.body_html|safe }}
+        {%  if news.newsitemfile_set.all %}
+        <ul class="file-list">
+        {%  for item in news.newsitemfile_set.all %}
+            <li><strong><a href="{{ item.file.url }}">{{ item.file|filename }}</a></strong>
+                [ {{ item.file.size|filesizeformat  }} ]</li>
+        {% endfor %}
+        </ul>
+        {%  endif %}
+    </section>
+</article>

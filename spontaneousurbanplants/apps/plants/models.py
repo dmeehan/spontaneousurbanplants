@@ -105,7 +105,7 @@ class Plant(models.Model):
           return u''
 
     def get_images(self):
-      return InstagramImage.objects.filter(tags__name__iexact=self.hashtag)
+      return InstagramImage.objects.filter(tags__name__iexact=self.hashtag).filter(verified=True)
 
     def get_absolute_url(self):
         return reverse('plant_detail', args=[str(self.hashtag)])
@@ -114,7 +114,10 @@ class Plant(models.Model):
       return self.get_images().count()
 
     def get_stormwater_total(self):
-        return self.image_count() * self.stormwater
+        if self.stormwater:
+          return self.image_count() * self.stormwater
+        else:
+          return 0
 
     def __unicode__(self):
         return u'%s' % (self.latin_name)

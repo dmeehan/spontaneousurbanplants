@@ -5,13 +5,15 @@
 <section class="services-intro">
 	<div class="services-text">{{ introduction.text_html|safe }}</div>
 </section>
+<section class="service-group">
 {% for service in service_list %}
-<section class="service-block">
-	<h2 class="service-title">{{ service.attribute.name }}</h2>
-	{% if service.image %}
-	<img src="{{ service.image.url }}" />
-	{% endif %}
-	<div class="service-text">{{ service.text_html|safe }}</div>
-</section>
+	<article class="service-block service-block--{{ service.attribute.hashtag}}">
+		<h2 class="service-title">{{ service.attribute.name }}</h2>
+		{% if service.image %}
+		<img src="{{ service.image.url }}" />
+		{% endif %}
+		<div class="service-text">{{ service.text_html|safe }}</div>
+	</article>
 {% endfor %}
+</section>
 {% endblock content %}

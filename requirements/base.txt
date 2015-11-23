@@ -21,5 +21,6 @@ easy-thumbnails==2.1 # image manipulation
 django-grappelli==2.6.3 # admin extras
 django-positions==0.5.1 # ordering field
 django-notification==1.2
+django-endless-pagination==2.0 # ajax pagination
 
 

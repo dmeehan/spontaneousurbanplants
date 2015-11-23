@@ -1,21 +1,73 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block extra_style %}
+<link href="{% static 'js/flexslider/flexslider.css' %}" media="screen, projection" rel="stylesheet" type="text/x-scss" />{% endblock %}
+{% block body_class %}profiles{% endblock %}
 {% block content %}
-<section>
-	{% for image in plant.get_images %}
-	<img src="{{ image.remote_thumbnail_url }}" />
-	{% endfor %}
+<section class="slideshow">
+{% if plant.get_images %}
+    <div class="flexslider">
+        <ul class="slides">
+        {% for image in plant.get_images %}
+            <li>
+                <img src="{{ image.image_file.url }}" alt="{{ image.caption }}" />
+          
+                <p class="flex-caption">
+                    <span class="caption-caption">{{ image.caption|truncatechars:50 }}</span>
+                    <span class="caption-map"><a title="View on Map" href="{% url 'map' %}?image_id={{ image.id }}">Go to MAP</a></span>
+                    <span class="caption-location"><a title="View on Map" href="{% url 'map' %}?image_id={{ image.id }}"><i class="fa fa-map-marker"></i>&#160;{{ image.coordinates.y }}, {{ image.coordinates.x }}</a></span>
+                    <span class="caption-date">{{ image.created|date:"M d, Y - f A"}}</span>
+                </p>
+            </li>
+        {% endfor %}
+        </ul>
+    <div>
+{% endif %}
 </section>
-<section>
-<p>{{ plant.latin_name }}</p>
-<p>{{ plant.common_name }}</p>
-<p>{{ plant.description }}</p>
-<p>{{ plant.flowers }}</p>
-<p>{{ plant.habitat }}</p>
-<p>{{ plant.origin }}</p>
-<p>{% for category in plant.categories.all %}{{ category }}{% endfor %}<p>
-
-<p>{{ plant.image_count }}</p>
-<p>Stormwater: {{ plant.get_stormwater_total }} gallons</p>
+<section class="details">
+    <h1>{{ plant.latin_name }}</h1>
+    <h2>{{ plant.common_name }}</h2>
+    {% if plant.seasonality_chart %}
+    <img class="chart" src="{{ plant.seasonality_chart.url }}" />
+    {% endif %}
+    <p class="description"><strong>Botanical description:</strong> {{ plant.description }}</p>
+    <div class="metrics">
+        <h3>Indexed</h3>
+        <p class="count">{{ plant.image_count }}</p>
+        <h3>Place of Origin</h3>
+        <p class="origin">{{ plant.origin }}</p>
+        <ul class="attributes">
+            {% for attribute in plant.attributes.all %}
+            <li style="background-image:url({{ attribute.icon.url }})">
+                <a data-tag="{{ attribute.hashtag }}"
+                    data-name="{{ attribute.name }}: "
+                    data-description="{{ attribute.description }}"
+                    title="{{ attribute.name }}" 
+                    class="layer-link tooltip" href="#">{{ attribute.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </section>
 {% endblock content %}
+
+{% block extra_script %}
+<script src="{% static 'js/flexslider/jquery.flexslider-min.js' %}"
+                  type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+  $('.flexslider').flexslider({
+    animation: "slide"
+  });
+});
+</script>
+
+<script>
+     $(document).ready(function() {
+        $('.tooltip').tooltipster({
+            position: 'right'
+        });
+     });
+</script>
+{% endblock %}
