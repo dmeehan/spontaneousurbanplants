@@ -79,8 +79,8 @@
 			href="#map">All Plants</a>
 		</li>
 		{% for category in category_list %}
-		<li class="is-hidden category category_{{ category.id }}">
-			<a data-tag="category_{{ category.id }}"
+		<li class="is-hidden category category-{{ category.id }}">
+			<a data-tag="category-{{ category.id }}"
 			data-name="{{ category.name }}"
 			data-description=""
 			title="{{ category.name }}" 
@@ -90,7 +90,7 @@
 		{% endfor %}
 		{% for plant in plant_list %}
 		{% if plant.icon %}
-		<li class="plant {% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %} all"><a data-tag="{{ plant.hashtag }}"
+		<li class="plant {% for cat in plant.categories.all %}category-{{ cat.id }} {% endfor %} all"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
@@ -373,12 +373,12 @@ $(document).ready(function() {
 	loadMapData(allUrl, 'all', false);
 
 	{% for attribute in attribute_list %}
-		var attributeUrl = '{% url "api-image-list" %}?tag=' + {{ attribute.hashtag }} + '&format=json';
+		var attributeUrl = '{% url "api-image-list" %}?tag={{ attribute.hashtag }}&format=json';
 		loadMapData(attributeUrl, {{ attribute.hashtag }}, false);
 	{% endfor %}
 
 	{% for plant in plant_list %}
-		plantUrl = '{% url "api-image-list" %}?tag=' + {{ plant.hashtag }} + '&format=json';
+		plantUrl = '{% url "api-image-list" %}?tag={{ plant.hashtag }}&format=json';
 		loadMapData(plantUrl, {{ plant.hashtag }}, false);
 	{% endfor %}
 });
