@@ -366,11 +366,9 @@ $(document).ready(function() {
 			marker.openPopup();
 			// Load inital data 
 			// Get the map bounds
-			var bounds = map.getBounds().toBBoxString();
-			// Build url string.
-			var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
-			// Load layer data.
-			loadMapData(initialUrl, 'initial', false, true, false);
+			var allUrl = '{% url "api-image-list" %}?format=json';
+
+			loadMapData(allUrl, 'all', false, true, false);
 			
 		});
 	{% else %}
@@ -382,11 +380,11 @@ $(document).ready(function() {
 		var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
 		// Load layer data.
 		loadMapData(initialUrl, 'initial', true, false, false);
-	{% endif %}
+		
+		var allUrl = '{% url "api-image-list" %}?format=json';
 
-	var allUrl = '{% url "api-image-list" %}?format=json';
-
-	loadMapData(allUrl, 'all', false, true, true);
+		loadMapData(allUrl, 'all', false, true, true);
+	{% endif %}	
 });
 </script>
 {% endblock extra_body %}
