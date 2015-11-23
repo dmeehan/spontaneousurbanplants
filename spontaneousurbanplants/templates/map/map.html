@@ -366,7 +366,7 @@ $(document).ready(function() {
 			// Build url string.
 			var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
 			// Load layer data.
-			loadMapData(initialUrl, 'initial', true, false);
+			loadMapData(initialUrl, 'initial', false, true);
 		});
 	{% else %}
 	    map.setView([40.676898, -73.995308], 11);  
