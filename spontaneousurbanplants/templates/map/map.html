@@ -157,7 +157,7 @@
 	// object that holds marker clusters
 	var markerClusterGroups = {}
 
-	function loadMapData(url, layerName, show) {
+	function loadMapData(url, layerName, show, delay) {
 		
 		if (show) {
 			// Show loading indicator.
@@ -228,7 +228,7 @@
 			});
 
 			thisData.on('data:loaded',function(){
-				if (show) {
+				if (show || delay) {
 				    removeAllLayers();
 					map.addLayer(thisLayer);
     				map.fitBounds(thisLayer);
@@ -237,7 +237,7 @@
 			});
 
 		} else {
-			if (show) {
+			if (show || delay) {
 				removeAllLayers();
 				map.addLayer(markerClusterGroups[layerName]);
 	   			map.fitBounds(markerClusterGroups[layerName]);
@@ -366,11 +366,11 @@ $(document).ready(function() {
 	// Build url string.
 	var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
 	// Load layer data.
-	loadMapData(initialUrl, 'initial', true);
+	loadMapData(initialUrl, 'initial', true, false);
 
 	var allUrl = '{% url "api-image-list" %}?format=json';
 
-	loadMapData(allUrl, 'all', false);
+	loadMapData(allUrl, 'all', false, true);
 });
 </script>
 {% endblock extra_body %}
