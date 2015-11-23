@@ -371,16 +371,6 @@ $(document).ready(function() {
 	var allUrl = '{% url "api-image-list" %}?format=json';
 
 	loadMapData(allUrl, 'all', false);
-
-	{% for attribute in attribute_list %}
-		var attributeUrl = '{% url "api-image-list" %}?tag={{ attribute.hashtag }}&format=json';
-		loadMapData(attributeUrl, '{{ attribute.hashtag }}', false);
-	{% endfor %}
-
-	{% for plant in plant_list %}
-		plantUrl = '{% url "api-image-list" %}?tag={{ plant.hashtag }}&format=json';
-		loadMapData(plantUrl, '{{ plant.hashtag }}', false);
-	{% endfor %}
 });
 </script>
 {% endblock extra_body %}
