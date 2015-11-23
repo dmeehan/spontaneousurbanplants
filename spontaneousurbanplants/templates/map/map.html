@@ -229,10 +229,13 @@
 
 			thisData.on('data:loaded',function(){
 				if (show || delay) {
-				    removeAllLayers();
+					removeAllLayers();
 					map.addLayer(thisLayer);
-    				map.fitBounds(thisLayer);
-    				map.spin(false);
+					if (show) {
+						map.fitBounds(thisLayer);
+    					map.spin(false);
+					}
+    				
 				}	
 			});
 
@@ -240,8 +243,10 @@
 			if (show || delay) {
 				removeAllLayers();
 				map.addLayer(markerClusterGroups[layerName]);
-	   			map.fitBounds(markerClusterGroups[layerName]);
-    			map.spin(false);
+	   			if (show) {
+					map.fitBounds(thisLayer);
+    				map.spin(false);
+				}
 			}	
 		}	
 	} // end loadMapData()
