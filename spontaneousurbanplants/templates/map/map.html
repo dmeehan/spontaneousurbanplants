@@ -52,7 +52,7 @@
 	<ul class="category-list icon-list">
 	{% for category in category_list %}
 		{% if category.icon %}
-		<li style="background-image:url({{ category.icon.url }})"><a data-tag="category_{{ category.id }}"
+		<li style="background-image:url({{ category.icon.url }})"><a data-tag="all"
 		data-name="{{ category.name }}"
 		data-description=""
 		title="{{ category.name }}" 
@@ -73,7 +73,7 @@
 			data-name="All Plants"
 			title="All Plants" 
 			data-description=""
-			class="layer-link tooltip js-layer-trigger"
+			class="layer-link tooltip"
 			href="#map">All Plants</a>
 		</li>
 		{% for category in category_list %}
@@ -82,7 +82,7 @@
 			data-name="{{ category.name }}"
 			data-description=""
 			title="{{ category.name }}" 
-			class="layer-link tooltip js-layer-trigger"
+			class="layer-link tooltip"
 			href="#map">{{ category.name }}</a>
 		</li>
 		{% endfor %}
@@ -155,7 +155,7 @@
 	// object that holds marker clusters
 	var markerClusterGroups = {}
 
-	function loadMapData(url, layerName, show: true) {
+	function loadMapData(url, layerName, show) {
 		
 		if (show) {
 			// Show loading indicator.
@@ -244,10 +244,6 @@
 		}	
 	} // end loadMapData()
 
-
-	
-
-
     // click function to change between layers
 	$('.js-layer-trigger').click(function (e) {
 		//Get the id of the element clicked
@@ -266,10 +262,10 @@
 		if (tagName == 'all') {
 	   		url = '{% url "api-image-list" %}?format=json';
 	   	} else {
-	   		url = '{% url "api-image-list" %}?tag=' + tagName + '?format=json';
+	   		url = '{% url "api-image-list" %}?tag=' + tagName + '&format=json';
 	   	}
 
-	    loadMapData(url, tagName)
+	    loadMapData(url, tagName, true)
 	   	
 		$(".leaflet-popup-close-button").click();
 	   	$('.name').text($(this).data('name'));
@@ -363,16 +359,28 @@ $(document).ready(function() {
 	{% else %}
 	    map.setView([40.676898, -73.995308], 11);  
 	{% endif %}
+
+	// Load inital data 
 	// Get the map bounds
 	var bounds = map.getBounds().toBBoxString();
 	// Build url string.
 	var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
 	// Load layer data.
-	loadMapData(url, 'initial');
+	loadMapData(initialUrl, 'initial');
 
-	var allUrl = '{% url "api-image-list" %}?format=json';
+	//var allUrl = '{% url "api-image-list" %}?format=json';
 
-	loadMapData(url, 'all', show: false);
+	//loadMapData(allUrl, 'all', false);
+
+	{% for attribute in attribute_list %}
+		//var attributeUrl = '{% url "api-image-list" %}?tag=' + {{ attribute.hashtag }} + '&format=json';
+		//loadMapData(attributeUrl, {{ attribute.hashtag }}, false);
+	{% endfor %}
+
+	{% for plant in plant_list %}
+		//plantUrl = '{% url "api-image-list" %}?tag=' + {{ plant.hashtag }} + '&format=json';
+		//loadMapData(plantUrl, {{ plant.hashtag }}, false);
+	{% endfor %}
 });
 </script>
 {% endblock extra_body %}
