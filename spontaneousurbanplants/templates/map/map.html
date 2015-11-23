@@ -196,254 +196,88 @@
 
 	map.scrollWheelZoom.disable();
 
-	// object that hold marker clusters
+	// object that holds marker clusters
 	var markerClusterGroups = {}
 
-	var all_layer = L.markerClusterGroup({ 
-		singleMarkerMode: true,
-		maxClusterRadius: 30,
-		showCoverageOnHover: false,
-		iconCreateFunction: function(cluster) {
-			var childCount = cluster.getChildCount();
-			var radius = 10;
-			var area = (Math.PI * (radius * radius)) * childCount;
-		    var size = Math.sqrt(area / Math.PI) * 0.5;
-		    if (size < 10) { size = 10 }
-		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		    return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
-		}
-	});
+	function loadMapData(url, layerName) {
+		// Show loading indicator.
+		map.spin(true);
 
-	markerClusterGroups['all'] = all_layer;
-
-	map.spin(true);
-
-	var all_data = L.geoJson.ajax('{% url "api-image-list" %}?format=json', {
-		onEachFeature: function onEachFeature(feature, layer) {
-			all_layer.addLayer(layer);
-
-			var captionLink = "";
-			var captionName = "";
-			var captionDate = "";
-			var captionCaption = "";
-			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
-			}
-
-			if (feature.properties.plant) {
-				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
-			}
-
-			if (feature.properties.date) {
-				captionDate = "<span class=date>" + feature.properties.date + "</span>";
-			}
-
-			if (feature.properties.plant) {
-				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
-			} 
-			else {
-				if (feature.properties.caption.length > 60) {
-					var capString = feature.properties.caption.substring(0, 60) + "...";
-				} else {
-					capString = feature.properties.caption;
+		// If the map layer does not exist, create it.
+		if (!markerClusterGroups.hasOwnProperty(layerName)) {
+			var thisLayer = L.markerClusterGroup({ 
+				singleMarkerMode: true,
+				maxClusterRadius: 30,
+				showCoverageOnHover: false,
+				iconCreateFunction: function(cluster) {
+					var childCount = cluster.getChildCount();
+					var radius = 10;
+					var area = (Math.PI * (radius * radius)) * childCount;
+		    		var size = Math.sqrt(area / Math.PI) * 0.5;
+		    		if (size < 10) { size = 10 }
+		    		var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		    	    var markerClass = 'marker-cluster marker-cluster-' + layerName;
+		    		return new L.DivIcon({ html: html, className: markerClass, iconSize: new L.Point(size, size) });
 				}
-				captionCaption = "<span class=caption>" + capString + "</span>";
-			}
+			});
+
+			markerClusterGroups[layerName] = thisLayer;
+
+			thisData = L.geoJson.ajax(url, {
+				onEachFeature: function onEachFeature(feature, layer) {
+
+					thisLayer.addLayer(layer);
+
+					var captionLink = "";
+					var captionName = "";
+					var captionDate = "";
+					var captionCaption = "";
+				
+					if (feature.properties.plant) {
+						captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
+					}
+
+					if (feature.properties.plant) {
+						captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+					}
+
+					if (feature.properties.date) {
+						captionDate = "<span class=date>" + feature.properties.date + "</span>";
+					}
+
+					if (feature.properties.plant) {
+						captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+					} else {
+						if (feature.properties.caption.length > 60) {
+							var capString = feature.properties.caption.substring(0, 60) + "...";
+						} else {
+							capString = feature.properties.caption;
+						}
+						captionCaption = "<span class=caption>" + capString + "</span>";
+					}
 			
-			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+					var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
+					var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 
-    		layer.bindPopup(popupContent);
-		}
-	});
-
-	all_data.on('data:loaded',function(){
-    	map.spin(false);
-	});
-
-
-	map.addLayer(all_layer);
-	
-
-{% for attribute in attribute_list %}
-	var {{ attribute.hashtag }}_layer = L.markerClusterGroup({ 
-		singleMarkerMode: true,
-		maxClusterRadius: 30,
-		showCoverageOnHover: false,
-		iconCreateFunction: function(cluster) {
-			var childCount = cluster.getChildCount();
-			var radius = 10;
-			var area = (Math.PI * (radius * radius)) * childCount;
-		    var size = Math.sqrt(area / Math.PI) * 0.5;
-		    if (size < 10) { size = 10 }
-		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		    return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-{{ attribute.hashtag }}', iconSize: new L.Point(size, size) });
-		}
-	});
-
-	markerClusterGroups['{{ attribute.hashtag}}'] = {{ attribute.hashtag}}_layer;
-
-	var {{ attribute.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ attribute.hashtag }}&format=json', {
-		onEachFeature: function onEachFeature(feature, layer) {
-			{{ attribute.hashtag }}_layer.addLayer(layer);
-
-			var captionLink = "";
-			var captionName = "";
-			var captionDate = "";
-			var captionCaption = "";
-			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
-			}
-
-			if (feature.properties.plant) {
-				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
-			}
-
-			if (feature.properties.date) {
-				captionDate = "<span class=date>" + feature.properties.date + "</span>";
-			}
-
-			if (feature.properties.plant) {
-				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
-			} 
-			else {
-				if (feature.properties.caption.length > 60) {
-					var capString = feature.properties.caption.substring(0, 60) + "...";
-				} else {
-					capString = feature.properties.caption;
+					
+    				layer.bindPopup(popupContent);
+    				
 				}
-				captionCaption = "<span class=caption>" + capString + "</span>";
-			}
-			
-			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+			});
 
-    		layer.bindPopup(popupContent);
-		}
-	});
+			thisData.on('data:loaded',function(){
+    			map.addLayer(thisLayer);
+    			map.fitBounds(thisLayer);
+    			map.spin(false);
+			});
 
-{% endfor %}
+		} else {
+			map.addLayer(markerClusterGroups[layerName]);
+	   		map.fitBounds(markerClusterGroups[layerName]);
+	   		map.spin(false);
+		}	
+	} // end loadMapData()
 
-{% for category in category_list %}
-
-	var category_{{ category.id }}_layer = L.markerClusterGroup({ 
-		singleMarkerMode: true,
-		maxClusterRadius: 30,
-		showCoverageOnHover: false,
-		iconCreateFunction: function(cluster) {
-			var childCount = cluster.getChildCount();
-			var radius = 10;
-			var area = (Math.PI * (radius * radius)) * childCount;
-		    var size = Math.sqrt(area / Math.PI) * 0.5;
-		    if (size < 10) { size = 10 }
-		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		    return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-category-{{ category.id }}', iconSize: new L.Point(size, size) });
-		}
-	});
-
-	markerClusterGroups['category_{{ category.id }}'] = category_{{ category.id }}_layer;
-
-	var category_{{ category.id }}_data = L.geoJson.ajax('{% url "api-image-list" %}?category={{ category.id }}&format=json', {
-		onEachFeature: function onEachFeature(feature, layer) {
-			category_{{ category.id }}_layer.addLayer(layer);
-			var captionLink = "";
-			var captionName = "";
-			var captionDate = "";
-			var captionCaption = "";
-			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
-			}
-
-			if (feature.properties.plant) {
-				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
-			}
-
-			if (feature.properties.date) {
-				captionDate = "<span class=date>" + feature.properties.date + "</span>";
-			}
-
-			if (feature.properties.plant) {
-				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
-			} 
-			else {
-				if (feature.properties.caption.length > 60) {
-					var capString = feature.properties.caption.substring(0, 60) + "...";
-				} else {
-					capString = feature.properties.caption;
-				}
-				captionCaption = "<span class=caption>" + capString + "</span>";
-			}
-			
-			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
-
-    		layer.bindPopup(popupContent);
-		}
-	});
-
-{% endfor %}
-
-
-{% for plant in plant_list %}
-
-	var {{ plant.hashtag }}_layer = L.markerClusterGroup({ 
-		singleMarkerMode: true,
-		maxClusterRadius: 30,
-		showCoverageOnHover: false,
-		iconCreateFunction: function(cluster) {
-			var childCount = cluster.getChildCount();
-			var radius = 10;
-			var area = (Math.PI * (radius * radius)) * childCount;
-		    var size = Math.sqrt(area / Math.PI) * 0.5;
-		    if (size < 10) { size = 10 }
-		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		    return new L.DivIcon({ html: html, className: 'marker-cluster', iconSize: new L.Point(size, size) });
-		}
-	});
-
-	markerClusterGroups['{{ plant.hashtag}}'] = {{ plant.hashtag}}_layer;
-
-	var {{ plant.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ plant.hashtag }}&format=json', {
-		onEachFeature: function onEachFeature(feature, layer) {
-			{{ plant.hashtag }}_layer.addLayer(layer);
-
-			var captionLink = "";
-			var captionName = "";
-			var captionDate = "";
-			var captionCaption = "";
-			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
-			}
-
-			if (feature.properties.plant) {
-				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
-			}
-
-			if (feature.properties.date) {
-				captionDate = "<span class=date>" + feature.properties.date + "</span>";
-			}
-
-			if (feature.properties.plant) {
-				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
-			} 
-			else {
-				if (feature.properties.caption.length > 60) {
-					var capString = feature.properties.caption.substring(0, 60) + "...";
-				} else {
-					capString = feature.properties.caption;
-				}
-				captionCaption = "<span class=caption>" + capString + "</span>";
-			}
-			
-			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
-
-    		layer.bindPopup(popupContent);
-		}
-	});
-
-
-{% endfor %}
 
 	function removeAllLayers() {
 		map.eachLayer(function (layer) {
@@ -457,37 +291,43 @@
     // click function to change between layers
 	$('.js-layer-trigger').click(function (e) {
 		//Get the id of the element clicked
-       var tagName = $(this).data('tag');
-       // look up layer object by id 
+    	var tagName = $(this).data('tag');
   
-	   if (markerColors[tagName] === undefined) {
-	       color = markerColors['defaultColor'];
-	   } else {
-		   color = markerColors[tagName];
-	   }
+	   	if (markerColors[tagName] === undefined) {
+	    	color = markerColors['defaultColor'];
+	   	} else {
+			color = markerColors[tagName];
+	   	}
 
-	   removeAllLayers();
+	   	removeAllLayers();
 
-	   map.addLayer(markerClusterGroups[tagName]);
-	   map.fitBounds(markerClusterGroups[tagName]);
+	   	var url;
+		
+		if (tagName == 'all') {
+	   		url = '{% url "api-image-list" %}?format=json';
+	   	} else {
+	   		url = '{% url "api-image-list" %}?tag=' + tagName + '?format=json';
+	   	}
 
-	   $(".leaflet-popup-close-button").click();
-	   $('.name').text($(this).data('name'));
-	   $('.description').text($(this).data('description'));
-	   $('aside.details').css( 'border-color', color );
-	   $('.map-nav ul li').removeClass("active");
+	    loadMapData(url, tagName)
+	   	
+		$(".leaflet-popup-close-button").click();
+	   	$('.name').text($(this).data('name'));
+	   	$('.description').text($(this).data('description'));
+	   	$('aside.details').css( 'border-color', color );
+	   	$('.map-nav ul li').removeClass("active");
 
-	   var list = $(this).closest('ul');
-	   if ($(list).hasClass('attribute-list')) {
+	   	var list = $(this).closest('ul');
+	   	if ($(list).hasClass('attribute-list')) {
 	   		$('.plant-list li').removeClass('active');
 	   		$('.plant-list li').removeClass('is-hidden');
 	   		$('.plant-list li.category').addClass('is-hidden');
 	   		$('.plant-list li.category.all').removeClass('is-hidden');
 	   		$('.category-list li.all').addClass('active');
-	   }
-	   $(this).parent().toggleClass("active");
-
+	   	}
+	   	$(this).parent().toggleClass("active");
 	});
+
 </script>
 
 <script>
@@ -509,5 +349,16 @@
    			position: 'right'
      	});
      });
+</script>
+<script>
+// Load initial map data 
+$(document).ready(function() {
+	// Get the map bounds
+	var bounds = map.getBounds().toBBoxString();
+	// Build url string.
+	var url = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
+	// Load layer data.
+	loadMapData(url, 'initial');
+});
 </script>
 {% endblock extra_body %}
