@@ -142,66 +142,26 @@
     	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 
-
-	// if linking to specific image: load image, display on map, zoom, and open popup
-	{% if image_id %}
-		var image = L.geoJson.ajax('{% url "api-image-detail" image_id %}?format=json', {
-			pointToLayer: function (feature, latlng) {
-        		return L.circleMarker(latlng, emptyMarkerStyle);
-    		},
-			onEachFeature: function(feature, layer) {
-				var captionLink = "";
-				var captionName = "";
-				var captionDate = "";
-				var captionCaption = "";
-				if (feature.properties.plant) {
-					captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
-				}
-
-				if (feature.properties.plant) {
-					captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
-				}
-
-				if (feature.properties.date) {
-					captionDate = "<span class=date>" + feature.properties.date + "</span>";
-				}
-
-				if (feature.properties.plant) {
-					captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
-				} 
-				else {
-					if (feature.properties.caption.length > 60) {
-						var capString = feature.properties.caption.substring(0, 60) + "...";
-					} else {
-						capString = feature.properties.caption;
-					}
-					captionCaption = "<span class=caption>" + capString + "</span>";
-				}
-				
-				var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
-				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
-				marker = layer;
-        		marker.bindPopup(popupContent);
-			}
-		}).addTo(map);
-
-		image.on('data:loaded',function(){
-			center = image.getBounds().getCenter();
-			map.setView(center, 15);
-			marker.openPopup();
-		});
-	{% else %}
-	    map.setView([40.676898, -73.995308], 11);  
-	{% endif %}
-
 	map.scrollWheelZoom.disable();
+
+	function removeAllLayers() {
+		map.eachLayer(function (layer) {
+			if (layer != streets) {
+    			map.removeLayer(layer);
+    		}
+		});
+	}
 
 	// object that holds marker clusters
 	var markerClusterGroups = {}
 
-	function loadMapData(url, layerName) {
-		// Show loading indicator.
-		map.spin(true);
+	function loadMapData(url, layerName, show: true) {
+		
+		if (show) {
+			// Show loading indicator.
+			map.spin(true);
+		}
+		
 
 		// If the map layer does not exist, create it.
 		if (!markerClusterGroups.hasOwnProperty(layerName)) {
@@ -266,26 +226,26 @@
 			});
 
 			thisData.on('data:loaded',function(){
-    			map.addLayer(thisLayer);
-    			map.fitBounds(thisLayer);
-    			map.spin(false);
+				if (show) {
+				    removeAllLayers();
+					map.addLayer(thisLayer);
+    				map.fitBounds(thisLayer);
+    				map.spin(false);
+				}	
 			});
 
 		} else {
-			map.addLayer(markerClusterGroups[layerName]);
-	   		map.fitBounds(markerClusterGroups[layerName]);
-	   		map.spin(false);
+			if (show) {
+				removeAllLayers();
+				map.addLayer(thisLayer);
+    			map.fitBounds(thisLayer);
+    			map.spin(false);
+			}	
 		}	
 	} // end loadMapData()
 
 
-	function removeAllLayers() {
-		map.eachLayer(function (layer) {
-			if (layer != streets) {
-    			map.removeLayer(layer);
-    		}
-		});
-	}
+	
 
 
     // click function to change between layers
@@ -353,12 +313,66 @@
 <script>
 // Load initial map data 
 $(document).ready(function() {
+	// if linking to specific image: load image, display on map, zoom, and open popup
+	{% if image_id %}
+		var image = L.geoJson.ajax('{% url "api-image-detail" image_id %}?format=json', {
+			pointToLayer: function (feature, latlng) {
+        		return L.circleMarker(latlng, emptyMarkerStyle);
+    		},
+			onEachFeature: function(feature, layer) {
+				var captionLink = "";
+				var captionName = "";
+				var captionDate = "";
+				var captionCaption = "";
+				if (feature.properties.plant) {
+					captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
+				}
+
+				if (feature.properties.plant) {
+					captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+				}
+
+				if (feature.properties.date) {
+					captionDate = "<span class=date>" + feature.properties.date + "</span>";
+				}
+
+				if (feature.properties.plant) {
+					captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+				} 
+				else {
+					if (feature.properties.caption.length > 60) {
+						var capString = feature.properties.caption.substring(0, 60) + "...";
+					} else {
+						capString = feature.properties.caption;
+					}
+					captionCaption = "<span class=caption>" + capString + "</span>";
+				}
+				
+				var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
+				var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+				marker = layer;
+        		marker.bindPopup(popupContent);
+			}
+		}).addTo(map);
+
+		image.on('data:loaded',function(){
+			center = image.getBounds().getCenter();
+			map.setView(center, 15);
+			marker.openPopup();
+		});
+	{% else %}
+	    map.setView([40.676898, -73.995308], 11);  
+	{% endif %}
 	// Get the map bounds
 	var bounds = map.getBounds().toBBoxString();
 	// Build url string.
-	var url = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
+	var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
 	// Load layer data.
 	loadMapData(url, 'initial');
+
+	var allUrl = '{% url "api-image-list" %}?format=json';
+
+	loadMapData(url, 'all', show: false);
 });
 </script>
 {% endblock extra_body %}
