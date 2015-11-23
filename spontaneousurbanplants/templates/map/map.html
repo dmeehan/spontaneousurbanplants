@@ -52,12 +52,14 @@
 	<ul class="category-list icon-list">
 	{% for category in category_list %}
 		{% if category.icon %}
-		<li style="background-image:url({{ category.icon.url }})"><a data-tag="all"
-		data-name="{{ category.name }}"
-		data-description=""
-		title="{{ category.name }}" 
-		class="tooltip layer-link js-layer-trigger js-category-trigger"
-		href="#map">{{ category.name }}</a></li>
+		<li style="background-image:url({{ category.icon.url }})">
+			<a data-tag="category-{{ category.id }}"
+				data-name="{{ category.name }}"
+				data-description=""
+				title="{{ category.name }}"
+				class="tooltip js-category-trigger"
+				href="#map">{{ category.name }}</a>
+		</li>
 		{% endif %}
     {% endfor %}
     	<li class="all active" style="background-image:url({% static 'images/all.png' %})"><a data-tag="all"
@@ -255,8 +257,6 @@
 			color = markerColors[tagName];
 	   	}
 
-	   	removeAllLayers();
-
 	   	var url;
 		
 		if (tagName == 'all') {
@@ -366,20 +366,20 @@ $(document).ready(function() {
 	// Build url string.
 	var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
 	// Load layer data.
-	loadMapData(initialUrl, 'initial');
+	loadMapData(initialUrl, 'initial', true);
 
-	//var allUrl = '{% url "api-image-list" %}?format=json';
+	var allUrl = '{% url "api-image-list" %}?format=json';
 
-	//loadMapData(allUrl, 'all', false);
+	loadMapData(allUrl, 'all', false);
 
 	{% for attribute in attribute_list %}
-		//var attributeUrl = '{% url "api-image-list" %}?tag=' + {{ attribute.hashtag }} + '&format=json';
-		//loadMapData(attributeUrl, {{ attribute.hashtag }}, false);
+		var attributeUrl = '{% url "api-image-list" %}?tag=' + {{ attribute.hashtag }} + '&format=json';
+		loadMapData(attributeUrl, {{ attribute.hashtag }}, false);
 	{% endfor %}
 
 	{% for plant in plant_list %}
-		//plantUrl = '{% url "api-image-list" %}?tag=' + {{ plant.hashtag }} + '&format=json';
-		//loadMapData(plantUrl, {{ plant.hashtag }}, false);
+		plantUrl = '{% url "api-image-list" %}?tag=' + {{ plant.hashtag }} + '&format=json';
+		loadMapData(plantUrl, {{ plant.hashtag }}, false);
 	{% endfor %}
 });
 </script>
