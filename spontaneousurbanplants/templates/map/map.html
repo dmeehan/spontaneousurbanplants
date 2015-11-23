@@ -360,18 +360,24 @@ $(document).ready(function() {
 			center = image.getBounds().getCenter();
 			map.setView(center, 15);
 			marker.openPopup();
+			// Load inital data 
+			// Get the map bounds
+			var bounds = map.getBounds().toBBoxString();
+			// Build url string.
+			var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
+			// Load layer data.
+			loadMapData(initialUrl, 'initial', true, false);
 		});
 	{% else %}
 	    map.setView([40.676898, -73.995308], 11);  
+	    // Load inital data 
+		// Get the map bounds
+		var bounds = map.getBounds().toBBoxString();
+		// Build url string.
+		var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
+		// Load layer data.
+		loadMapData(initialUrl, 'initial', true, false);
 	{% endif %}
-
-	// Load inital data 
-	// Get the map bounds
-	var bounds = map.getBounds().toBBoxString();
-	// Build url string.
-	var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
-	// Load layer data.
-	loadMapData(initialUrl, 'initial', true, false);
 
 	var allUrl = '{% url "api-image-list" %}?format=json';
 
