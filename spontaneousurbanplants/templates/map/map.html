@@ -459,19 +459,16 @@ $( '#plant-search').submit(function( event ) {
   }
 
   value = value.toLowerCase();
-
-  var url = '{% url "api-image-list" %}?tag=' + plantTags[value] + '&format=json'; 
-  loadMapData(url, plantTags[value], true, false, true);
-
-  $('.map-nav ul li').removeClass('active');
-
-  var el = $('.plant-list li a[data-tag="' + plantTags[value] + '"]');
-
-  $(el).parent().addClass('active');
-
-  var top =  $('plant-list').scrollTop() + $(el).position().top;
-
-  $('.plant-list').scrollTop(top);
+  
+  if (value) {
+  	var url = '{% url "api-image-list" %}?tag=' + plantTags[value] + '&format=json'; 
+  	loadMapData(url, plantTags[value], true, false, true);
+  	$('.map-nav ul li').removeClass('active');
+	var el = $('.plant-list li a[data-tag="' + plantTags[value] + '"]');
+	$(el).parent().addClass('active');
+	var top =  $('plant-list').scrollTop() + $(el).position().top;
+	$('.plant-list').scrollTop(top);
+  }	
   
   event.preventDefault();
 });
