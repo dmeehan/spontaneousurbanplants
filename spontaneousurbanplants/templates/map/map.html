@@ -464,11 +464,11 @@ $( '#plant-search').submit(function( event ) {
 
   $('.map-nav ul li').removeClass('active');
 
-  var el = $('.plant-list li[data-tag="' + plantTags[value] + '"]');
+  var el = $('.plant-list li a[data-tag="' + plantTags[value] + '"]');
 
   alert(el);
 
-  $(el).addClass('active');
+  $(el).parent.addClass('active');
   
   event.preventDefault();
 });
