@@ -23,13 +23,13 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background: red;
 
   @include media($xlarge-screen) {
    overflow-x: visible;
   }
 
 	header {
-
     //mobile
     @include outer-container(100%);
     //min-height: 80px;
@@ -1229,5 +1229,21 @@ body.services {
       border-bottom: 2px solid white;
     }
   }                   
+}
+
+
+/* typeahead styles */
+.twitter-typeahead, 
+.tt-hint, 
+.tt-input, 
+.tt-menu { 
+  width: 100%;
+}
+
+.tt-menu {
+  background: #475146;
+  color: #fff;
+  text-shadow: 0 -1px 0px black;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
 

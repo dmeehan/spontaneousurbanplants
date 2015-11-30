@@ -31,8 +31,8 @@ select[multiple=multiple],
 textarea {
   background-color: $base-background-color;
   border: $base-border;
-  border-radius: $base-border-radius;
-  box-shadow: $form-box-shadow;
+  //border-radius: $base-border-radius;
+  //box-shadow: $form-box-shadow;
   box-sizing: border-box;
   font-family: $base-font-family;
   font-size: $base-font-size;
@@ -40,6 +40,7 @@ textarea {
   padding: $base-spacing / 3;
   transition: border-color;
   width: 100%;
+  background: red;
 
   &:hover {
     border-color: darken($base-border-color, 10%);

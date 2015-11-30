@@ -24,6 +24,7 @@
 <script src="{% static 'bower_components/spin.js/spin.js' %}"></script>
 <script src="{% static 'js/leaflet.spin.js' %}"></script>
 <script src="{% static 'bower_components/lightbox2/dist/js/lightbox.min.js' %}"></script>
+<script src="{% static 'js/typeahead.bundle.min.js' %}"></script>
 {% endcompress %}
 {% endblock %}
 
@@ -49,6 +50,9 @@
 	</aside>
 </section>
 <nav class="map-nav plants">
+	<form id="plant-search">
+	  <input class="typeahead" type="text" placeholder="Search common or scientific name">
+	</form>
 	<ul class="category-list icon-list">
 	{% for category in category_list %}
 		{% if category.icon %}
@@ -387,4 +391,79 @@ $(document).ready(function() {
 	{% endif %}	
 });
 </script>
+
+<script>
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
+
+    // an array that will be populated with substring matches
+    matches = [];
+
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push(str);
+      }
+    });
+
+    cb(matches);
+  };
+};
+
+
+var plants = [
+{% for plant in plant_list %}
+    '{{ plant.common_name }}', '{{ plant.latin_name }}',
+{% endfor %}
+];
+
+var plantTags = {
+	{% for plant in plant_list %}
+    '{{ plant.common_name|lower }}': '{{ plant.hashtag}}',
+    '{{ plant.latin_name|lower }}': '{{ plant.hashtag }}',
+	{% endfor %}
+}
+
+$('#plant-search .typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'plants',
+  source: substringMatcher(plants)
+});
+
+
+$('.tt-input').keypress(function (e) {
+  if (e.which == 13) {
+    $('#plant-search').submit();
+    return false;  
+  }
+});
+
+$( '#plant-search').submit(function( event ) {
+  var choice = $('.tt-input').val();
+  var hint = $('.tt-hint').val();
+
+  if (hint) {
+  	var value = hint;
+  } else {
+  	var value = choice;
+  }
+
+  value = value.toLowerCase();
+
+  var url = '{% url "api-image-list" %}?tag=' + plantTags[value] + '&format=json'; 
+  loadMapData(url, plantTags[value], true, false, true)
+  event.preventDefault();
+});
+
+</script>
+
 {% endblock extra_body %}
