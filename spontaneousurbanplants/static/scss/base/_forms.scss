@@ -40,7 +40,6 @@ textarea {
   padding: $base-spacing / 3;
   transition: border-color;
   width: 100%;
-  background: red;
 
   &:hover {
     border-color: darken($base-border-color, 10%);
