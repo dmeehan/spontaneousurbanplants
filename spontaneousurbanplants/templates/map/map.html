@@ -466,6 +466,7 @@ $( '#plant-search').submit(function( event ) {
   	$('.map-nav ul li').removeClass('active');
 	var el = $('.plant-list li a[data-tag="' + plantTags[value] + '"]');
 	$(el).parent().addClass('active');
+	$('.plant-list').scrollTop(0);
 	var top =  $('plant-list').scrollTop() + $(el).position().top;
 	$('.plant-list').scrollTop(top);
   }	
