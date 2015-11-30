@@ -1237,6 +1237,8 @@ body.services {
 .tt-input, 
 .tt-menu { 
   width: 100%;
+  font-size: xsmall-font-size;
+  font-style: italic;
 }
 
 .tt-menu {
@@ -1244,5 +1246,10 @@ body.services {
   color: #fff;
   text-shadow: 0 -1px 0px black;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+
+  .tt-suggestion {
+    padding: $small-spacing/2;
+    border-bottom: $base-border;
+  }
 }
 
