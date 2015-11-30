@@ -1239,6 +1239,11 @@ body.services {
   width: 100%;
   font-size: $xsmall-font-size;
   font-style: italic;
+
+  &::-webkit-input-placeholder { font-size: $xsmall-font-size; }
+  &::-moz-placeholder { font-size: $xsmall-font-size; } /* firefox 19+ */
+  &:-ms-input-placeholder { font-size: $xsmall-font-size; } /* ie */
+  &:-moz-placeholder { font-size: $xsmall-font-size; }
 }
 
 .tt-menu {
@@ -1252,7 +1257,7 @@ body.services {
   .tt-suggestion {
     padding: $small-spacing/2;
     border-bottom: $base-border;
-    border-color: $light-gray;
+    border-color: $medium-gray;
   }
 }
 
