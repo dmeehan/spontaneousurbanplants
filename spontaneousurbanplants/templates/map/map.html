@@ -460,7 +460,17 @@ $( '#plant-search').submit(function( event ) {
   value = value.toLowerCase();
 
   var url = '{% url "api-image-list" %}?tag=' + plantTags[value] + '&format=json'; 
-  loadMapData(url, plantTags[value], true, false, true)
+  loadMapData(url, plantTags[value], true, false, true);
+
+  $('.map-nav ul li').removeClass('active');
+
+  var el = $('.plant-list li[data-tag="' + plantTags[value] + '"]');
+
+  $(el).addClass('active');
+  $('.plant-list').animate({
+   	scrollTop: $(el).offset().top
+   }, 2000);
+  $('.plant-list li').addClass('active');
   event.preventDefault();
 });
 
