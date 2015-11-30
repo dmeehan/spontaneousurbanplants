@@ -468,7 +468,7 @@ $( '#plant-search').submit(function( event ) {
 
   alert(el);
 
-  $(el).parent.addClass('active');
+  $(el).parent().addClass('active');
   
   event.preventDefault();
 });
