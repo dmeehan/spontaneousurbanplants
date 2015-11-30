@@ -469,7 +469,7 @@ $( '#plant-search').submit(function( event ) {
 
   $(el).parent().addClass('active');
 
-  var top =  $('plant-list').position().top + $(el).position().top;
+  var top =  $('plant-list').scrollTop() + $(el).position().top;
 
   $('.plant-list').scrollTop(top);
   
