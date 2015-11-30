@@ -546,9 +546,11 @@ body.map {
 
     ul.plant-list {
       @include flex(1);
+      @include clearfix;
+      position: relative;
       overflow-y: auto;
       clear: both;
-      @include clearfix;
+      
       li {
         a {
           font-size: $xsmall-font-size;
