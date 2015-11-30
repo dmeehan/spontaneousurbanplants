@@ -468,8 +468,10 @@ $( '#plant-search').submit(function( event ) {
   var el = $('.plant-list li a[data-tag="' + plantTags[value] + '"]');
 
   $(el).parent().addClass('active');
-  $('.plant-list').scrollTop();
-  //$('.plant-list').scrollTop($(el).position().top);
+
+  var top =  $('plant-list').position().top + $(el).position().top;
+
+  $('.plant-list').scrollTop(top);
   
   event.preventDefault();
 });
