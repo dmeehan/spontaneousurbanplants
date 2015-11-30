@@ -470,7 +470,7 @@ $( '#plant-search').submit(function( event ) {
 
   $(el).parent().addClass('active');
   $('.plant-list').animate({
-                    scrollTop: $(el).offset().top
+                    scrollTop($(this).scrollTop() + $(el).position().top);
                 }, 2000);
   
   event.preventDefault();
