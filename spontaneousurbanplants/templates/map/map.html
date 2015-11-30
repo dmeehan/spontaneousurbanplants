@@ -469,7 +469,7 @@ $( '#plant-search').submit(function( event ) {
   alert(el);
 
   $(el).parent().addClass('active');
-  $('.plant-list').scrollTop();
+  $('.plant-list').scrollTop(0);
   
   event.preventDefault();
 });
