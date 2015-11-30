@@ -448,11 +448,11 @@ $(document).ready(function() {
 	  }
 	});
 
-	$('.tt-input').on('click focusin', function() {
+	$('.tt-input, .tt-hint').on('click focusin', function() {
 	    this.value = '';
 	});
 
-	$('.tt-input').focus();
+	$("input:text:visible:first").focus();
 });
 
 
