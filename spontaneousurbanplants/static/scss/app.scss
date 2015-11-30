@@ -1237,13 +1237,12 @@ body.services {
 .tt-input, 
 .tt-menu { 
   width: 100%;
-  font-size: $small-font-size;
-  font-style: italic;
+  font-size: $xsmall-font-size;
 
-  &::-webkit-input-placeholder { font-size: $xsmall-font-size; }
-  &::-moz-placeholder { font-size: $xsmall-font-size; } /* firefox 19+ */
-  &:-ms-input-placeholder { font-size: $xsmall-font-size; } /* ie */
-  &:-moz-placeholder { font-size: $xsmall-font-size; }
+  &::-webkit-input-placeholder { font-size: $xsmall-font-size; font-style: italic;}
+  &::-moz-placeholder { font-size: $xsmall-font-size; font-style: italic; } /* firefox 19+ */
+  &:-ms-input-placeholder { font-size: $xsmall-font-size; font-style: italic; } /* ie */
+  &:-moz-placeholder { font-size: $xsmall-font-size; font-style: italic; }
 }
 
 .tt-menu {
