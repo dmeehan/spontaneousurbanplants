@@ -430,25 +430,33 @@ var plantTags = {
 	{% endfor %}
 }
 
-$('#plant-search .typeahead').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1
-},
-{
-  name: 'plants',
-  source: substringMatcher(plants)
-});
+$(document).ready(function() {
+	$('#plant-search .typeahead').typeahead({
+	  hint: true,
+	  highlight: true,
+	  minLength: 1
+	},
+	{
+	  name: 'plants',
+	  source: substringMatcher(plants)
+	});
+
+	$('.tt-input').keypress(function (e) {
+	  if (e.which == 13) {
+	    $('#plant-search').submit();
+	    return false;  
+	  }
+	});
+
+	$('.tt-input').on('click focusin', function() {
+	    this.value = '';
+	});
+
+	$('.tt-input').focus();
+}
 
 
-$('.tt-input').keypress(function (e) {
-  if (e.which == 13) {
-    $('#plant-search').submit();
-    return false;  
-  }
-});
-
-$( '#plant-search').submit(function( event ) {
+$('#plant-search').submit(function( event ) {
   var choice = $('.tt-input').val();
   var hint = $('.tt-hint').val();
 
