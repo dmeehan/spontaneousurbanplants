@@ -295,6 +295,7 @@
 	   		$('.category-list li.all').addClass('active');
 	   	}
 	   	$(this).parent().toggleClass("active");
+	   	$('#plant-search input').val([]);
 	});
 
 </script>
@@ -307,7 +308,7 @@
        
        $('.plant-list li').addClass('is-hidden');
        $('.plant-list li.' + category).removeClass('is-hidden');
-
+       $('#plant-search input').val([]);
 	});
 </script>
 
