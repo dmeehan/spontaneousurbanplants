@@ -469,9 +469,7 @@ $( '#plant-search').submit(function( event ) {
   alert(el);
 
   $(el).parent().addClass('active');
-  $('.plant-list').animate({
-                    scrollTop($(this).scrollTop() + $(el).position().top);
-                }, 2000);
+  $('.plant-list').scrollTop($('.plant-list').scrollTop() + $(el).position().top);
   
   event.preventDefault();
 });
