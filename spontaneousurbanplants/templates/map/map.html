@@ -466,8 +466,6 @@ $( '#plant-search').submit(function( event ) {
 
   var el = $('.plant-list li a[data-tag="' + plantTags[value] + '"]');
 
-  alert(el);
-
   $(el).parent().addClass('active');
   $('.plant-list').scrollTop($(el).position().top);
   
