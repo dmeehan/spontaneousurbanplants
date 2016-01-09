@@ -949,7 +949,39 @@ body.news {
       background-size: auto 100% ;
       background-repeat: no-repeat;
 
-      background-image: url('../../images/archive.png'); 
+      &.news-archive-title--archive {
+        background-image: url('../../images/archive.png'); 
+      }
+
+      &.news-archive-title--mailinglist {
+        background-image: url('../../images/mailing_list.png'); 
+      }
+    }
+
+    fieldset {
+      margin: $small-spacing 0 $base-spacing 0;
+      padding: 0;
+      border: 0;
+      background: none;
+
+      input[type="email"] {  
+        width: auto;
+        margin: 0;
+        margin-right: 0.25em;
+        margin-bottom: $small-spacing;
+        padding: 0.5em 0.75em;
+        display: inline-block;
+      }
+
+      input[type="submit"] {
+        display: inline-block;
+        width: auto;
+        padding: 0.5em 0.75em;
+
+        border: 1px solid $dark-gray;
+        
+        
+      }
     }
 
     ul {
