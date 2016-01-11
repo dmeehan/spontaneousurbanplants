@@ -29,7 +29,6 @@ body {
   }
 
 	header {
-
     //mobile
     @include outer-container(100%);
     //min-height: 80px;
@@ -547,9 +546,11 @@ body.map {
 
     ul.plant-list {
       @include flex(1);
+      @include clearfix;
+      position: relative;
       overflow-y: auto;
       clear: both;
-      @include clearfix;
+      
       li {
         a {
           font-size: $xsmall-font-size;
@@ -893,7 +894,7 @@ body.news {
     }
 
     > header {
-      @include media($medium-screen) {
+      @include media($large-screen) {
         @include span-columns(16);
       }
 
@@ -904,7 +905,7 @@ body.news {
   }
 
   .news-item {
-    @include media($medium-screen) {
+    @include media($large-screen) {
       @include span-columns(16);
     }
     
@@ -930,7 +931,7 @@ body.news {
   }
 
   .news-archive {
-    @include media($medium-screen) {
+    @include media($large-screen) {
       @include span-columns(7);
       @include shift(1);
       @include omega();
@@ -948,7 +949,37 @@ body.news {
       background-size: auto 100% ;
       background-repeat: no-repeat;
 
-      background-image: url('../../images/archive.png'); 
+      &.news-archive-title--archive {
+        background-image: url('../../images/archive.png'); 
+      }
+
+      &.news-archive-title--mailinglist {
+        background-image: url('../../images/mailing_list.png'); 
+      }
+    }
+
+    fieldset {
+      margin: $small-spacing 0 $base-spacing 0;
+      padding: 0;
+      border: 0;
+      background: none;
+
+      input[type="email"] {  
+        width: auto;
+        margin: 0;
+        margin-right: 0.25em;
+        margin-bottom: $small-spacing;
+        display: inline-block;
+      }
+
+      input[type="submit"] {
+        display: inline-block;
+        width: auto;
+
+        border: 1px solid $dark-gray;
+        
+        
+      }
     }
 
     ul {
@@ -1258,5 +1289,34 @@ body.services {
       border-bottom: 2px solid white;
     }
   }                   
+}
+
+
+/* typeahead styles */
+.twitter-typeahead, 
+input[type=text],
+.tt-hint, 
+.tt-input, 
+.tt-menu { 
+  width: 100%;
+  font-size: $xsmall-font-size;
+
+  &::-webkit-input-placeholder { font-size: $xsmall-font-size }
+  &::-moz-placeholder { font-size: $xsmall-font-size } /* firefox 19+ */
+  &:-ms-input-placeholder { font-size: $xsmall-font-size } /* ie */
+  &:-moz-placeholder { font-size: $xsmall-font-size }
+}
+
+.tt-menu {
+  margin: 0;
+  padding: 0;
+  background: #475146;
+  color: #fff;
+  text-shadow: 0 -1px 0px black;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+
+  .tt-suggestion {
+    padding: $small-spacing/2;
+  }
 }
 

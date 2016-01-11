@@ -24,6 +24,7 @@
 <script src="{% static 'bower_components/spin.js/spin.js' %}"></script>
 <script src="{% static 'js/leaflet.spin.js' %}"></script>
 <script src="{% static 'bower_components/lightbox2/dist/js/lightbox.min.js' %}"></script>
+<script src="{% static 'js/typeahead.bundle.min.js' %}"></script>
 {% endcompress %}
 {% endblock %}
 
@@ -49,15 +50,20 @@
 	</aside>
 </section>
 <nav class="map-nav plants">
+	<form id="plant-search">
+	  <input class="typeahead" type="text" placeholder="Search common or scientific name">
+	</form>
 	<ul class="category-list icon-list">
 	{% for category in category_list %}
 		{% if category.icon %}
-		<li style="background-image:url({{ category.icon.url }})"><a data-tag="category_{{ category.id }}"
-		data-name="{{ category.name }}"
-		data-description=""
-		title="{{ category.name }}" 
-		class="tooltip layer-link js-layer-trigger js-category-trigger"
-		href="#map">{{ category.name }}</a></li>
+		<li style="background-image:url({{ category.icon.url }})">
+			<a data-tag="category-{{ category.id }}"
+				data-name="{{ category.name }}"
+				data-description=""
+				title="{{ category.name }}"
+				class="tooltip js-category-trigger"
+				href="#map">{{ category.name }}</a>
+		</li>
 		{% endif %}
     {% endfor %}
     	<li class="all active" style="background-image:url({% static 'images/all.png' %})"><a data-tag="all"
@@ -73,22 +79,22 @@
 			data-name="All Plants"
 			title="All Plants" 
 			data-description=""
-			class="layer-link tooltip js-layer-trigger"
+			class="layer-link tooltip"
 			href="#map">All Plants</a>
 		</li>
 		{% for category in category_list %}
-		<li class="is-hidden category category_{{ category.id }}">
-			<a data-tag="category_{{ category.id }}"
+		<li class="is-hidden category category-{{ category.id }}">
+			<a data-tag="category-{{ category.id }}"
 			data-name="{{ category.name }}"
 			data-description=""
 			title="{{ category.name }}" 
-			class="layer-link tooltip js-layer-trigger"
+			class="layer-link tooltip"
 			href="#map">{{ category.name }}</a>
 		</li>
 		{% endfor %}
 		{% for plant in plant_list %}
 		{% if plant.icon %}
-		<li class="plant {% for cat in plant.categories.all %}category_{{ cat.id }} {% endfor %} all"><a data-tag="{{ plant.hashtag }}"
+		<li class="plant {% for cat in plant.categories.all %}category-{{ cat.id }} {% endfor %} all"><a data-tag="{{ plant.hashtag }}"
 		data-name="{{ plant.latin_name }} "
 		data-description="({{ plant.common_name }})"
 		title="{{ plant.latin_name }}" 
@@ -142,7 +148,181 @@
     	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 
+	map.scrollWheelZoom.disable();
 
+	function removeAllLayers() {
+		map.eachLayer(function (layer) {
+			if (layer != streets) {
+    			map.removeLayer(layer);
+    		}
+		});
+	}
+
+	// object that holds marker clusters
+	var markerClusterGroups = {}
+
+	function loadMapData(url, layerName, show, delay, remove) {
+		
+		if (show) {
+			// Show loading indicator.
+			map.spin(true);
+		}
+		
+
+		// If the map layer does not exist, create it.
+		if (!markerClusterGroups.hasOwnProperty(layerName)) {
+			var thisLayer = L.markerClusterGroup({ 
+				singleMarkerMode: true,
+				maxClusterRadius: 30,
+				showCoverageOnHover: false,
+				iconCreateFunction: function(cluster) {
+					var childCount = cluster.getChildCount();
+					var radius = 10;
+					var area = (Math.PI * (radius * radius)) * childCount;
+		    		var size = Math.sqrt(area / Math.PI) * 0.5;
+		    		if (size < 10) { size = 10 }
+		    		var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
+		    	    var markerClass = 'marker-cluster marker-cluster-' + layerName;
+		    		return new L.DivIcon({ html: html, className: markerClass, iconSize: new L.Point(size, size) });
+				}
+			});
+
+			markerClusterGroups[layerName] = thisLayer;
+
+			thisData = L.geoJson.ajax(url, {
+				onEachFeature: function onEachFeature(feature, layer) {
+
+					thisLayer.addLayer(layer);
+
+					var captionLink = "";
+					var captionName = "";
+					var captionDate = "";
+					var captionCaption = "";
+				
+					if (feature.properties.plant) {
+						captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
+					}
+
+					if (feature.properties.plant) {
+						captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
+					}
+
+					if (feature.properties.date) {
+						captionDate = "<span class=date>" + feature.properties.date + "</span>";
+					}
+
+					if (feature.properties.plant) {
+						captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
+					} else {
+						if (feature.properties.caption.length > 60) {
+							var capString = feature.properties.caption.substring(0, 60) + "...";
+						} else {
+							capString = feature.properties.caption;
+						}
+						captionCaption = "<span class=caption>" + capString + "</span>";
+					}
+			
+					var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
+					var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
+
+					
+    				layer.bindPopup(popupContent);
+    				
+				}
+			});
+
+			thisData.on('data:loaded',function(){
+				if (show || delay) {
+					if (remove) {
+						removeAllLayers();
+					}
+					map.addLayer(thisLayer);
+					if (show) {
+						map.fitBounds(thisLayer);
+    					map.spin(false);
+					}
+    				
+				}	
+			});
+
+		} else {
+			if (show || delay) {
+				if (remove) {
+					removeAllLayers();
+				}
+				map.addLayer(markerClusterGroups[layerName]);
+	   			if (show) {
+					map.fitBounds(markerClusterGroups[layerName]);
+    				map.spin(false);
+				}
+			}	
+		}	
+	} // end loadMapData()
+
+    // click function to change between layers
+	$('.js-layer-trigger').click(function (e) {
+		//Get the id of the element clicked
+    	var tagName = $(this).data('tag');
+  
+	   	if (markerColors[tagName] === undefined) {
+	    	color = markerColors['defaultColor'];
+	   	} else {
+			color = markerColors[tagName];
+	   	}
+
+	   	var url;
+		
+		if (tagName == 'all') {
+	   		url = '{% url "api-image-list" %}?format=json';
+	   	} else {
+	   		url = '{% url "api-image-list" %}?tag=' + tagName + '&format=json';
+	   	}
+
+	    loadMapData(url, tagName, true, false, true)
+	   	
+		$(".leaflet-popup-close-button").click();
+	   	$('.name').text($(this).data('name'));
+	   	$('.description').text($(this).data('description'));
+	   	$('aside.details').css( 'border-color', color );
+	   	$('.map-nav ul li').removeClass("active");
+
+	   	var list = $(this).closest('ul');
+	   	if ($(list).hasClass('attribute-list')) {
+	   		$('.plant-list li').removeClass('active');
+	   		$('.plant-list li').removeClass('is-hidden');
+	   		$('.plant-list li.category').addClass('is-hidden');
+	   		$('.plant-list li.category.all').removeClass('is-hidden');
+	   		$('.category-list li.all').addClass('active');
+	   	}
+	   	$(this).parent().toggleClass("active");
+	   	$('#plant-search input').val([]);
+	});
+
+</script>
+
+<script>
+	// show hide plants per category
+	$('.js-category-trigger').click(function (e) {
+		//Get the id of the element clicked
+       var category = $(this).data('tag');
+       
+       $('.plant-list li').addClass('is-hidden');
+       $('.plant-list li.' + category).removeClass('is-hidden');
+       $('#plant-search input').val([]);
+	});
+</script>
+
+
+<script>
+     $(document).ready(function() {
+     	$('.tooltip').tooltipster({
+   			position: 'right'
+     	});
+     });
+</script>
+<script>
+// Load initial map data 
+$(document).ready(function() {
 	// if linking to specific image: load image, display on map, zoom, and open popup
 	{% if image_id %}
 		var image = L.geoJson.ajax('{% url "api-image-detail" image_id %}?format=json', {
@@ -189,9 +369,16 @@
 			center = image.getBounds().getCenter();
 			map.setView(center, 15);
 			marker.openPopup();
+			// Load inital data 
+			// Get the map bounds
+			var allUrl = '{% url "api-image-list" %}?format=json';
+
+			loadMapData(allUrl, 'all', false, true, false);
+			
 		});
 	{% else %}
 	    map.setView([40.676898, -73.995308], 11);  
+<<<<<<< HEAD
 	{% endif %}
 
 	map.scrollWheelZoom.disable();
@@ -286,30 +473,52 @@
 	});
 
 	markerClusterGroups['{{ attribute.hashtag}}'] = {{ attribute.hashtag}}_layer;
+=======
+	    // Load inital data 
+		// Get the map bounds
+		var bounds = map.getBounds().toBBoxString();
+		// Build url string.
+		var initialUrl = '{% url "api-image-list" %}?bbox=' + bounds + '&format=json';
+		// Load layer data.
+		loadMapData(initialUrl, 'initial', true, false, false);
+		
+		var allUrl = '{% url "api-image-list" %}?format=json';
 
-	var {{ attribute.hashtag }}_data = L.geoJson.ajax('{% url "api-image-list" %}?tag={{ attribute.hashtag }}&format=json', {
-		onEachFeature: function onEachFeature(feature, layer) {
-			{{ attribute.hashtag }}_layer.addLayer(layer);
+		loadMapData(allUrl, 'all', false, true, true);
+	{% endif %}	
+});
+</script>
+>>>>>>> develop
 
-			var captionLink = "";
-			var captionName = "";
-			var captionDate = "";
-			var captionCaption = "";
-			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
-			}
+<script>
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
 
+    // an array that will be populated with substring matches
+    matches = [];
+
+<<<<<<< HEAD
 <<<<<<< HEAD
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="'+ feature.properties.caption + '" href="'+ feature.properties.image_url+ '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 =======
 			if (feature.properties.plant) {
 				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
 			}
+=======
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+>>>>>>> develop
 
-			if (feature.properties.date) {
-				captionDate = "<span class=date>" + feature.properties.date + "</span>";
-			}
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push(str);
+      }
+    });
 
+<<<<<<< HEAD
 			if (feature.properties.plant) {
 				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
 			} 
@@ -325,70 +534,45 @@
 			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
 			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
 >>>>>>> develop
+=======
+    cb(matches);
+  };
+};
+>>>>>>> develop
 
-    		layer.bindPopup(popupContent);
-		}
-	});
 
+var plants = [
+{% for plant in plant_list %}
+    '{{ plant.common_name }}', '{{ plant.latin_name }}',
 {% endfor %}
+];
 
-{% for category in category_list %}
+var plantTags = {
+	{% for plant in plant_list %}
+    '{{ plant.common_name|lower }}': '{{ plant.hashtag}}',
+    '{{ plant.latin_name|lower }}': '{{ plant.hashtag }}',
+	{% endfor %}
+}
 
-	var category_{{ category.id }}_layer = L.markerClusterGroup({ 
-		singleMarkerMode: true,
-		maxClusterRadius: 30,
-		showCoverageOnHover: false,
-		iconCreateFunction: function(cluster) {
-			var childCount = cluster.getChildCount();
-			var radius = 10;
-			var area = (Math.PI * (radius * radius)) * childCount;
-		    var size = Math.sqrt(area / Math.PI) * 0.5;
-		    if (size < 10) { size = 10 }
-		    var html = '<div style="width:'+size+'px;height:'+size+'px;"></div>';
-		    return new L.DivIcon({ html: html, className: 'marker-cluster marker-cluster-category-{{ category.id }}', iconSize: new L.Point(size, size) });
-		}
+$(document).ready(function() {
+	$('#plant-search .typeahead').typeahead({
+	  hint: true,
+	  highlight: true,
+	  minLength: 1
+	},
+	{
+	  name: 'plants',
+	  source: substringMatcher(plants)
 	});
 
-	markerClusterGroups['category_{{ category.id }}'] = category_{{ category.id }}_layer;
-
-	var category_{{ category.id }}_data = L.geoJson.ajax('{% url "api-image-list" %}?category={{ category.id }}&format=json', {
-		onEachFeature: function onEachFeature(feature, layer) {
-			category_{{ category.id }}_layer.addLayer(layer);
-			var captionLink = "";
-			var captionName = "";
-			var captionDate = "";
-			var captionCaption = "";
-			if (feature.properties.plant) {
-				captionLink = "<a href={% url 'plants' %}" + feature.properties.plant.hashtag + ">Go to PROFILE</a>";
-			}
-
-			if (feature.properties.plant) {
-				captionName = "<span class=name>" + feature.properties.plant.latin_name + " - " + feature.properties.plant.common_name + "</span>";
-			}
-
-			if (feature.properties.date) {
-				captionDate = "<span class=date>" + feature.properties.date + "</span>";
-			}
-
-			if (feature.properties.plant) {
-				captionCaption = "<span class=caption>" + feature.properties.plant.hashtag + "</span>";
-			} 
-			else {
-				if (feature.properties.caption.length > 60) {
-					var capString = feature.properties.caption.substring(0, 60) + "...";
-				} else {
-					capString = feature.properties.caption;
-				}
-				captionCaption = "<span class=caption>" + capString + "</span>";
-			}
-			
-			var captionContent = '<span class=caption-wrapper>' + captionName + captionLink + captionCaption + captionDate + '</span>';
-			var popupContent = '<a data-lightbox="' + feature.properties.id + '" data-title="' + captionContent + '"' + 'href="'+ feature.properties.image_url + '"><img width="150" height="150" src="' + feature.properties.image_url + '"></a>';
-
-    		layer.bindPopup(popupContent);
-		}
+	$('.tt-input').keypress(function (e) {
+	  if (e.which == 13) {
+	    $('#plant-search').submit();
+	    return false;  
+	  }
 	});
 
+<<<<<<< HEAD
 {% endfor %}
 
 
@@ -452,68 +636,46 @@
 
     		layer.bindPopup(popupContent);
 		}
+=======
+	$('.tt-input').on('click focusin', function() {
+	    this.value = '';
+	    $('.tt-hint').value = '';
+>>>>>>> develop
 	});
 
-
-{% endfor %}
-
-	function removeAllLayers() {
-		map.eachLayer(function (layer) {
-			if (layer != streets) {
-    			map.removeLayer(layer);
-    		}
-		});
-	}
+	$("input:text:visible:first").focus();
+});
 
 
-    // click function to change between layers
-	$('.js-layer-trigger').click(function (e) {
-		//Get the id of the element clicked
-       var tagName = $(this).data('tag');
-       // look up layer object by id 
+$('#plant-search').submit(function( event ) {
+  var choice = $('.tt-input').val();
+  var hint = $('.tt-hint').val();
+
+  if (hint) {
+  	var value = hint;
+  } else {
+  	var value = choice;
+  }
+
+  value = value.toLowerCase();
   
-	   if (markerColors[tagName] === undefined) {
-	       color = markerColors['defaultColor'];
-	   } else {
-		   color = markerColors[tagName];
-	   }
+  if (plantTags[value]) {
+  	var url = '{% url "api-image-list" %}?tag=' + plantTags[value] + '&format=json'; 
+  	loadMapData(url, plantTags[value], true, false, true);
+  	$('.map-nav ul li').removeClass('active');
+	var el = $('.plant-list li a[data-tag="' + plantTags[value] + '"]');
+	$(el).parent().addClass('active');
+	$('.plant-list').scrollTop(0);
+	var top =  $('plant-list').scrollTop() + $(el).position().top;
+	$('.plant-list').scrollTop(top);
+  }	
+  
+  event.preventDefault();
+});
 
-	   removeAllLayers();
-
-	   map.addLayer(markerClusterGroups[tagName]);
-	   map.fitBounds(markerClusterGroups[tagName]);
-
-	   $(".leaflet-popup-close-button").click();
-	   $('.name').text($(this).data('name'));
-	   $('.description').text($(this).data('description'));
-	   $('aside.details').css( 'border-color', color );
-	   $('.map-nav ul li').removeClass("active");
-
-	   var list = $(this).closest('ul');
-	   if ($(list).hasClass('attribute-list')) {
-	   		$('.plant-list li').removeClass('active');
-	   		$('.plant-list li').removeClass('is-hidden');
-	   		$('.plant-list li.category').addClass('is-hidden');
-	   		$('.plant-list li.category.all').removeClass('is-hidden');
-	   		$('.category-list li.all').addClass('active');
-	   }
-	   $(this).parent().toggleClass("active");
-
-	});
 </script>
 
-<script>
-	// show hide plants per category
-	$('.js-category-trigger').click(function (e) {
-		//Get the id of the element clicked
-       var category = $(this).data('tag');
-       
-       $('.plant-list li').addClass('is-hidden');
-       $('.plant-list li.' + category).removeClass('is-hidden');
-
-	});
-</script>
-
+<<<<<<< HEAD
 
 <script>
      $(document).ready(function() {
@@ -523,3 +685,6 @@
      });
 </script>
 {% endblock extra_body %}
+=======
+{% endblock extra_body %}
+>>>>>>> develop
