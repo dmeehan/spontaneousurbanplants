@@ -894,7 +894,7 @@ body.news {
     }
 
     > header {
-      @include media($medium-screen) {
+      @include media($large-screen) {
         @include span-columns(16);
       }
 
@@ -905,7 +905,7 @@ body.news {
   }
 
   .news-item {
-    @include media($medium-screen) {
+    @include media($large-screen) {
       @include span-columns(16);
     }
     
@@ -931,7 +931,7 @@ body.news {
   }
 
   .news-archive {
-    @include media($medium-screen) {
+    @include media($large-screen) {
       @include span-columns(7);
       @include shift(1);
       @include omega();
@@ -969,14 +969,12 @@ body.news {
         margin: 0;
         margin-right: 0.25em;
         margin-bottom: $small-spacing;
-        padding: 0.5em 0.75em;
         display: inline-block;
       }
 
       input[type="submit"] {
         display: inline-block;
         width: auto;
-        padding: 0.5em 0.75em;
 
         border: 1px solid $dark-gray;
         

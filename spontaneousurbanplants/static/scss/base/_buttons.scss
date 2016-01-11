@@ -9,10 +9,10 @@ button {
   cursor: pointer;
   display: inline-block;
   font-family: $base-font-family;
-  font-size: $base-font-size;
+  font-size: $small-font-size;
   font-weight: 600;
   line-height: 1;
-  padding: 0.75em 1em;
+  padding: $small-spacing/2 1em;
   text-decoration: none;
   user-select: none;
   vertical-align: middle;
