@@ -21,7 +21,7 @@
 {% endwith %}
 <aside class="news-archive">
     <h2 class="news-archive-title--mailinglist">Subscribe to our mailing list</h2>
-    {% include "includes/_mailchimp.html" %}
+    {% include "news/includes/_mailchimp.html" %}
     <h2 class="news-archive-title--archive">Archive</h2>
     <ul class="linked-list">
     {%  for news in news_list|slice:"1:" %}

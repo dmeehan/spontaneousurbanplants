@@ -13,7 +13,6 @@ django==1.7.4
 # django third party modules
 django-supervisor==0.3.2
 django-compressor==1.4 # static file compression
-django-celery==3.1.10
 djangorestframework==2.4.3
 djangorestframework-gis==0.7 # REST framework + GIS addons
 django-leaflet==0.13.5

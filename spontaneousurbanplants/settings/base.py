@@ -5,8 +5,6 @@ from datetime import timedelta
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
-from djcelery import setup_loader
-
 from django.core.urlresolvers import reverse_lazy
 
 #==============================================================================
@@ -341,14 +339,7 @@ CACHES = {
 # ASync
 #==============================================================================
 
-# See: http://celery.readthedocs.org/en/latest/configuration.html#celery-task-result-expires
-CELERY_TASK_RESULT_EXPIRES = timedelta(minutes=30)
 
-# See: http://docs.celeryproject.org/en/master/configuration.html#std:setting-CELERY_CHORD_PROPAGATES
-CELERY_CHORD_PROPAGATES = True
-
-# See: http://celery.github.com/celery/django/
-setup_loader()
 
 #==============================================================================
 # API
