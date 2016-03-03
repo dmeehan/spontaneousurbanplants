@@ -252,6 +252,7 @@ LOCAL_APPS = (
     'apps.map',
     'apps.news',
     'apps.plants',
+    'apps.publications',
     'apps.services',
 )
 

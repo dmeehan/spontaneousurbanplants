@@ -53,6 +53,11 @@ class CustomIndexDashboard(Dashboard):
                     collapsible=False,
                     models=('apps.about.models.*',),
                 ),
+                modules.ModelList(
+                    title='Book',
+                    collapsible=False,
+                    models=('apps.publications.models.*',),
+                ),
             ]
         ))
         

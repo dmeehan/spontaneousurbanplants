@@ -69,7 +69,7 @@ body {
       }
 
       h1 {
-        @include span-columns(15.5); 
+        @include span-columns(13); 
         overflow: hidden;
         margin: 0;
 
@@ -171,7 +171,7 @@ body {
           padding: 0;
           background-color: transparent;
           position: static;
-          @include span-columns(8);
+          @include span-columns(11);
           @include clearfix;
           @include display(flex);
           visibility: visible;
@@ -182,20 +182,25 @@ body {
 
           li {
             @include flex(auto); 
-            margin: 0 $small-spacing*1.25;
+            @include display(flex);
+            @include align-items(center);
+            //margin: 0 $small-spacing*1.25;
+            //margin: 0 auto;
             padding: 0 0 $small-spacing/4 0;
             
             a {
               height: auto;
               display: block;
-              padding: 0;
-              margin: 0;
+              padding: 0 0 2px 0;
+              margin: 0 auto;
+              border-bottom: 2px solid transparent;
 
               img {
                 //width: auto;
                 //height: auto;
                 display: block;
                 height: .75em;
+                margin: 0 auto;
               }
 
               span {
@@ -1212,54 +1217,19 @@ body.profiles {
    }
  }
 
- body.about {
-  #about-nav {
+ body.about #about-nav,
+ body.map #map-nav,
+ body.news #news-nav,
+ body.profiles #profiles-nav,
+ body.services #services-nav,
+ body.book #book-nav {
     background: transparentize(white, 0.8);
     @include media($xlarge-screen) {
       background: none;
-      border-bottom: 2px solid white;
-    }
-  }                   
-}
-
-body.map {
-  #map-nav {
-    background: transparentize(white, 0.8);
-    @include media($xlarge-screen) {
-      background: none;
-      border-bottom: 2px solid white;
-    }
-  }                   
-}
-
-body.news {
-  #news-nav {
-    background: transparentize(white, 0.8);
-    @include media($xlarge-screen) {
-      background: none;
-      border-bottom: 2px solid white;
-    }
-  }                   
-}
-
-body.profiles {
-  #profiles-nav {
-    background: transparentize(white, 0.8);
-    @include media($xlarge-screen) {
-      background: none;
-      border-bottom: 2px solid white;
-    }
-  }                   
-}
-
-body.services {
-  #services-nav {
-    background: transparentize(white, 0.8);
-    @include media($xlarge-screen) {
-      background: none;
-      border-bottom: 2px solid white;
-    }
-  }                   
+      a {
+        border-bottom: 2px solid white;
+      }
+    }                  
 }
 
 

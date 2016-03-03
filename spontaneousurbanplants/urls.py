@@ -38,6 +38,8 @@ urlpatterns = patterns('',
 
     url(r'^services/', include('apps.services.urls')),
 
+    url(r'^book/', include('apps.publications.urls')),
+
     url(r'^plants/', include('apps.plants.urls')),
 
     url(r'^news/', include('apps.news.urls')),
