@@ -6,6 +6,12 @@
     {% if book.image %}
         <img src="{{ book.image.url }}" />
     {% endif %}
+    <ul class="book-links">
+        <li><a class="social" href="{{ book.facebook_link }}"><i class="fa fa-facebook"></i></a></li>
+        <li><a class="social" href="{{ book.twitter_link }}"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="social" href="{{ book.instagram_link }}"><i class="fa fa-instagram"></i></a></li>
+        <li><a class="purchase" href="{{ book.purchase_link }}"><span>Purchase</span></a></li>
+    </ul>
 </section>
 <section class="book-content">
     <header>
@@ -22,14 +28,22 @@
     </header>
     <article>
         <section class="book-description">
+            <h2>Description: </h2>
             {% if book.description_html %}
                 {{ book.description_html|safe }}
             {% endif %}
         </section>
-        <section>
+        <section class="book-productDetail">
+            <h2>Product Detail:</h2>
             {% if book.product_detail_html %}
                 {{ book.product_detail_html|safe }}
             {% endif %}
+            <h2>Related Links:</h2>
+            <ul class="book-relatedLinks">
+            {% for link in book.publicationlink_set.all %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+            </ul>
         </section>
 </section>
 {% endblock content %}

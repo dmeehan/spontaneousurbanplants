@@ -1,12 +1,14 @@
 # instagram/views.py
 import simplejson
+from itertools import chain
+from random import shuffle
 
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http.response import HttpResponse
-from django.views.generic import DetailView, ListView
-
+from django.views.generic import DetailView, ListView, TemplateView
 
 from instagram import client, subscriptions
 
@@ -20,6 +22,26 @@ reactor = subscriptions.SubscriptionsReactor()
 class LatestImagesView(ListView):
     queryset = InstagramImage.objects.filter(verified=True).order_by('?')[:8]
     template_name = 'index.html'
+
+class LatestImagesWithBookView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        qs1 = InstagramImage.objects.filter(verified=True).order_by('?')[:7]
+        
+        try:
+            qs2 = InstagramImage.objects.get(id=3032)
+        except ObjectDoesNotExist:
+            qs2 = None
+
+        if qs1 and qs2:
+            image_list = shuffle(chain(qs1, qs2))
+        elif qs1:
+            image_list = qs1
+        else:
+            image_list = None
+
+        return {'image_list': image_list }
 
 class ImageDetailView(DetailView):
     model=InstagramImage

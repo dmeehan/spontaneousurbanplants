@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.views.generic import TemplateView
 
-from apps.instamedia.views import LatestImagesView
+from apps.instamedia.views import LatestImagesView, LatestImagesWithBookView
 
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/admin/#hooking-adminsite-instances-into-your-urlconf
@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', LatestImagesView.as_view(), name='home'),
+    url(r'^$', LatestImagesWithBookView.as_view(), name='home'),
 
     url(r'^feed/', include('apps.instamedia.urls')),
 

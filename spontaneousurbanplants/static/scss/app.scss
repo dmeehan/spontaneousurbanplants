@@ -1219,40 +1219,121 @@ body.profiles {
 
 body.book {
   .book-image {
-    @include media($large-screen) {
+    padding: $gutter;
+    @include media($xlarge-screen) {
       @include span-columns(13);
       padding: 0 $gutter 0 0;
-      margin-bottom: 3em;
+      margin-bottom: 1em;
+    }
+  }
+
+  .book-links {
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+
+    margin-top: $small-spacing;
+
+    > li {
+      padding: $small-spacing/2;
+      .social {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        background: darken($green, 10);
+        color: white;
+        border-radius: 50%;
+        font-size: 1.1em;
+        height: 30px;
+        width: 30px;
+      }
+
+      .purchase {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        padding: 0 $small-spacing;
+        border: 3px solid darken($green, 10);
+        color: darken($green, 10);
+        border-radius: 15px;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 1em;
+        height: 30px;
+        
+      }
     }
   }
 
   .book-content {
-    h1, h2, h3 {
+    padding: $gutter;
+
+    @include media($xlarge-screen) {
+      padding: 0 $gutter 0 0;
+    }
+
+    > header {
       margin-bottom: .5em;
     }
 
+    h1, h2, h3, h4 {
+      margin-bottom: 0;
+      line-height: 1.4;
+    }
+
     h1 {
-      font-size: 1.1em;
+      font-size: 1em;
       font-weight: 600;
       margin-bottom: 0;
+      line-height: 1;
     }
 
     h2 {
       font-weight: normal;
-      font-size: 1.1em;
+      font-size: 1em;
+      line-height: 1.6;
+      //margin-bottom: .5em;
     }
 
     h3 {
       font-size: $small-font-size;
-      font-weight: normal;
+      font-weight: 400;
       text-transform: none;
+      font-size: 0.75rem;
     }
 
-    font-size: 0.75rem;
-    @include media($large-screen) {
+    .book-description,
+    .book-productDetail {
+      font-size: 0.75rem;
+    }
+
+    > article {
+      h2 {
+        text-transform: none;
+        font-weight: 600;
+        margin-bottom: .5em;
+      }
+    }
+
+    @include media($xlarge-screen) {
       @include span-columns(11);
       @include omega;
+
+      .book-description {
+        @include span-columns(7 of 11);
+      }
+
+      .book-productDetail {
+        @include span-columns(4 of 11);
+        @include omega;
+      }
     }
+  }
+
+  .book-relatedLinks {
+    list-style-type: disc;
+    list-style-position: inside; 
+    margin-left: 0;
   }
 }
 
