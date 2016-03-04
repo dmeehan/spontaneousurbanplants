@@ -34,15 +34,8 @@ class LatestImagesWithBookView(TemplateView):
         except ObjectDoesNotExist:
             qs2 = None
 
-        if qs1 and qs2:
-            image_list = chain(qs1, qs2)
-        elif qs1:
-            image_list = qs1
-        else:
-            image_list = None
-
-        if image_list:
-            image_list = shuffle(image_list)
+        
+        image_list = chain(qs1, qs2)
 
         return {'image_list': image_list }
 
