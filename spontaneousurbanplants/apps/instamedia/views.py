@@ -23,16 +23,9 @@ class LatestImagesView(ListView):
     queryset = InstagramImage.objects.filter(verified=True).order_by('?')[:8]
     template_name = 'index.html'
 
-class LatestImagesWithBookView(TemplateView):
+class LatestImagesWithBookView(ListView):
+    queryset = InstagramImage.objects.filter(Q(id=3032) | Q(verified=True)).order_by('?')[:8]
     template_name = 'index.html'
-
-    def get_context_data(self, **kwargs):
-        qs1 = InstagramImage.objects.filter(verified=True).order_by('?')[:7]
-        qs2 = InstagramImage.objects.filter(id=3032)
-        
-        image_list = qs1 | qs2
-
-        return {'image_list': image_list }
 
 class ImageDetailView(DetailView):
     model=InstagramImage
