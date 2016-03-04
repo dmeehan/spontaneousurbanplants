@@ -1,13 +1,12 @@
 # instagram/views.py
 import simplejson
-from itertools import chain
-from random import shuffle
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse_lazy
-from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 from django.http.response import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView, TemplateView
 
 from instagram import client, subscriptions
