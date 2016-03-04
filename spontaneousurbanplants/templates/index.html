@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 {% block body_class %}home{% endblock %}
 {% block content %}
 <section class="image-grid">
 {% for image in view.random_images %}
 	<div><a href="{% url 'map' %}?image_id={{ image.id }}"><img src="{{ image.image_file.url }}" /></a></div>
 {% endfor %}
-    <div><a href="{% url 'publications' %}"><img src="{{ view.book.image.url }}" /></a></div>
+{% thumbnail view.book.image 640x640 background='#231f20' as image %}
+    <div><a href="{% url 'publications' %}"><img src="{{ image.url }}" /></a></div>
 </section>
 {% endblock content %}

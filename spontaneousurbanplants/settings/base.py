@@ -240,6 +240,7 @@ THIRD_PARTY_APPS = (
     'compressor', # static file management
     'djsupervisor', # process mgmt
     'leaflet', # maps
+    'easy_thumbnails', # image processing
     'notification', # event notifications
     'rest_framework', # api
     'rest_framework_gis', # api geo add-ons
