@@ -5,6 +5,6 @@
 {% for image in view.random_images %}
 	<div><a href="{% url 'map' %}?image_id={{ image.id }}"><img src="{{ image.image_file.url }}" /></a></div>
 {% endfor %}
-    <div><a href="{% url 'map' %}?image_id={{ view.book_image.id }}"><img src="{{ view.book_image.image_file.url }}" /></a></div>
+    <div><a href="{% url 'book' %}"><img src="{{ view.book.image.url }}" /></a></div>
 </section>
 {% endblock content %}
