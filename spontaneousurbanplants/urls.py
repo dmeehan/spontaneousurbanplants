@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.views.generic import TemplateView
 
-from apps.instamedia.views import LatestImagesView, LatestImagesWithBookView
+from .views import LatestImagesWithBookView
 
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/admin/#hooking-adminsite-instances-into-your-urlconf
