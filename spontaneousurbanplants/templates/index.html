@@ -2,7 +2,7 @@
 {% block body_class %}home{% endblock %}
 {% block content %}
 <section class="image-grid">
-{% for image in iamge_list %}
+{% for image in image_list %}
 	<div><a href="{% url 'map' %}?image_id={{ image.id }}"><img src="{{ image.image_file.url }}" /></a></div>
 {% endfor %}
 </section>
