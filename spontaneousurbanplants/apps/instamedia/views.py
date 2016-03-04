@@ -32,7 +32,7 @@ class LatestImagesWithBookView(TemplateView):
         
         image_list = list(chain(qs1, qs2))
 
-        return {'image_list': qs1 }
+        return {'image_list': qs2 }
 
 class ImageDetailView(DetailView):
     model=InstagramImage
