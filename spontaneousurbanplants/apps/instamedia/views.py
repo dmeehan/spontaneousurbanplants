@@ -28,12 +28,7 @@ class LatestImagesWithBookView(TemplateView):
 
     def get_context_data(self, **kwargs):
         qs1 = InstagramImage.objects.filter(verified=True).order_by('?')[:7]
-        
-        try:
-            qs2 = InstagramImage.objects.get(id=3032)
-        except ObjectDoesNotExist:
-            qs2 = None
-
+        qs2 = InstagramImage.objects.get(id=3032)
         
         image_list = chain(qs1, qs2)
 
