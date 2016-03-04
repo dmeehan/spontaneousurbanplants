@@ -60,5 +60,8 @@ class PublicationLink(models.Model):
 
     order = PositionField()
 
+    class Meta:
+        ordering = ["order"]
+
     def __unicode__(self):
         return u'%s' % (self.title)
