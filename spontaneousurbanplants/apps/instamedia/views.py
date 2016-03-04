@@ -25,7 +25,7 @@ class LatestImagesWithBookView(TemplateView):
     template_name = 'index.html'
 
     def random_images(self):
-        return InstagramImage.objects.filter(verified=True).order_by('?')[:8]
+        return InstagramImage.objects.filter(verified=True).order_by('?')[:7]
 
     def book_image(self):
         return InstagramImage.objects.get(id=3032)
