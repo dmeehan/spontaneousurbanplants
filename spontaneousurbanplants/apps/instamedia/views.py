@@ -4,9 +4,8 @@ import simplejson
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse_lazy
-from django.db.models import Q
-from django.http.response import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.http.response import HttpResponse
 from django.views.generic import DetailView, ListView, TemplateView
 
 from instagram import client, subscriptions
@@ -22,9 +21,14 @@ class LatestImagesView(ListView):
     queryset = InstagramImage.objects.filter(verified=True).order_by('?')[:8]
     template_name = 'index.html'
 
-class LatestImagesWithBookView(ListView):
-    queryset = InstagramImage.objects.filter(Q(id=3032) | Q(verified=True)).order_by('?')[:8]
+class LatestImagesWithBookView(TemplateView):
     template_name = 'index.html'
+
+    def random_images(self):
+        return InstagramImage.objects.filter(verified=True).order_by('?')[:8]
+
+    def book_image(self):
+        return InstagramImage.objects.get(id=3032)
 
 class ImageDetailView(DetailView):
     model=InstagramImage

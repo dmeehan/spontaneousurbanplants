@@ -2,8 +2,9 @@
 {% block body_class %}home{% endblock %}
 {% block content %}
 <section class="image-grid">
-{% for image in image_list %}
+{% for image in view.random_images %}
 	<div><a href="{% url 'map' %}?image_id={{ image.id }}"><img src="{{ image.image_file.url }}" /></a></div>
 {% endfor %}
+    <div><a href="{% url 'map' %}?image_id={{ view.book_image.id }}"><img src="{{ view.book_image.image_file.url }}" /></a></div>
 </section>
 {% endblock content %}
