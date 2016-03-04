@@ -35,11 +35,14 @@ class LatestImagesWithBookView(TemplateView):
             qs2 = None
 
         if qs1 and qs2:
-            image_list = shuffle(chain(qs1, qs2))
+            image_list = chain(qs1, qs2)
         elif qs1:
             image_list = qs1
         else:
             image_list = None
+
+        if image_list:
+            image_list = shuffle(image_list)
 
         return {'image_list': image_list }
 
