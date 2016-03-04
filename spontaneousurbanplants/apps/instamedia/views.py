@@ -30,9 +30,9 @@ class LatestImagesWithBookView(TemplateView):
         qs1 = InstagramImage.objects.filter(verified=True).order_by('?')[:7]
         qs2 = InstagramImage.objects.filter(id=3032)
         
-        image_list = shuffle(list(chain(qs1, qs2)))
+        image_list = list(chain(qs1, qs2))
 
-        return {'image_list': image_list }
+        return {'image_list': qs1 }
 
 class ImageDetailView(DetailView):
     model=InstagramImage
