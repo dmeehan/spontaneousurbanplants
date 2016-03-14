@@ -244,11 +244,16 @@ body {
       margin-bottom: $gutter; 
     }
 
+    @include media($large-screen) {
+      @include display(flex);
+      @include align-items(center);
+    }
+
     @include media($xlarge-screen) {
       padding: 0;
     }
 
-    p, ul {
+    p {
       font-size: $small-font-size;
       text-align: left;
       margin: 0;
@@ -260,14 +265,43 @@ body {
 
     p {
       @include media($large-screen) {
-        float: left;
+        //float: left;
       }
     }
 
-    ul {
+    .socialLinks {
+      @include display(flex);
+      @include align-items(center);
+
+      margin: $small-spacing 0;
+
+      > li {
+        padding: $small-spacing/2;
+        .social {
+          @include display(flex);
+          @include align-items(center);
+          @include justify-content(center);
+          background: darken($green, 10);
+          color: white;
+          border-radius: 50%;
+          font-size: 1.1em;
+          height: 30px;
+          width: 30px;
+        }
+      }
+
       @include media($large-screen) {
-        float: right;
+        //float: left;
+        margin: $small-spacing;
+      }
+    }
+
+    .contact {
+      font-size: $small-font-size;
+      @include media($large-screen) {
+        //float: right;
         text-align: right;
+        margin-left: auto;
         li { 
           display: inline;
 
