@@ -327,6 +327,41 @@ body.home {
       @include outer-container;
     }
   }
+
+  .book {
+    border: 3px solid $dark-gray;
+    padding: $small-spacing;
+
+    @include media($xlarge-screen) {
+      @include outer-container;
+      @include display(flex);
+      @include align-items(center);
+
+      .book-image {
+        @include span-columns(12);
+      }
+
+      .book-content {
+        @include span-columns(12);
+        @include omega;
+        padding: 0 $small-spacing;
+
+        article {
+          p {
+            font-size: $small-font-size;
+          }
+        }
+
+        footer {
+          p {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.0em;
+          }
+        }
+      }
+    }
+  }
 }
 
 section.image-grid { 

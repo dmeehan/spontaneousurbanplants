@@ -2,11 +2,34 @@
 {% load thumbnail %}
 {% block body_class %}home{% endblock %}
 {% block content %}
-<section class="image-grid">
-{% for image in view.random_images %}
-	<div><a href="{% url 'map' %}?image_id={{ image.id }}"><img src="{{ image.image_file.url }}" /></a></div>
-{% endfor %}
-{% thumbnail view.book.image 640x640 background='#231f20' as image %}
-    <div><a href="{% url 'publications' %}"><img src="{{ image.url }}" /></a></div>
+<section class="book">
+    <section class="book-image">
+        {% if view.book.image %}
+            <a href="{% url 'publications' %}"><img src="{{ view.book.image.url }}" /></a>
+        {% endif %}
+    </section>
+    <section class="book-content">
+        <header>
+            <h1>Our First Book is Here!</h1>
+        </header>
+        <article>
+            <p>
+                <strong><em>Spontaneous Urban Plants</em></strong> investigates the role of weeds in the urban
+                ecosystem by profiling a cross section of weeds. The intent is to stimulate
+                a discourse between ecologists, designers, artists, and the general public
+                that explores societal perceptions of weeds and questions the stigmas
+                that surround them. Leveraging principles of urban ecology and
+                environmental aesthetics, we are encouraging an objective debate of the
+                value of wild urban plants and thereby challenging contemporary cultural
+                perceptions. This four-color art book has the potential to catalyze
+                generation of emergent designers, artists, planners and thinkers to rethink
+                our urban future in the face of increased density an erratic climatic
+                conditions. 
+                </p>
+        </article>
+        <footer>
+            <p>SUP: Weeds in NYC, will be released on April 12, 2016</p>
+        </footer>
+    </section>
 </section>
 {% endblock content %}
