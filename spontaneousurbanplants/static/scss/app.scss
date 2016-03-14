@@ -785,13 +785,13 @@ body.about {
       .about-body {
         padding: 0 $gutter;
         font-size: $small-font-size;
-        //text-align: justify;
+        text-align: justify;
         @include media($medium-screen) {
           border-left: 1px solid $green;
         }
 
         img {
-          //width: 100%;
+          width: 100%;
         }
       }
     }
