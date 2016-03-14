@@ -733,16 +733,15 @@ body.about {
     @include display(flex);
     @include flex-wrap(wrap);
 
-    article.about-block {
-      @include flex(1 1 100%);
+    .about-block {
+      width: 100%;
 
       @include media($medium-screen) {
-        @include flex-basis(50%);
+        width: 50%;
       }
 
       @include media($large-screen) {
-        //@include flex(1 1 25%);
-        @include flex-basis(25%);
+        width: 25%;
       }
 
       &:first-child {
@@ -786,13 +785,13 @@ body.about {
       .about-body {
         padding: 0 $gutter;
         font-size: $small-font-size;
-        text-align: justify;
+        //text-align: justify;
         @include media($medium-screen) {
           border-left: 1px solid $green;
         }
 
         img {
-          width: 100%;
+          //width: 100%;
         }
       }
     }
