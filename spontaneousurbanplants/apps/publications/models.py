@@ -17,6 +17,7 @@ class Publication(models.Model):
     description = models.TextField(blank=True)
     product_detail = models.TextField(blank=True)
     image = models.ImageField(upload_to="images/publications", blank=True, null=True)
+    featured_image = models.ImageField(upload_to="images/publications", blank=True, null=True)
     
 
     purchase_link = models.URLField(max_length=255, blank=True)

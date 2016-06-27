@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load staticfiles %}
 {% block body_class %}home{% endblock %}
 {% block extra_style %}
 <link href="{% static 'js/flexslider/flexslider.css' %}" media="screen, projection" rel="stylesheet" type="text/x-scss" />
@@ -36,7 +37,6 @@
                     {% else %}
                         <img src="{{ plant.lead_image.image_file.url }}" alt="{{ plant.title }}" />
                     {% endif %}
-                    {% endfor %}
                 </a>
              </li>
              {% endfor %}
