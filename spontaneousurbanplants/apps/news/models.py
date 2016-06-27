@@ -20,6 +20,7 @@ class NewsItem(models.Model):
     body_html = models.TextField(editable=False, blank=True)
 
     # metadata
+    featured = models.BooleanField(default=False)
     date_published = models.DateTimeField(default=datetime.datetime.now)
     slug = models.SlugField(unique_for_date='date_published')
 

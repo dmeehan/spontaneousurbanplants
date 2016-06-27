@@ -13,3 +13,16 @@ class LatestImagesWithBookView(TemplateView):
 
     def book(self):
         return Publication.objects.first()
+
+
+class FeaturedItems(TemplateView):
+    template_name = 'index.html'
+
+    def featured_plants(self):
+        return Plant.objects.filter(featured=True, visible=True)
+
+    def featured_news(self):
+        return NewsItem.objects.filter(featured=True, visible=True)
+
+    def book(self):
+        return Publication.objects.first()
