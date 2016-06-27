@@ -17,7 +17,6 @@ class Publication(models.Model):
     description = models.TextField(blank=True)
     product_detail = models.TextField(blank=True)
     image = models.ImageField(upload_to="images/publications", blank=True, null=True)
-    featured_image = models.ImageField(upload_to="images/publications", blank=True, null=True)
     
 
     purchase_link = models.URLField(max_length=255, blank=True)
@@ -32,6 +31,8 @@ class Publication(models.Model):
     description_html = models.TextField(editable=False, blank=True)
     product_detail_html = models.TextField(editable=False, blank=True)
 
+    featured = models.BooleanField(default=False)
+    featured_image = models.ImageField(upload_to="images/plants", blank=True, null=True)
     order = PositionField()
 
     class Meta:

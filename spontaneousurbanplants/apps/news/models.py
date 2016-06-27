@@ -21,6 +21,7 @@ class NewsItem(models.Model):
 
     # metadata
     featured = models.BooleanField(default=False)
+    featured_image = models.ImageField(upload_to="images/news", blank=True, null=True)
     date_published = models.DateTimeField(default=datetime.datetime.now)
     slug = models.SlugField(unique_for_date='date_published')
 
