@@ -93,7 +93,7 @@ class Plant(models.Model):
                               null=True)
 
     featured = models.BooleanField(default=False)
-    featured_image = models.ImageField(upload_to="images/plants")
+    featured_image = models.ImageField(upload_to="images/plants", blank=True, null=True)
     visible = models.BooleanField(default=True)
     order = PositionField()
 
