@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load staticfiles %}
+{% block body_class %}home{% endblock %}
+{% block extra_style %}
+<link href="{% static 'js/flexslider/flexslider.css' %}" media="screen, projection" rel="stylesheet" type="text/x-scss" />
+{% endblock %}
+{% block content %}
+<section class="slideshow">
+    <div class="flexslider">
+        <ul class="slides">
+            <li>
+                <a href="{% url 'publications' %}"><img src="{{ view.book.image.url }}" /></a>
+                <p class="flex-caption">Our first book is here!</p>
+             </li>
+            {% for news in view.featured_news %}
+            <li>
+                <a href="{% url news %}">
+                    {% for image in news.newsitemimage_set.all %}
+                    {% if image.is_main %}
+                        <img src="{{ image.letterbox.url }}" alt="{{ image.caption }}" />                     
+                    {% endif %}
+                    {% endfor %}
+                </a>
+               
+                <p class="flex-caption">
+                    {{ news.title }}
+                    {news.excerpt_html|safe }}
+                </p>
+             </li>
+            {% endfor %}
+            {% for plant in view.featured_plants %}
+            <li>
+                <a href="{{ plant.get_absolute_url }}">
+                    {% if plant.featured_image %}
+                        <img src="{{ plant.lead_image.url }}" alt="{{ plant.title }}" />
+                    {% else %}
+                        <img src="{{ plant.lead_image.image_file.url }}" alt="{{ plant.title }}" />
+                    {% endif %}
+                </a>
+             </li>
+             {% endfor %}
+          </ul>
+    </div>
+</section>
+
+{% endblock content %}
+{% block extra_script %}
+<script src="{% static 'js/flexslider/jquery.flexslider-min.js' %}"
+                  type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+  $('.flexslider').flexslider({
+    animation: "slide"
+  });
+});
+</script>
+
+{% endblock %}
