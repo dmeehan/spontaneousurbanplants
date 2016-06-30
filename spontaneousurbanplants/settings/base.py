@@ -249,6 +249,7 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'apps.about',
+    'apps.home',
     'apps.instamedia',
     'apps.map',
     'apps.news',

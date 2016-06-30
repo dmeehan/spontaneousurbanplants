@@ -12,8 +12,8 @@ class AttributeDescriptionInline(admin.TabularInline):
 
 class PlantAdmin(admin.ModelAdmin):
 
-    list_display = ['latin_name', 'order', 'thumbnail', 'image_count', 'common_name', 'hashtag', 'visible', ]
-    list_editable = ['order', 'visible' ]
+    list_display = ['latin_name', 'order', 'thumbnail', 'image_count', 'common_name', 'hashtag', 'visible', 'featured']
+    list_editable = ['order', 'visible', 'featured' ]
     raw_id_fields = ('attributes', 'categories', 'lead_image')
    
     autocomplete_lookup_fields = {
