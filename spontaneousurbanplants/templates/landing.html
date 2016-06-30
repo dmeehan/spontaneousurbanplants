@@ -17,10 +17,13 @@
             <li>
                 <a href="{{ news.get_absolute_url }}">
                     {% if news.featured_image %}
+                      featured
                       <img src="{{ news.featured_image.url }}" alt="{{ news.title }}" /> 
                     {% else %}
                       {% for image in news.newsitemimage_set.all %}
+                        outside
                         {% if image.is_main %}
+                          inside
                           <img src="{{ image.url }}" alt="{{ image.caption }}" />                     
                         {% endif %}
                       {% endfor %}
