@@ -15,17 +15,7 @@
              </li>
             {% for news in view.featured_news %}
             <li>
-                <a href="{% url news %}">
-                    {% if news.featured_image %}
-                      <img src="{{ news.featured_image.url }}" alt="{{ news.title }}" /> 
-                    {% else %}
-                      {% for image in news.newsitemimage_set.all %}
-                        {% if image.is_main %}
-                          <img src="{{ image.url }}" alt="{{ image.caption }}" />                     
-                        {% endif %}
-                      {% endfor %}
-                    {% endif %}
-                </a>
+                test
              </li>
             {% endfor %}
             {% for plant in view.featured_plants %}
