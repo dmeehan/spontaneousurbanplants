@@ -10,8 +10,13 @@
     <div class="flexslider">
         <ul class="slides">
             <li>
-                <a href="{% url 'publications' %}"><img src="{{ view.book.image.url }}" /></a>
-                <p class="flex-caption">Our first book is here!</p>
+              <div class="image">
+                 <a href="{% url 'publications' %}"><img src="{{ view.book.image.url }}" /></a>
+              </div>
+              <div class="text">
+                <h2 class="flex-caption">Our first book is here!</h2>
+                <p>Spontaneous Urban Plants investigates the role of weeds in the urban ecosystem by profiling a cross section of weeds.</p>
+              </div>
              </li>
             {% for news in view.featured_news %}
             <li>
