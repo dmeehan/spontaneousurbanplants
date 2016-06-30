@@ -1456,12 +1456,22 @@ input[type=text],
 
 /* flexslider */
 .flexslider {
+  .image {
+    a {
+      display: block;
+    }
+
+    img {
+      display: block;
+    }
+  }
+
   .text {
       position: absolute;
       left: 0;
       bottom: 0;
       right: 0;
-      background: transparentize(black, 0.7);
+      background: transparentize(black, 0.3);
       color: white;
       padding: $base-spacing;
    }
