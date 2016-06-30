@@ -12,7 +12,8 @@ class PublicationLinkInlineAdmin (admin.TabularInline):
     model = PublicationLink
 
 class PublicationAdmin(admin.ModelAdmin):
-
+    list_display = ['title', 'order', 'featured',]
+    list_editable = ['order', 'featured']
     prepopulated_fields = {"slug": ("title",)}
     inlines = [ PublicationLinkInlineAdmin ]
 

@@ -14,6 +14,9 @@ class NewsImageInline(GrappelliSortableHiddenMixin, admin.StackedInline):
     sortable_field_name = "order"
 
 class NewsItemAdmin(admin.ModelAdmin):
+    list_display = ['title', 'status', 'featured']
+    list_editable = ['status', 'featured' ]
+
     inlines = [
        NewsImageInline,
     ]
