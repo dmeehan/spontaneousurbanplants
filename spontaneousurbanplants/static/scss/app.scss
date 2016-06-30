@@ -1474,6 +1474,11 @@ input[type=text],
       background: transparentize(black, 0.3);
       color: white;
       padding: $base-spacing;
+
+      p:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
    }
 }
 

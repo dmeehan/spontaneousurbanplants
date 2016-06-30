@@ -20,6 +20,7 @@
              </li>
             {% for news in view.featured_news %}
             <li>
+              <div class="image">
                 <a href="{{ news.get_absolute_url }}">
                     {% if news.featured_image %}
                       <img src="{{ news.featured_image.url }}" alt="{{ news.title }}" /> 
@@ -31,10 +32,16 @@
                       {% endfor %}
                     {% endif %}
                 </a>
+               </div>
+               <div class="text">
+                <h2>{{ news.title }}</h2>
+                {{ news.excerpt_html|safe }}
+              </div>
              </li>
             {% endfor %}
             {% for plant in view.featured_plants %}
             <li>
+              <div class="image">
                 <a href="{{ plant.get_absolute_url }}">
                     {% if plant.featured_image %}
                         <img src="{{ plant.lead_image.url }}" alt="{{ plant.title }}" />
@@ -42,6 +49,10 @@
                         <img src="{{ plant.lead_image.image_file.url }}" alt="{{ plant.title }}" />
                     {% endif %}
                 </a>
+                </div>
+                <div class="text">
+                  <h2>{{ plant.latin_name }}</h2>
+                </div>
              </li>
              {% endfor %}
           </ul>
