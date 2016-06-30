@@ -1081,17 +1081,7 @@ body.profiles {
 
     .flexslider {
       margin-bottom: $base-spacing;
-      border: 0
-
-      .text {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background: transparentize(black, 0.7);
-        color: white;
-        padding: $base-spacing;
-      }
+      border: 0;
     }
     
     .slides {
