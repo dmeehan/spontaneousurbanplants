@@ -8,7 +8,7 @@ from apps.news.models import NewsItem
 from apps.plants.models import Plant
 
 class LatestImagesWithBookView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'index_old.html'
 
     def random_images(self):
         return InstagramImage.objects.filter(verified=True).order_by('?')[:7]
@@ -18,7 +18,7 @@ class LatestImagesWithBookView(TemplateView):
 
 
 class FeaturedItems(TemplateView):
-    template_name = 'landing.html'
+    template_name = 'index.html'
 
     def featured_plants(self):
         return Plant.objects.filter(featured=True, visible=True)
