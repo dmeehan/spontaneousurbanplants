@@ -11,7 +11,7 @@
         <ul class="slides">
             <li>
               <div class="image">
-                 <a href="{% url 'publications' %}"><img src="{{ view.book.image.url }}" /></a>
+                 <a href="{% url 'publications' %}"><img src="{{ view.book.featured_image.url }}" /></a>
               </div>
               <div class="text">
                 <h2>Our first book is here!</h2>
@@ -44,7 +44,7 @@
               <div class="image">
                 <a href="{{ plant.get_absolute_url }}">
                     {% if plant.featured_image %}
-                        <img src="{{ plant.lead_image.url }}" alt="{{ plant.title }}" />
+                        <img src="{{ plant.featured_image.url }}" alt="{{ plant.title }}" />
                     {% else %}
                         <img src="{{ plant.lead_image.image_file.url }}" alt="{{ plant.title }}" />
                     {% endif %}
