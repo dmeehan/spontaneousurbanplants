@@ -222,6 +222,8 @@ DJANGO_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
+
 
     # gis add-ons
     'django.contrib.gis',
@@ -244,6 +246,7 @@ THIRD_PARTY_APPS = (
     'notification', # event notifications
     'rest_framework', # api
     'rest_framework_gis', # api geo add-ons
+    'django_markdown', # markdown integration
 )
 
 # Apps specific for this project go here.

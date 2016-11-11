@@ -58,6 +58,12 @@ class CustomIndexDashboard(Dashboard):
                     collapsible=False,
                     models=('apps.publications.models.*',),
                 ),
+                 modules.ModelList(
+                    title='Flat Pages',
+                    collapsible=False,
+                    models=('django.contrib.flatpages.models.*',),
+                ),
+
             ]
         ))
         
