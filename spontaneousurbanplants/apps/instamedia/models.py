@@ -25,7 +25,7 @@ class InstagramImage(models.Model):
     """
     An instagram media object
     """
-    remote_id = models.CharField(max_length=255, unique=True)
+    remote_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     caption = models.TextField(blank=True)
     raw_tags = models.TextField("remote tags", blank=True)
     username = models.CharField(max_length=255, blank=True, null=True)
@@ -33,9 +33,9 @@ class InstagramImage(models.Model):
     tags = models.ManyToManyField('InstagramTag', blank=True, null=True)
 
     # media urls
-    remote_thumbnail_url = models.URLField(blank=True)
-    remote_low_resolution_url = models.URLField(blank=True)
-    remote_standard_resolution_url = models.URLField(blank=True)
+    remote_thumbnail_url = models.URLField(blank=True, null=True)
+    remote_low_resolution_url = models.URLField(blank=True, null=True)
+    remote_standard_resolution_url = models.URLField(blank=True, null=True)
 
     # Location information
     location_name = models.CharField(max_length=255, blank=True)
@@ -45,9 +45,9 @@ class InstagramImage(models.Model):
     coordinates = models.PointField(null=True, blank=True)
 
     # Metadata
-    created = models.DateTimeField()
-    updated = models.DateTimeField()
-    last_synced = models.DateTimeField()
+    created = models.DateTimeField(null=True, blank=True)
+    updated = models.DateTimeField(null=True, blank=True)
+    last_synced = models.DateTimeField(null=True, blank=True)
     verified = models.BooleanField(default=False)
 
     # image cache
