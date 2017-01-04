@@ -80,8 +80,10 @@ class InstagramImage(models.Model):
         return u'Instagram Media: %s' % (self.remote_id)
 
     def thumbnail(self):
-        return u'<img src="%s%s" width="150" height="150" />' % (settings.MEDIA_URL, self.image_file)
-        #return u'<img src="%s" />' % (self.remote_thumbnail_url)
+        if image_file:
+            return u'<img src="%s%s" width="150" height="150" />' % (settings.MEDIA_URL, self.image_file)
+        else:
+            return u'<img src="%s" />' % (self.remote_thumbnail_url)
     
     @property
     def image_url(self):
