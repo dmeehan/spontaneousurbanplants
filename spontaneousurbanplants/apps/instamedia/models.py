@@ -25,7 +25,7 @@ class InstagramImage(models.Model):
     """
     An instagram media object
     """
-    remote_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    remote_id = models.CharField(max_length=255, blank=True, null=True)
     caption = models.TextField(blank=True)
     raw_tags = models.TextField("remote tags", blank=True)
     username = models.CharField(max_length=255, blank=True, null=True)
