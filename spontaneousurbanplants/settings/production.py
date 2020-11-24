@@ -3,7 +3,7 @@ import os
 from base import *
 
 
-DEBUG = False
+DEBUG = True
 
 
 #==============================================================================
@@ -47,9 +47,9 @@ DEFAULT_FROM_EMAIL = 'Spontaneous Urban Plants <info@spontaneousurbanplants.org>
 # Installed Apps
 #==============================================================================
 
-INSTALLED_APPS += (
-    'memcache_status',
-)
+#INSTALLED_APPS += (
+#    'memcache_status',
+#)
 
 
 
@@ -79,9 +79,9 @@ DATABASES = {
 # Caching
 #==============================================================================
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': 'unix:~/memcached.sock',
-    }
-}
+#CACHES = {
+#    'default': {
+#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#        'LOCATION': 'unix:~/memcached.sock',
+#    }
+#}

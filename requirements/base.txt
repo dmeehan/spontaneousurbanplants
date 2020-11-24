@@ -1,6 +1,6 @@
 # python modules
 gunicorn==18.0 # server
-psycopg2==2.5.4 # postgres bindings
+psycopg2_binary # postgres bindings
 pillow==2.4.0 # image manipulation
 requests==2.2.1 # http library
 simplejson==3.4.0 # json tools
@@ -13,6 +13,7 @@ django==1.7.4
 # django third party modules
 django-supervisor==0.3.2
 django-compressor==1.4 # static file compression
+django-libsass==0.7
 djangorestframework==2.4.3
 djangorestframework-gis==0.7 # REST framework + GIS addons
 django-leaflet==0.13.5

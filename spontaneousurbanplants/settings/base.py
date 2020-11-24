@@ -314,8 +314,7 @@ SERVER_PORT = os.environ.get("SERVER_PORT", "8000")
 
 
 COMPRESS_PRECOMPILERS = (
-    ('text/x-sass', 'sass {infile} {outfile}'),
-    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+	('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_ENABLED
