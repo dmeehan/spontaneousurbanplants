@@ -85,3 +85,12 @@ DATABASES = {
 #        'LOCATION': 'unix:~/memcached.sock',
 #    }
 #}
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:63008/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
