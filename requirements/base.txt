@@ -1,7 +1,7 @@
 # python modules
 gunicorn==18.0 # server
 psycopg2_binary # postgres bindings
-pillow==2.4.0 # image manipulation
+pillow==8.1.1 # image manipulation
 requests==2.2.1 # http library
 simplejson==3.4.0 # json tools
 python-instagram==0.8.0 # instagram api
