@@ -7,7 +7,7 @@ simplejson==3.4.0 # json tools
 python-instagram==0.8.0 # instagram api
 markdown==2.5.2
 
-django==1.7.4
+django==2.2.24
 
 
 # django third party modules
